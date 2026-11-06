@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use AquaTerra in your work, please cite it."
+title: "AquaTerra: Pumping Test Analysis Software"
+type: software
+authors:
+  - family-names: Ladawadee
+    given-names: Anirut
+license: Apache-2.0
+repository-code: "https://github.com/alexrut99/AquaTerra"
+version: 4.1.0

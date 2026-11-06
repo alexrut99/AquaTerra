@@ -1,0 +1,29 @@
+# Checks every calculation against independently computed answers. Also called by the deploy
+# and release workflows, so nothing is published unless this passes.
+name: Tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: scripts/fetch-sheetjs.sh
+      - run: npx playwright install --with-deps chromium
+      - name: Calculations and user interface
+        run: npm test
+        env:
+          EXPECT_XLSX: 0.20.3
+      - name: Desktop app
+        run: xvfb-run -a npx electron tests/electron-smoke.js --no-sandbox

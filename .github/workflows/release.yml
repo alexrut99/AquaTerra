@@ -1,0 +1,76 @@
+# Builds the desktop app and attaches it to a GitHub Release.
+# To release: git tag v4.1.1 && git push origin v4.1.1
+name: Release desktop app
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+  build:
+    needs: test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, target: --win }
+          - { os: macos-latest, target: --mac }
+          - { os: ubuntu-latest, target: --linux }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Set the version from the tag
+        shell: bash
+        run: npm version "${GITHUB_REF_NAME#v}" --no-git-tag-version --allow-same-version
+      - run: npm ci
+      - name: Use the fixed SheetJS
+        shell: bash
+        run: scripts/fetch-sheetjs.sh
+      - name: Build
+        shell: bash
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false' # unsigned builds
+        run: npx electron-builder ${{ matrix.target }} --publish never
+      - name: Collect the installers
+        shell: bash
+        run: |
+          mkdir -p out
+          find dist -maxdepth 1 -type f \( -name '*.exe' -o -name '*.dmg' -o -name '*.AppImage' \) -exec cp {} out/ \;
+          ls -la out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aquaterra-${{ matrix.os }}
+          path: out/*
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: AquaTerra ${{ github.ref_name }}
+          files: out/*
+          body: |
+            **AquaTerra — Pumping Test Analysis Software**
+
+            | ระบบ | ไฟล์ |
+            |---|---|
+            | Windows (ติดตั้ง) | `AquaTerra-*-setup.exe` |
+            | Windows (ไม่ต้องติดตั้ง) | `AquaTerra-*-portable.exe` |
+            | macOS | `AquaTerra-*.dmg` |
+            | Linux | `AquaTerra-*.AppImage` |
+
+            ใช้บนเว็บได้ที่ https://alexrut99.github.io/AquaTerra/
+
+            > Windows อาจขึ้น "Windows protected your PC" เพราะไฟล์ยังไม่ได้ลงลายเซ็นดิจิทัล ให้กด **More info › Run anyway**
+
+            ให้มาตามสภาพ ไม่มีการรับประกัน (Apache-2.0) ผลคำนวณต้องให้ผู้เชี่ยวชาญตรวจสอบก่อนนำไปใช้งานจริง

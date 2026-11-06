@@ -1,0 +1,113 @@
+{
+  "name": "aquaterra",
+  "productName": "AquaTerra",
+  "version": "4.1.0",
+  "description": "AquaTerra — Pumping Test Analysis Software",
+  "author": "Anirut Ladawadee",
+  "license": "Apache-2.0",
+  "repository": "github:alexrut99/AquaTerra",
+  "homepage": "https://alexrut99.github.io/AquaTerra/",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "serve": "npx --yes http-server web -p 8080 -c-1",
+    "test": "node tests/acceptance.js",
+    "test:desktop": "electron tests/electron-smoke.js --no-sandbox",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:mac": "electron-builder --mac --publish never",
+    "dist:linux": "electron-builder --linux --publish never"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.0",
+    "playwright": "1.63.0"
+  },
+  "build": {
+    "appId": "io.github.alexrut99.aquaterra",
+    "productName": "AquaTerra",
+    "copyright": "© 2025–2026 Anirut Ladawadee",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**",
+      "web/**",
+      "build/icon.png",
+      "build/icon.ico",
+      "package.json",
+      "LICENSE",
+      "NOTICE",
+      "THIRD-PARTY-NOTICES.md"
+    ],
+    "extraResources": [
+      {
+        "from": "LICENSE",
+        "to": "LICENSE.txt"
+      },
+      {
+        "from": "NOTICE",
+        "to": "NOTICE.txt"
+      },
+      {
+        "from": "THIRD-PARTY-NOTICES.md",
+        "to": "THIRD-PARTY-NOTICES.md"
+      }
+    ],
+    "artifactName": "AquaTerra-${version}-${os}-${arch}.${ext}",
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AquaTerra",
+      "license": "LICENSE",
+      "artifactName": "AquaTerra-${version}-setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "AquaTerra-${version}-portable.${ext}"
+    },
+    "mac": {
+      "icon": "build/icon.png",
+      "category": "public.app-category.education",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "build/icon.png",
+      "category": "Science",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  }
+}

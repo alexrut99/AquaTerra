@@ -1,0 +1,5 @@
+{
+  "projects": { "default": "geomonitor-ad8e7" },
+  "targets": { "geomonitor-ad8e7": { "hosting": { "aquaterra": ["aquaterra"] } } },
+  "etags": {}
+}

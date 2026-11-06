@@ -1,0 +1,36 @@
+# Optional: also publishes to Firebase Hosting (https://aquaterra.web.app).
+# Needs the repository secret FIREBASE_SERVICE_ACCOUNT. Without it this workflow does nothing.
+name: Deploy to Firebase
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      HAS_SECRET: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.HAS_SECRET == 'true'
+      - name: Prepare the site
+        if: env.HAS_SECRET == 'true'
+        run: |
+          scripts/fetch-sheetjs.sh
+          sed -i "s/aquaterra-shell-v1/aquaterra-shell-${GITHUB_SHA::8}/" web/sw.js
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: env.HAS_SECRET == 'true'
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: geomonitor-ad8e7
+          target: aquaterra
+          channelId: live
+      - name: Skipped
+        if: env.HAS_SECRET != 'true'
+        run: echo "FIREBASE_SERVICE_ACCOUNT is not set; skipping the Firebase deploy."
