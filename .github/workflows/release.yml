@@ -1,5 +1,5 @@
 # Builds the desktop app and attaches it to a GitHub Release.
-# To release: git tag v4.1.1 && git push origin v4.1.1
+# To release: git tag v4.2.1 && git push origin v4.2.1
 name: Release desktop app
 on:
   push:

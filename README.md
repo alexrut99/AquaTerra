@@ -61,7 +61,7 @@ npm test         # ชุดทดสอบ (ครั้งแรกรัน n
 
 ตัวโปรแกรมอยู่ที่ `web/index.html` ดูแนวทางที่ [CONTRIBUTING.md](CONTRIBUTING.md)
 
-**ออกเวอร์ชันใหม่:** `git tag v4.1.1 && git push origin v4.1.1` แล้ว GitHub จะทดสอบ สร้างไฟล์ติดตั้ง และแนบใน Releases ให้เอง ส่วนเว็บจะอัปเดตเองเมื่อ push ไป `main`
+**ออกเวอร์ชันใหม่:** `git tag v4.2.1 && git push origin v4.2.1` แล้ว GitHub จะทดสอบ สร้างไฟล์ติดตั้ง และแนบใน Releases ให้เอง ส่วนเว็บจะอัปเดตเองเมื่อ push ไป `main`
 
 ## สัญญาอนุญาต
 
