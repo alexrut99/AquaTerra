@@ -19,6 +19,8 @@
     <script src="vendor/chartjs-plugin-zoom.min.js"></script>
     <script src="vendor/xlsx.full.min.js"></script>
     <script src="vendor/jszip.min.js"></script>
+    <script src="i18n-dict.js"></script>
+    <script src="i18n.js"></script>
     <style>
         :root{--bg:#0f172a;--card:#1e293b;--input:#0f172a;--border:#334155;--blue:#3b82f6;--cyan:#06b6d4;--green:#10b981;--purple:#8b5cf6;--orange:#f59e0b;--red:#ef4444;--pink:#ec4899;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b}
         :root.light{--bg:#f1f5f9;--card:#ffffff;--input:#f8fafc;--border:#cbd5e1;--text:#1e293b;--text2:#475569;--text3:#94a3b8}
@@ -242,6 +244,11 @@
         .app-logo{border-radius:4px;display:block}
         .app-name{font-weight:600;font-size:13px;color:var(--text)}
         .app-ver{margin-left:auto;font-size:11px;color:var(--text2)}
+        .lang-switch{display:flex;border:1px solid var(--border-strong);border-radius:3px;overflow:hidden}
+        .lang-switch button{all:unset;box-sizing:border-box;padding:0 9px;height:22px;line-height:22px;font-size:11.5px;color:var(--text2);cursor:pointer}
+        .lang-switch button:hover{background:var(--hover)}
+        .lang-switch button.active{background:var(--blue);color:#fff;font-weight:600}
+        .lang-switch button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
         .doc-title{position:absolute;left:50%;transform:translateX(-50%);font-size:12px;color:var(--text2);white-space:nowrap}
         .qat{display:flex;gap:1px;margin-left:8px;padding-left:8px;border-left:1px solid var(--border-strong)}
         .qat-btn{width:26px;height:26px;border:0;background:none;border-radius:3px;cursor:pointer;display:grid;place-items:center}
@@ -296,6 +303,24 @@
         .stage-dock .result-box .value{font-size:14px;overflow-wrap:anywhere}
         @media(max-width:1280px){.page>.grid-2{grid-template-columns:290px minmax(0,1fr)}.stage{grid-template-columns:minmax(0,1fr) 280px}}
         .preset-card .preset-icon{display:none}
+        .toolbar .btn[onclick^="autoFit"],.toolbar .btn[onclick^="calc"],.toolbar .btn[onclick^="autoAnalyze"]{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
+        .toolbar .btn[onclick^="autoFit"]:hover,.toolbar .btn[onclick^="calc"]:hover,.toolbar .btn[onclick^="autoAnalyze"]:hover{filter:brightness(1.08)}
+        .card-title[role=button]{cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none;flex:1;min-width:0}
+        .card-title[role=button]::before{content:'';width:6px;height:6px;border-right:1.5px solid var(--text2);border-bottom:1.5px solid var(--text2);transform:rotate(45deg) translate(-1px,-1px);flex:none}
+        .card.closed>.card-header .card-title[role=button]::before{transform:rotate(-45deg)}
+        .card.closed{padding-bottom:0}
+        .card.closed>.card-header{margin-bottom:0;border-bottom:0}
+        .card.closed>:not(.card-header){display:none!important}
+        .card-title[role=button]:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+        .result-grid,.results-grid.result-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+        .result-item{background:var(--input);border:1px solid var(--border);border-radius:3px;padding:6px 8px;min-width:0}
+        .result-item .result-label{font-size:11px;color:var(--text2);line-height:1.3}
+        .result-item .result-value{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--text);overflow-wrap:anywhere}
+        details.formula-box{border-top:1px solid var(--border)}
+        details.formula-box>summary{cursor:pointer;padding:7px 10px;font-size:12.5px;font-weight:600;background:var(--pane-head)}
+        details.formula-box>summary:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+        details.formula-box .method-box{margin:8px 10px;padding:0;background:none;border:0}
+        details.formula-box .method-box>h4{display:none}
         .stage-center>.card:only-child div[style*="height"]:has(>canvas){height:clamp(280px,calc(100vh - 295px),820px)!important}
         .unit-item select{background:var(--input)}
         .page>.grid-3,.page>.card,.page>.settings-card,.page>.footer{grid-column:1/-1}
@@ -396,6 +421,11 @@
             </div>
             <span class="doc-title" id="docTitle">Theis Type Curve</span>
             <span class="app-ver">v4.1</span>
+            <div class="lang-switch no-i18n" role="group" aria-label="Language / ภาษา">
+                <button type="button" data-lang="th" onclick="I18N.set('th')">ไทย</button>
+                <button type="button" data-lang="en" onclick="I18N.set('en')">EN</button>
+            </div>
+            <button type="button" class="qat-btn" onclick="toggleTheme()" title="สลับโหมดมืด/สว่าง" aria-label="สลับโหมดมืด/สว่าง"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="8"></circle><path class="cv" d="M12 4a8 8 0 0 1 0 16Z"></path></svg></button>
         </div>
         <div class="tabstrip" role="tablist" aria-label="เมนูหลัก">
             <button type="button" class="rb-tab active" role="tab" aria-selected="true" data-tab="analysis" onclick="switchRibbonTab('analysis')">วิเคราะห์</button>
@@ -3618,6 +3648,43 @@ function updateStatusUnits() {
         el.textContent = `Q ${L(currentUnits.Q)}, s ${L(currentUnits.drawdown)}, t ${L(currentUnits.time)}, T ${L(currentUnits.T)}`;
     }
 }
+// Right pane order: results first, then the controls that change them, then how they are worked out
+function arrangeDock(dock) {
+    const fitting = [...dock.children].find(c => c.querySelector('input[type=range]') && c.querySelector('.results-grid'));
+    if (fitting) {
+        const grid = fitting.querySelector('.results-grid');
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = '<div class="card-header"><div class="card-title">Results</div></div>';
+        card.appendChild(grid);
+        dock.insertBefore(card, dock.firstChild);
+    } else {
+        const results = [...dock.children].find(c => c.querySelector('.results-grid, .result-item'));
+        if (results && results !== dock.firstElementChild) dock.insertBefore(results, dock.firstChild);
+    }
+    dock.querySelectorAll(':scope > .card').forEach(c => {
+        const items = c.querySelectorAll(':scope .result-item');
+        if (items.length && !c.querySelector('.results-grid')) items[0].parentElement.classList.add('results-grid', 'result-list');
+    });
+    [...dock.children].filter(c => c.classList.contains('method-box')).forEach(box => {
+        const d = document.createElement('details');
+        d.className = 'formula-box';
+        const sum = document.createElement('summary');
+        sum.textContent = box.querySelector('h4')?.textContent || 'Formulas';
+        d.append(sum, box);
+        dock.appendChild(d);
+    });
+}
+
+function redrawAllCharts() {
+    try {
+        destroyAllCharts();
+        ['updateTheis', 'updateJacob', 'updateRecovery', 'updateStepAnalysis', 'updateMultiWell', 'updateHantush',
+         'updateDistDD', 'calcSingleWell', 'calcSlugTest', 'calcUnconfined'].forEach(fn => { try { window[fn](); } catch (e) {} });
+        if (spWells.length) calcSuperposition();
+    } catch (e) {}
+}
+
 function initRibbonUI() {
     // The credits and version history live with the settings
     const footer = document.querySelector('.main > .footer');
@@ -3633,7 +3700,22 @@ function initRibbonUI() {
         if (center.children.length) stage.appendChild(center);
         if (dock.children.length) stage.appendChild(dock);
         col.appendChild(stage);
+        arrangeDock(dock);
     });
+    document.querySelectorAll('.page > .grid-2 > div:first-child, .stage-dock').forEach(pane => {
+        pane.querySelectorAll(':scope > .card > .card-header > .card-title').forEach(title => {
+            title.setAttribute('role', 'button');
+            title.tabIndex = 0;
+            title.setAttribute('aria-expanded', 'true');
+            const toggle = () => {
+                const closed = title.closest('.card').classList.toggle('closed');
+                title.setAttribute('aria-expanded', closed ? 'false' : 'true');
+            };
+            title.addEventListener('click', toggle);
+            title.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+        });
+    });
+    I18N.init();
     try { if (localStorage.getItem('aquaterraRibbon') === 'collapsed') toggleRibbon(); } catch (e) {}
     updateStatusUnits();
 }
@@ -3661,13 +3743,8 @@ function applyChartTheme(isLight) {
 function toggleTheme() {
     document.documentElement.classList.toggle('light');
     const isLight = document.documentElement.classList.contains('light');
-    try {
-        applyChartTheme(isLight);
-        destroyAllCharts();
-        ['updateTheis', 'updateJacob', 'updateRecovery', 'updateStepAnalysis', 'updateMultiWell', 'updateHantush',
-         'updateDistDD', 'calcSingleWell', 'calcSlugTest', 'calcUnconfined'].forEach(fn => { try { window[fn](); } catch (e) {} });
-        if (spWells.length) calcSuperposition();
-    } catch(e) {}
+    try { applyChartTheme(isLight); } catch(e) {}
+    redrawAllCharts();
     try { localStorage.setItem('pumpTestTheme', isLight ? 'light' : 'dark'); } catch(e) {}
 }
 
@@ -6290,7 +6367,7 @@ function exportSPReport() {
         @media print{body{margin:0}}
     </style></head><body>
     <h1>🔀 Superposition Analysis Report</h1>
-    <p>Generated: ${new Date().toLocaleString('th-TH')} | Coordinate: ${coordSys}</p>
+    <p>Generated: ${new Date().toLocaleString(I18N.lang() === 'th' ? 'th-TH' : 'en-GB')} | Coordinate: ${coordSys}</p>
     
     <h2>Parameters</h2>
     <div class="param-grid">
@@ -9377,7 +9454,7 @@ async function generateReport(cfg) {
             ['Transmissivity (T)', repTxt('unc_T')], ['K', repTxt('unc_K')], ['Storativity S', repTxt('unc_S')],
             ['Specific Yield Sy', repTxt('unc_SyRes')], ['β', repTxt('unc_beta')], ['Kz', repTxt('unc_Kz')], ['R²', repTxt('unc_R2')]], chartImages.unconfined) : '',
     ].join('');
-    const reportDate = new Date().toLocaleString('th-TH');
+    const reportDate = new Date().toLocaleString(I18N.lang() === 'th' ? 'th-TH' : 'en-GB');
     
     // Calculate step drawdown efficiency
     let stepEfficiencyHTML = '';
@@ -9872,6 +9949,7 @@ async function generateReport(cfg) {
     
     reportWindow.document.write(reportContent);
     reportWindow.document.close();
+    try { I18N.applyTo(reportWindow.document.documentElement); } catch (e) {}
     
     showNotification('Report generated successfully. Please wait for print dialog.', 'success');
     

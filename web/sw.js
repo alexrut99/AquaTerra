@@ -4,7 +4,7 @@
 const CACHE = 'aquaterra-shell-v1';
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest', 'favicon.png', 'icon-192.png', 'icon-512.png',
-  'fonts/fonts.css',
+  'fonts/fonts.css', 'i18n.js', 'i18n-dict.js',
   'vendor/chart.umd.js', 'vendor/hammer.min.js', 'vendor/chartjs-plugin-zoom.min.js',
   'vendor/xlsx.full.min.js', 'vendor/jszip.min.js',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
