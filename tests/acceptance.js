@@ -7,7 +7,10 @@ let pass=0,fail=0; const ok=(name,cond,info='')=>{cond?pass++:fail++;console.log
 const near=(a,b,tol)=>Math.abs(a-b)/Math.abs(b)<=tol;
 // Ribbon commands sit on tabs: open the tab a command is on, as a person would, then click it.
 const openTabFor=async(page,t)=>{const tab=await page.evaluate(t=>[...document.querySelectorAll('.nav-item')].find(x=>x.textContent.includes(t))?.closest('[data-ribbon]')?.dataset.ribbon,t);if(!tab)throw new Error('no ribbon command: '+t);await page.click(`.rb-tab[data-tab="${tab}"]`);};
-const navClick=async(page,t)=>{await openTabFor(page,t);await page.click(`.nav-item:has-text("${t}")`);};
+// Methods are chosen from the project tree; every other command from its ribbon tab.
+const navClick=async(page,t)=>{const m=await page.evaluate(t=>{const n=[...document.querySelectorAll('.nav-item')].find(x=>x.textContent.includes(t));return n&&n.closest('[data-ribbon]').dataset.ribbon==='analysis'?n.getAttribute('onclick').match(/'(\w+)'/)[1]:null},t);
+  if(m){await page.click(`#ptBody .pt-item[data-page="${m}"]`);return;}
+  await openTabFor(page,t);await page.click(`.nav-item:has-text("${t}")`);};
 const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
 (async()=>{
  const {browser,page,errors,ctx}=await open();
@@ -15,6 +18,8 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  // ---- libs offline
  ok('libraries bundled (offline)',await page.evaluate(()=>typeof Chart==='function'&&typeof L==='object'&&typeof XLSX==='object'&&typeof JSZip==='function'));
  ok('Thai font loaded',await page.evaluate(async()=>{await document.fonts.ready;return document.fonts.check('16px Sarabun','ทดสอบ')}));
+ const startedEmpty=await page.evaluate(()=>data.theis.length===0&&data.jacob.length===0&&data.step.length===0&&wells.length===0&&!document.querySelector('.toast.show,.notification.show')&&document.querySelector('.empty-hint[data-page="theis"]').offsetHeight>0);
+ ok('Starts with no sample data',startedEmpty);
  const fn=await page.evaluate(({ref,nr})=>({
    W:ref.W_u.map((u,i)=>Math.abs(W(u)-ref.W_ref[i])/ref.W_ref[i]),
    H:ref.H_cases.map(([u,b],i)=>Math.abs(W_hantush(u,b)-ref.H_ref[i])/ref.H_ref[i]),
@@ -131,6 +136,7 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  await page.evaluate(()=>document.getElementById('compareModal').remove());
  // Wells export→import
  await nav(page,'Well Map');await page.waitForTimeout(500);
+ await page.evaluate(()=>{wells.push({id:'PW-01',name:'PW-01',type:'pw',x:669834.17,y:1530663.57,lat:13.840679,lng:100.571421},{id:'OW-01',name:'OW-01',type:'ow',x:669884.17,y:1530663.57,lat:13.840676,lng:100.571883});renderWellList()});
  const [wd]=await Promise.all([page.waitForEvent('download'),page.click('button:has-text("Export Wells")')]);await wd.saveAs(path.join(tmp,'wells.csv'));
  const w0=await page.evaluate(()=>{wells.length=0;return 0});
  await page.setInputFiles('#wellFile',path.join(tmp,'wells.csv'));await page.waitForTimeout(800);
@@ -142,7 +148,7 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
    await nav(page,nm);const [d]=await Promise.all([page.waitForEvent('download',{timeout:4000}).catch(()=>null),page.evaluate(t=>exportChart(t),tp)]);ok('Export chart '+tp,!!d);
  }
  // Ribbon interface
- for(const tab of ['project','home','data','analysis','tools','view']){await page.click(`.rb-tab[data-tab="${tab}"]`);ok('Ribbon tab '+tab,await page.evaluate(n=>document.querySelector(`.rb-panel[data-ribbon="${n}"]`).offsetHeight>0,tab));}
+ for(const tab of ['project','home','data','tools','view']){await page.click(`.rb-tab[data-tab="${tab}"]`);ok('Ribbon tab '+tab,await page.evaluate(n=>document.querySelector(`.rb-panel[data-ribbon="${n}"]`).offsetHeight>0,tab));}
  ok('Project is the first tab',await page.evaluate(()=>document.querySelector('.rb-tab').dataset.tab==='project'));
  // Home and Data commands act on the open page
  await nav(page,'Theis Type Curve');await page.click('.rb-tab[data-tab="data"]');
@@ -155,7 +161,7 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  ok('Commands not on this page are disabled',await page.evaluate(()=>document.querySelector('[data-ribbon="home"] [data-cmd="fit"]').disabled));
  const allCmds=await page.evaluate(async()=>{const bad=[];for(const n of document.querySelectorAll('.nav-item[onclick*=showPage]')){const m=n.getAttribute('onclick').match(/'(\w+)'/)[1];n.click();await new Promise(r=>setTimeout(r,40));const f=!document.querySelector('[data-ribbon="home"] [data-cmd="fit"]').disabled;if(!['map','templates','settings'].includes(m)&&!f)bad.push(m+': no Auto Fit')}return bad});
  ok('Every method page has Auto Fit on Home',allCmds.length===0,allCmds.join());
- await page.click('.rb-tab[data-tab="analysis"]');
+ ok('Analysis tab only while the tree is hidden',await page.evaluate(()=>{const tab=document.querySelector('.rb-tab[data-tab="analysis"]');const open=tab.offsetWidth===0;toggleProjectTree();const closed=tab.offsetWidth>0;toggleProjectTree();return open&&closed}));
  await page.click('#ribbonCollapse');ok('Ribbon collapses',await page.evaluate(()=>document.getElementById('ribbon').offsetHeight===0));
  await page.click('#ribbonCollapse');ok('Ribbon opens again',await page.evaluate(()=>document.getElementById('ribbon').offsetHeight>0));
  const layout=await page.evaluate(async()=>{const bad=[];for(const n of document.querySelectorAll('.nav-item[onclick*=showPage]')){n.click();await new Promise(r=>setTimeout(r,60));
@@ -166,6 +172,14 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  ok('Every page fits with labelled buttons',layout.length===0,layout.join(' | '));
  const dark0=await page.evaluate(()=>{toggleTheme();const d=getComputedStyle(document.body).backgroundColor;toggleTheme();return [d,getComputedStyle(document.body).backgroundColor]});
  ok('Light and dark themes differ',dark0[0]!==dark0[1],dark0.join(' / '));
+ // Topics
+ const topics=await page.evaluate(async()=>{const bad=[];for(const p of ['theis','jacob','recovery','multiwell','hantush','distdd','step','singlewell','slugtest','unconfined']){const n=[...document.querySelectorAll('.nav-item')].find(x=>(x.getAttribute('onclick')||'').includes("'"+p+"'"));n.click();await new Promise(r=>setTimeout(r,40));
+   const pg=document.getElementById(p+'Page');const nums=[...pg.querySelectorAll('.topic-no')].map(x=>x.textContent);if(nums.join()!==nums.map((_,i)=>i+1).join()||nums.length<3)bad.push(p+': topics '+nums.join());
+   const vis=[...pg.querySelectorAll(':scope>.toolbar button')].filter(b=>b.offsetParent&&/Export|Copy|Undo|Redo|quality|Quality/i.test(b.textContent));if(vis.length)bad.push(p+': duplicate '+vis[0].textContent);
+   if(!pg.querySelector('[onclick^="autoFit"],[onclick^="autoAnalyze"],[onclick^="calc"]'))bad.push(p+': no fit button');}return bad});
+ ok('Every method page has numbered topics and no duplicate outputs',topics.length===0,topics.join(' | '));
+ const sp=await page.evaluate(async()=>{document.querySelector('#ptBody .pt-item[data-page="superpos"]').click();await new Promise(r=>setTimeout(r,60));const nums=[...document.querySelectorAll('#superposPage .topic-no')].map(x=>x.textContent);const before=(window.spWells||[]).length;runPageCommand('sample');await new Promise(r=>setTimeout(r,400));const pg=document.getElementById('superposPage');return {nums,rows:pg.querySelectorAll('input[type=number]').length,vis:[...pg.querySelectorAll(':scope>.toolbar button')].filter(b=>b.offsetParent).map(b=>b.textContent.trim()).join()}});
+ ok('Superposition numbered, Sample works from ribbon',sp.nums.length>=4&&sp.nums.join()===sp.nums.map((_,i)=>i+1).join()&&!/Sample|Report/.test(sp.vis),JSON.stringify(sp));
  // Project tree
  ok('Tree lists the methods',await page.evaluate(()=>document.querySelectorAll('#ptBody .pt-item[data-page]').length===11));
  await page.click('#ptBody .pt-item[data-page="slugtest"]');await page.waitForTimeout(300);

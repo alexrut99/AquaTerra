@@ -1,6 +1,81 @@
 // Generated list of interface text in English and Thai. {#} is a number, {*} any value.
 window.I18N_DICT=[
 {
+"k": "No data yet",
+"en": "No data yet",
+"th": "ยังไม่มีข้อมูล"
+},
+{
+"k": "Fill in topics {#} and {#} on the left. The results appear on the right.",
+"en": "Fill in topics {#} and {#} on the left. The results appear on the right.",
+"th": "กรอกหัวข้อ {#} และ {#} ทางซ้าย ผลลัพธ์จะแสดงทางขวา"
+},
+{
+"k": "+ Add a well",
+"en": "+ Add a well",
+"th": "+ เพิ่มบ่อ"
+},
+{
+"k": "Step",
+"en": "Step",
+"th": "ขั้น"
+},
+{
+"k": "Points",
+"en": "Points",
+"th": "จุด"
+},
+{
+"k": "Last s (m)",
+"en": "Last s (m)",
+"th": "s สุดท้าย (m)"
+},
+{
+"k": "Max s (m)",
+"en": "Max s (m)",
+"th": "s สูงสุด (m)"
+},
+{
+"k": "Q ({*})",
+"en": "Q ({*})",
+"th": "Q ({*})"
+},
+{
+"k": "Test setup",
+"en": "Test setup",
+"th": "ข้อมูลการทดสอบ"
+},
+{
+"k": "Measured data",
+"en": "Measured data",
+"th": "ข้อมูลการวัด"
+},
+{
+"k": "Fit the curve",
+"en": "Fit the curve",
+"th": "ปรับเส้น"
+},
+{
+"k": "How it is calculated",
+"en": "How it is calculated",
+"th": "วิธีคำนวณ"
+},
+{
+"k": "Start at topic {#}",
+"en": "Start at topic {#}",
+"th": "เริ่มที่หัวข้อ {#}"
+},
+{
+"k": "Type or import your measurements on the left, then fit the curve on the right.",
+"en": "Type or import your measurements on the left, then fit the curve on the right.",
+"th": "กรอกหรือนำเข้าข้อมูลทางซ้าย แล้วปรับเส้นทางขวา"
+},
+{
+"k": "Try sample data",
+"en": "Try sample data",
+"th": "ลองข้อมูลตัวอย่าง"
+},
+{
 "k": "โครงสร้างโปรเจกต์",
 "en": "Project tree",
 "th": "โครงสร้างโปรเจกต์"
@@ -3756,11 +3831,6 @@ window.I18N_DICT=[
 "th": "พล็อตข้อมูลดิบ"
 },
 {
-"k": "Points",
-"en": "Points",
-"th": "จุด"
-},
-{
 "k": "Preset",
 "en": "Preset",
 "th": "ค่าสำเร็จรูป"
@@ -4254,11 +4324,6 @@ window.I18N_DICT=[
 "k": "Static Water Level (SWL)",
 "en": "Static water level (SWL)",
 "th": "ระดับน้ำสถิต (SWL)"
-},
-{
-"k": "Step",
-"en": "Step",
-"th": "ขั้น"
 },
 {
 "k": "Step Analysis",

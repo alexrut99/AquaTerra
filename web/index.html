@@ -332,6 +332,25 @@
         .stage-dock .result-box .value{font-size:14px;overflow-wrap:anywhere}
         @media(max-width:1280px){.page>.grid-2{grid-template-columns:290px minmax(0,1fr)}.stage{grid-template-columns:minmax(0,1fr) 280px}}
         .preset-card .preset-icon{display:none}
+        .ribbon-only{display:none!important}
+        .stage-dock .results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+        table:has(>#unifiedRawBody) th{overflow-wrap:anywhere}
+        .step-summary-bar{display:block}
+        .step-summary-table{width:100%}
+        table:has(>#unifiedRawBody){table-layout:fixed;width:100%}
+        table:has(>#unifiedRawBody) th:nth-child(1){width:30px}
+        table:has(>#unifiedRawBody) th:nth-child(2){width:38px}
+        table:has(>#unifiedRawBody) th:last-child{width:26px}
+        #unifiedRawBody input{width:100%!important;min-width:0;padding:2px 3px}
+        .pt-empty{background:none;border:0;padding:5px 12px 5px 28px;color:var(--blue);font:inherit;font-size:13px;cursor:pointer;text-align:left;width:100%}
+        .pt-empty:hover{background:var(--hover,rgba(37,99,235,.08))}
+        .topic-no{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;flex:none;line-height:1}
+        .topic-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;margin-left:6px}
+        .card-header{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .empty-hint{display:none;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:10px 12px;margin-bottom:8px;background:var(--checked);border:1px solid var(--border-strong);border-radius:3px;font-size:12.5px}
+        .empty-hint strong{font-weight:600}
+        .empty-hint .btn{margin-left:auto}
+        .app:not(.tree-closed) .rb-tab[data-tab="analysis"]{display:none}
         .toolbar .btn[onclick^="autoFit"],.toolbar .btn[onclick^="calc"],.toolbar .btn[onclick^="autoAnalyze"]{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
         .toolbar .btn[onclick^="autoFit"]:hover,.toolbar .btn[onclick^="calc"]:hover,.toolbar .btn[onclick^="autoAnalyze"]:hover{filter:brightness(1.08)}
         .card-title[role=button]{cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none;flex:1;min-width:0}
@@ -432,6 +451,7 @@
             .stage-dock{border-left:0}
             .doc-title,.sb-right{display:none}
             .app,.app.tree-closed{grid-template-columns:minmax(0,1fr)}
+            .app:not(.tree-closed) .rb-tab[data-tab="analysis"]{display:inline-block}
             .project-tree{display:none}
             .chart-container{height:320px}
         }
@@ -2763,10 +2783,7 @@ OW-02,ow,669834.17,1530713.57</pre>
 <script>
 // ============ GLOBAL DATA ============
 let data = { theis: [], jacob: [], recovery: [], step: [] };
-let wells = [
-    { id: 'PW-01', name: 'PW-01', type: 'pw', x: 669834.17, y: 1530663.57, lat: 13.840679, lng: 100.571421 },
-    { id: 'OW-01', name: 'OW-01', type: 'ow', x: 669884.17, y: 1530663.57, lat: 13.840676, lng: 100.571883 }
-];
+let wells = [];
 let charts = {}, map = null, markers = {}, currentLayer = 'street';
 let stepCharts = { time: null, analysis: null };
 
@@ -3438,8 +3455,8 @@ function renderObsWellsList() {
     el.innerHTML = obsWells.map((w, i) => `
         <div style="background:var(--input);border:1px solid var(--border);border-left:3px solid ${colors[i%8]};border-radius:6px;padding:10px;margin-bottom:8px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-                <input type="text" value="${w.name}" style="flex:1;padding:4px 8px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem" onchange="obsWells[${i}].name=this.value;updateMultiWell()">
-                <div class="form-group" style="margin:0;flex:0 0 100px"><label style="font-size:.6rem">r (${getUnitLabel(currentUnits.distance)})</label><input type="number" value="${w.r}" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem" onchange="obsWells[${i}].r=parseFloat(this.value)||50;updateMultiWell()"></div>
+                <input type="text" value="${w.name}" style="flex:1;min-width:0;padding:4px 8px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem" onchange="obsWells[${i}].name=this.value;updateMultiWell()">
+                <div class="form-group" style="margin:0;flex:0 0 72px"><label style="font-size:.6rem">r (${getUnitLabel(currentUnits.distance)})</label><input type="number" value="${w.r}" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem" onchange="obsWells[${i}].r=parseFloat(this.value)||50;updateMultiWell()"></div>
                 <button class="btn btn-sm btn-secondary" onclick="document.getElementById('mwFile${i}').click()" style="font-size:.65rem" title="นำเข้า" aria-label="นำเข้า">Import</button>
                 <input type="file" id="mwFile${i}" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importMWData(this,${i})">
                 <button class="del-btn" onclick="removeObsWell(${i})">×</button>
@@ -3522,7 +3539,9 @@ function updateMultiWell() {
     const sToBase = unitConversions.length[currentUnits.drawdown] || 1;
     const datasets = [];
     let totalR2 = 0, totalRMSE = 0, wellCount = 0;
-    const compRows = [];
+    const compRows = [], compR2 = [];
+    const mwObs = obsWells.flatMap(w => w.data.map(d => d.s)).filter(v => v > 0);
+    const mwYMin = mwObs.length ? Math.pow(10, Math.floor(Math.log10(Math.min(...mwObs)))) : undefined;
     
     obsWells.forEach((w, i) => {
         if (w.data.length < 2) return;
@@ -3561,6 +3580,7 @@ function updateMultiWell() {
         const r2 = ssTot > 0 ? Math.max(0, 1-ssRes/ssTot) : 0;
         const rmse = Math.sqrt(sumSqErr/w.data.length);
         totalR2 += r2; totalRMSE += rmse; wellCount++;
+        compR2.push(r2);
         compRows.push(`<tr><td style="color:${c}">${w.name}</td><td>${w.r}</td><td>${w.data.length}</td><td>${r2.toFixed(4)}</td><td>${rmse.toPrecision(3)}</td></tr>`);
     });
     
@@ -3575,7 +3595,7 @@ function updateMultiWell() {
         if (el_R2) el_R2.textContent = (totalR2/wellCount).toFixed(4);
         
         const el_perWell = document.getElementById('mw_perWellR2');
-        if (el_perWell) el_perWell.innerHTML = obsWells.filter(w=>w.data.length>=2).map((w,i) => `<span style="color:${colors[i%8]}">${w.name}: R²=${compRows[i]?'✓':'—'}</span>`).join(' | ');
+        if (el_perWell) el_perWell.innerHTML = obsWells.filter(w=>w.data.length>=2).map((w,i) => `<span style="color:${colors[i%8]}">${w.name}: R²=${compR2[i] != null ? compR2[i].toFixed(3) : '—'}</span>`).join(' | ');
         
         const compCard = document.getElementById('mw_comparisonCard');
         if (compCard) { compCard.style.display = 'block'; document.getElementById('mw_compBody').innerHTML = compRows.join(''); }
@@ -3591,7 +3611,8 @@ function updateMultiWell() {
             responsive: true, maintainAspectRatio: false, animation: false,
             scales: {
                 x: { type: 'logarithmic', title: { display: true, text: 'Time ('+getUnitLabel(currentUnits.time)+')' } },
-                y: { type: 'logarithmic', title: { display: true, text: 'Drawdown ('+getUnitLabel(currentUnits.drawdown)+')' } }
+                y: { type: 'logarithmic', min: mwYMin, title: { display: true, text: 'Drawdown ('+getUnitLabel(currentUnits.drawdown)+')' },
+                     ticks: { callback: v => { const m = v / Math.pow(10, Math.floor(Math.log10(v) + 1e-9)); return [1, 2, 5].some(k => Math.abs(m - k) < 1e-6) ? +v.toPrecision(1) : ''; } } }
             },
             plugins: { legend: { display: true, position: 'bottom', labels: { font: {size:9}, boxWidth:12, padding:6 } } }
         }
@@ -3758,6 +3779,13 @@ function updateProjectTree() {
     const wellsGroup = document.getElementById('ptWells');
     wellsGroup.querySelectorAll('.pt-item').forEach(b => b.remove());
     wellsGroup.querySelector('[data-count]').textContent = wells.length;
+    wellsGroup.querySelector('.pt-empty')?.remove();
+    if (!wells.length) {
+        const add = document.createElement('button');
+        add.type = 'button'; add.className = 'pt-empty'; add.textContent = '+ Add a well';
+        add.onclick = () => goToPage('map');
+        wellsGroup.appendChild(add);
+    }
     wells.forEach(w => {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'pt-item';
@@ -3777,6 +3805,8 @@ function updateProjectTree() {
         const v = parseFloat(document.getElementById(valueId)?.textContent);
         b.querySelector('.pt-value').textContent = (state === 'fit' && sym && isFinite(v)) ? `${sym} ${+v.toPrecision(3)}` : '';
         b.classList.toggle('active', !!document.getElementById(page + 'Page')?.classList.contains('active'));
+        const hint = document.querySelector(`.empty-hint[data-page="${page}"]`);
+        if (hint) hint.style.display = n ? 'none' : 'flex';
     }));
     const active = document.querySelector('.page.active')?.id;
     tree.querySelectorAll('.pt-item:not([data-page])').forEach(b => b.classList.remove('active'));
@@ -3796,6 +3826,7 @@ async function renameProject() {
 }
 function toggleProjectTree() {
     const closed = document.querySelector('.app').classList.toggle('tree-closed');
+    if (!closed && document.querySelector('.rb-tab.active')?.dataset.tab === 'analysis') switchRibbonTab('home');
     try { localStorage.setItem('aquaterraTree', closed ? 'closed' : 'open'); } catch (e) {}
     window.dispatchEvent(new Event('resize'));
 }
@@ -3883,6 +3914,112 @@ function arrangeDock(dock) {
     });
 }
 
+// Every method page reads the same way: numbered topics, each holding its own buttons,
+// with page-wide output commands kept on the ribbon only.
+const TOPIC_PAGES = ['theisPage', 'jacobPage', 'recoveryPage', 'multiwellPage', 'hantushPage', 'distddPage', 'stepPage', 'singlewellPage', 'slugtestPage', 'unconfinedPage'];
+function setTopic(card, title, number) {
+    const el = card.querySelector(':scope > .card-header > .card-title') || card.querySelector('.card-title');
+    if (!el) return;
+    el.textContent = '';
+    if (number) {
+        const n = document.createElement('span');
+        n.className = 'topic-no no-i18n';
+        n.textContent = number;
+        el.appendChild(n);
+    }
+    const t = document.createElement('span');
+    t.textContent = title;
+    el.appendChild(t);
+}
+function moveToHeader(card, btn) {
+    let head = card.querySelector(':scope > .card-header');
+    if (!head) return;
+    let box = head.querySelector(':scope > .topic-actions');
+    if (!box) { box = document.createElement('div'); box.className = 'topic-actions'; head.appendChild(box); }
+    btn.classList.add('btn-sm');
+    box.appendChild(btn);
+}
+function arrangeTopics(page, left, center, dock) {
+    if (page.id === 'superposPage') {
+        // This page has its own order of work; number its cards and keep their names.
+        let k = 1;
+        const add = (card) => {
+            const title = card.querySelector(':scope > .card-header .card-title');
+            if (!title) return;
+            const no = document.createElement('span');
+            no.className = 'topic-no no-i18n';
+            no.textContent = k++;
+            title.prepend(no);
+            title.style.display = 'flex'; title.style.alignItems = 'center'; title.style.gap = '6px';
+        };
+        const all = [...left.querySelectorAll(':scope > .card')];
+        all.filter(c => !c.querySelector('#sp_xMin, [id^="sp_xmin"], [id^="sp_xMin"]') && !/Map (&|and) color/i.test(c.querySelector('.card-title')?.textContent || '')).forEach(add);
+        const res = dock.querySelector(':scope > .card');
+        if (res) add(res);
+        page.querySelectorAll(':scope > .toolbar [onclick]').forEach(btn => {
+            const on = btn.getAttribute('onclick') || '';
+            if (/sample|Sample/.test(on) || /[Rr]eport/.test(on)) btn.classList.add('ribbon-only');
+        });
+        return;
+    }
+    if (!TOPIC_PAGES.includes(page.id)) return;
+    const cards = [...left.querySelectorAll(':scope > .card')];
+    let n = 1;
+    if (cards[0]) setTopic(cards[0], 'Test setup', n++);
+    const dataCard = cards[1];
+    if (dataCard) setTopic(dataCard, 'Measured data', n++);
+    const dockCards = [...dock.querySelectorAll(':scope > .card')];
+    const fit = dockCards.find(c => c.querySelector('input[type=range]'));
+    const results = dockCards.find(c => c.querySelector('.results-grid, .result-item'));
+    if (fit) {
+        setTopic(fit, 'Fit the curve', n++);
+        dock.insertBefore(fit, dock.firstChild);
+        [...fit.querySelectorAll('div, p')].filter(e => !e.children.length && e.textContent.trim().startsWith('💡')).forEach(e => { e.style.display = 'none'; });
+    }
+    if (results) setTopic(results, 'Results', n++);
+    dock.querySelectorAll(':scope > details.formula-box > summary').forEach(sum => { sum.textContent = 'How it is calculated'; });
+    const unitRef = document.getElementById('unitRefBody');
+    if (unitRef && dock.contains(unitRef)) {
+        document.getElementById('unitRefChevron')?.remove();
+        unitRef.style.display = '';
+        const card = unitRef.closest('.card');
+        card.querySelector(':scope > .card-header').removeAttribute('onclick');
+        card.classList.add('closed');
+    }
+
+    const bar = page.querySelector(':scope > .toolbar');
+    if (!bar) return;
+    [...bar.querySelectorAll('[onclick]')].forEach(btn => {
+        const on = btn.getAttribute('onclick') || '';
+        if (/^(autoFit|autoAnalyze)/.test(on) || /^calc/.test(on)) {
+            const target = /^autoAnalyze/.test(on) ? dataCard : (fit || results);
+            if (target && !target.querySelector(`:scope > .card-header [onclick="${on}"]`)) {
+                moveToHeader(target, btn);
+                btn.classList.add('btn-primary');
+                btn.classList.remove('btn-secondary', 'btn-success');
+                btn.removeAttribute('style');
+            } else if (target) btn.classList.add('ribbon-only');
+        } else if (/^load.*Sample|^clear/.test(on)) {
+            if (dataCard && !dataCard.querySelector(`[onclick="${on}"]`)) moveToHeader(dataCard, btn);
+            else btn.classList.add('ribbon-only');
+        } else if (/^(checkDataQuality|exportChart|exportStepCharts|copyResults|copyStepResults|undo|redo)/.test(on)) {
+            btn.classList.add('ribbon-only');
+        }
+    });
+    if (![...bar.children].some(c => !c.classList.contains('ribbon-only'))) bar.classList.add('ribbon-only');
+    // What to do on a page with no data yet
+    const hint = document.createElement('div');
+    hint.className = 'empty-hint';
+    hint.dataset.page = page.id.replace('Page', '');
+    hint.innerHTML = '<strong>No data yet</strong><span>Fill in topics 1 and 2 on the left. The results appear on the right.</span>';
+    const sampleBtn = document.createElement('button');
+    sampleBtn.type = 'button'; sampleBtn.className = 'btn btn-sm btn-secondary';
+    sampleBtn.textContent = 'Try sample data';
+    sampleBtn.onclick = () => runPageCommand('sample');
+    hint.appendChild(sampleBtn);
+    center.insertBefore(hint, center.firstChild);
+}
+
 function redrawAllCharts() {
     try {
         destroyAllCharts();
@@ -3908,6 +4045,7 @@ function initRibbonUI() {
         if (dock.children.length) stage.appendChild(dock);
         col.appendChild(stage);
         arrangeDock(dock);
+        arrangeTopics(col.closest('.page'), col.previousElementSibling, center, dock);
     });
     document.querySelectorAll('.page > .grid-2 > div:first-child, .stage-dock').forEach(pane => {
         pane.querySelectorAll(':scope > .card > .card-header > .card-title').forEach(title => {
@@ -7175,10 +7313,6 @@ function drawStar(c,cx,cy,n,R,r){let rot=-Math.PI/2,st=Math.PI/n;c.beginPath();c
 // ============ INIT ============
 try { loadTheme(); } catch(e) {}
 document.addEventListener('DOMContentLoaded', () => {
-    loadSample('theis');
-    loadSample('jacob');
-    loadSample('recovery');
-    loadStepSample();
     renderWellList();
     
     // Load saved data from localStorage if available
@@ -8488,7 +8622,7 @@ function updateStepAnalysis() {
     
     
     if (data.step.length < 2) {
-        showNotification('Need at least 2 steps for analysis', 'warning');
+        
         return;
     }
     
@@ -12803,15 +12937,11 @@ function updateStepSummaryBar() {
         steps[r.step].lastDD = r.drawdown || 0; // last in time order (data already sorted)
         steps[r.step].allDD.push(r.drawdown || 0);
     });
-    bar.innerHTML = Object.entries(steps).map(([s, info]) => {
-        const c = STEP_COLORS[(parseInt(s)-1) % STEP_COLORS.length];
-        const lastDD = info.lastDD;
-        const maxDD = info.maxDD;
-        return `<div class="step-summary-item">
-            <span class="step-color-indicator" style="background:${c}"></span>
-            Step ${s}: <span class="sq">Q=${info.Q} ${qUnit}</span>, <span class="sq">${info.count} pts</span>, <span class="sq">s_last=${lastDD.toFixed(3)}m</span> <span style="font-size:.55rem;color:var(--text3)">(max=${maxDD.toFixed(3)})</span>
-        </div>`;
-    }).join('');
+    bar.innerHTML = `<table class="data-table step-summary-table"><thead><tr><th>Step</th><th>Q (${qUnit})</th><th>Points</th><th>Last s (m)</th><th>Max s (m)</th></tr></thead><tbody>` +
+        Object.entries(steps).map(([s, info]) => {
+            const c = STEP_COLORS[(parseInt(s)-1) % STEP_COLORS.length];
+            return `<tr><td><span class="step-band no-i18n" style="background:${c}">${s}</span></td><td>${info.Q}</td><td>${info.count}</td><td>${info.lastDD.toFixed(3)}</td><td>${info.maxDD.toFixed(3)}</td></tr>`;
+        }).join('') + '</tbody></table>';
 }
 
 function renderUnifiedTable() {

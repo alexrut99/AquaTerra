@@ -16,7 +16,7 @@ app.whenReady().then(async () => {
   const js = (c) => win.webContents.executeJavaScript(c, true);
   const libs = await js("typeof Chart + typeof L + typeof XLSX + typeof JSZip");
   if (libs !== 'functionobjectobjectfunction') return fail('libraries: ' + libs);
-  const T = await js("autoFit('theis'); parseFloat(document.getElementById('theis_resT').textContent)");
+  const T = await js("loadSample('theis'); autoFit('theis'); parseFloat(document.getElementById('theis_resT').textContent)");
   if (!(T > 0)) return fail('auto fit');
   const png = await js("Chart.getChart(document.getElementById('theisChart')).toBase64Image().length");
   if (png < 1000) return fail('chart did not draw');
