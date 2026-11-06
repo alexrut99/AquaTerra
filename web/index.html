@@ -228,59 +228,204 @@
         #unitRefLive .url-card .ulab{font-size:.62rem;color:var(--text3)}
         #unitRefLive .url-card .uval{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--cyan);font-weight:600;word-break:break-all}
         #unitRefLive .url-card .uunit{font-size:.58rem;color:var(--text3)}
+
+        /* ===== Ribbon interface: tokens follow ARutGIS's theme ===== */
+        :root{--bg:#12151A;--card:#1E232A;--input:#15191F;--border:#343B45;--border-strong:#48515D;--blue:#5B8DF6;--cyan:#2CC2AE;--green:#3FC282;--purple:#A78BFA;--orange:#F2B848;--red:#F06A6A;--pink:#E6EAEF;--text:#E6EAEF;--text2:#9AA4B1;--text3:#9AA4B1;--header:#171B21;--ribbon:#242931;--pane-head:#242931;--hover:#2F3744;--checked:#283B5C;--accent-text:#8AAFFA;--status:#1A1E24;--icon:#C9D1DB}
+        :root.light{--bg:#E4E8EE;--card:#FBFCFD;--input:#FFFFFF;--border:#DDE2E9;--border-strong:#C3CAD4;--blue:#2563EB;--cyan:#0E7C70;--green:#169A5A;--purple:#6D4FD8;--orange:#B97A0F;--red:#D13C3C;--pink:#1F2630;--text:#1F2630;--text2:#5E6977;--text3:#5E6977;--header:#EEF1F5;--ribbon:#FFFFFF;--pane-head:#F3F5F8;--hover:#E9F0FB;--checked:#DCE8FA;--accent-text:#1D4ED8;--status:#F3F5F8;--icon:#3A4554}
+        html,body{height:100%}
+        body{overflow:hidden;font-size:13px;min-height:0}
+        .app{display:grid;grid-template-rows:auto minmax(0,1fr) 24px;height:100vh;height:100dvh;min-height:0}
+        *{transition:none}
+        :focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+        .chrome{background:var(--header);min-width:0}
+        .titlebar{display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;position:relative}
+        .app-logo{border-radius:4px;display:block}
+        .app-name{font-weight:600;font-size:13px;color:var(--text)}
+        .app-ver{margin-left:auto;font-size:11px;color:var(--text2)}
+        .doc-title{position:absolute;left:50%;transform:translateX(-50%);font-size:12px;color:var(--text2);white-space:nowrap}
+        .qat{display:flex;gap:1px;margin-left:8px;padding-left:8px;border-left:1px solid var(--border-strong)}
+        .qat-btn{width:26px;height:26px;border:0;background:none;border-radius:3px;cursor:pointer;display:grid;place-items:center}
+        .qat-btn:hover{background:var(--hover)}
+        .qat-btn .ri{width:17px;height:17px}
+        .tabstrip{display:flex;align-items:flex-end;gap:2px;padding:0 8px;height:28px;border-bottom:1px solid var(--border);position:relative}
+        .rb-tab{height:28px;padding:0 14px;border:1px solid transparent;border-bottom:0;border-radius:4px 4px 0 0;background:none;color:var(--text2);font:inherit;font-size:12.5px;cursor:pointer;margin-bottom:-1px}
+        .rb-tab:hover{color:var(--text);background:var(--hover)}
+        .rb-tab.active{background:var(--ribbon);color:var(--accent-text);font-weight:600;border-color:var(--border);box-shadow:inset 0 2px 0 var(--blue)}
+        .rb-collapse{margin-left:auto;width:24px;height:24px;margin-bottom:2px;border:0;background:none;border-radius:3px;cursor:pointer;display:grid;place-items:center}
+        .rb-collapse:hover{background:var(--hover)}
+        .rb-collapse .ri{width:15px;height:15px}
+        .chrome.collapsed .rb-collapse .ri{transform:rotate(180deg)}
+        .chrome.collapsed .ribbon{display:none}
+        .ribbon{background:var(--ribbon);border-bottom:1px solid var(--border);overflow-x:auto;overflow-y:hidden}
+        .rb-panel{display:none;align-items:stretch;min-height:82px;padding:3px 4px 0}
+        .rb-panel.active{display:flex}
+        .rb-group{display:flex;flex-direction:column;padding:0 5px;border-right:1px solid var(--border);flex:none}
+        .rb-items{display:flex;gap:1px;flex:1}
+        .rb-label{font-size:10.5px;line-height:15px;color:var(--text2);text-align:center;padding-bottom:1px;white-space:nowrap}
+        .ribbon .nav-item{all:unset;box-sizing:border-box;width:70px;min-height:60px;padding:4px 2px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:3px;cursor:pointer;color:var(--text);font-size:11px;line-height:13px;text-align:center}
+        .ribbon .nav-item span{display:block;max-width:100%}
+        .ribbon .nav-item:hover{background:var(--hover)}
+        .ribbon .nav-item.active{background:var(--checked);color:var(--accent-text);font-weight:600}
+        .ribbon .nav-item:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+        .ri{width:26px;height:26px;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+        .ri .ax{stroke:var(--icon);stroke-width:1.400}
+        .ri .cv{stroke:var(--blue);stroke-width:1.900}
+        .ri .pt{fill:var(--blue);stroke:none}
+        .statusbar{display:flex;align-items:center;gap:16px;padding:0 10px;background:var(--status);border-top:1px solid var(--border);font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden}
+        .sb-right{margin-left:auto}
+        .main{margin:0;padding:0;background:var(--bg);overflow:hidden;min-height:0;min-width:0;position:relative}
+        .page.active{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto minmax(0,1fr);height:100%;min-height:0}
+        .page-header{margin:0;padding:6px 12px;background:var(--pane-head);border-bottom:1px solid var(--border);min-width:0;display:flex;align-items:baseline;gap:10px;grid-column:1;grid-row:1}
+        .page-header h2{font-size:13.5px;font-weight:600;margin:0;white-space:nowrap}
+        .page-header p{font-size:11.5px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .page>.toolbar{grid-column:2;grid-row:1;margin:0;padding:4px 10px 4px 0;background:var(--pane-head);border-bottom:1px solid var(--border);align-items:center;flex-wrap:nowrap;justify-content:flex-end}
+        .page>.page-header+div:not([class]){grid-column:1/-1;grid-row:2;margin:0!important;padding:3px 12px;background:var(--card);border-bottom:1px solid var(--border);font-size:11px;color:var(--text2)!important}
+        .page>.grid-2{grid-column:1/-1;grid-row:3;grid-template-columns:330px minmax(0,1fr);gap:0;min-height:0}
+        .page>.grid-2>div{min-height:0;overflow:auto}
+        .page>.grid-2>div:first-child{background:var(--card);border-right:1px solid var(--border-strong)}
+        .page>.grid-2>div:last-child{overflow:hidden}
+        .stage{display:grid;grid-template-columns:minmax(0,1fr) 320px;height:100%;min-height:0}
+        .stage.no-dock{grid-template-columns:minmax(0,1fr)}
+        .stage-center{overflow:auto;padding:8px;min-width:0;min-height:0}
+        .stage-center>.card:last-child{margin-bottom:0}
+        .stage-dock{overflow:auto;background:var(--card);border-left:1px solid var(--border-strong);min-height:0}
+        .stage-dock>.card{border:0;border-bottom:1px solid var(--border);border-radius:0;margin:0}
+        .stage-dock>.card>.card-header{border-radius:0}
+        .stage-dock>.method-box{margin:8px;background:none;border:0;padding:0}
+        .stage-dock .results-grid,.page>.grid-2>div:first-child .results-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+        .stage-dock .result-box .value{font-size:14px;overflow-wrap:anywhere}
+        @media(max-width:1280px){.page>.grid-2{grid-template-columns:290px minmax(0,1fr)}.stage{grid-template-columns:minmax(0,1fr) 280px}}
+        .preset-card .preset-icon{display:none}
+        .stage-center>.card:only-child div[style*="height"]:has(>canvas){height:clamp(280px,calc(100vh - 295px),820px)!important}
+        .unit-item select{background:var(--input)}
+        .page>.grid-3,.page>.card,.page>.settings-card,.page>.footer{grid-column:1/-1}
+        #templatesPage.active,#settingsPage.active{display:block;overflow:auto;padding-bottom:12px}
+        #templatesPage>.page-header,#settingsPage>.page-header{margin-bottom:8px}
+        #templatesPage>.toolbar,#settingsPage>.toolbar{padding:0 12px 8px;background:none;border:0;justify-content:flex-start}
+        #templatesPage>:not(.page-header):not(.toolbar),#settingsPage>:not(.page-header):not(.toolbar){margin-left:12px;margin-right:12px}
+        .card{border-radius:3px;padding:0 10px 10px;margin-bottom:8px;background:var(--card);border-color:var(--border)}
+        .card-header{margin:0 -10px 8px;padding:5px 10px;background:var(--pane-head);border-bottom:1px solid var(--border);border-radius:3px 3px 0 0;min-height:30px}
+        .card-title{font-size:12.5px;font-weight:600}
+        .page>.grid-2>div:first-child>.card{border:0;border-bottom:1px solid var(--border);border-radius:0;margin:0}
+        .page>.grid-2>div:first-child>.card>.card-header{border-radius:0}
+        .chart-container{height:clamp(280px,calc(100vh - 295px),820px)}
+        .form-group{margin-bottom:7px}
+        .form-group label{font-size:11px;color:var(--text2);margin-bottom:2px}
+        .form-group input,.form-group select{padding:4px 7px;font-size:12.5px;border-radius:3px;border-color:var(--border-strong)}
+        .form-group input:focus,.form-group select:focus{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+        .unit{color:var(--accent-text);font-size:10.5px}
+        .btn{padding:4px 10px;border-radius:3px;font:inherit;font-size:12px;line-height:18px;white-space:nowrap}
+        .btn-sm{padding:3px 8px;font-size:11.5px}
+        .btn-primary{background:var(--blue);color:#fff}
+        .btn-primary:hover{filter:brightness(1.08)}
+        .btn-success{background:var(--card);color:var(--text);border:1px solid var(--border-strong)}
+        .btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border-strong)}
+        .btn-secondary:hover,.btn-success:hover{background:var(--hover)}
+        :root.light .btn-secondary{background:var(--card);color:var(--text);border-color:var(--border-strong)}
+        .toolbar .btn:not(.btn-primary){background:var(--card)!important;color:var(--text)!important;border:1px solid var(--border-strong)!important}
+        .toolbar .btn:not(.btn-primary):hover{background:var(--hover)!important}
+        .toolbar .btn-primary{background:var(--card);color:var(--text);border:1px solid var(--border-strong)}
+        .toolbar .btn-primary:hover{background:var(--hover);filter:none}
+        .slider-group{margin-bottom:8px}
+        .slider-header label{font-size:11.5px}
+        .slider-value{color:var(--accent-text);border-radius:3px;font-size:11.5px;border:1px solid var(--border)}
+        input[type=range]{height:4px}
+        input[type=range]::-webkit-slider-thumb{width:13px;height:13px}
+        .results-grid{gap:6px}
+        .result-box{border-radius:3px;padding:6px 8px;text-align:left;background:var(--input);border-color:var(--border)}
+        .result-box.hl{background:var(--checked);border-color:var(--blue)}
+        .result-box .label{font-size:11px;color:var(--text2)}
+        .result-box .value{color:var(--text);font-size:15px}
+        .result-box .runit{font-size:10.5px;color:var(--text2)}
+        :root.light .result-box{background:var(--input);border-color:var(--border)}
+        .method-box{border-radius:3px;background:var(--pane-head);border:1px solid var(--border);margin-top:8px}
+        .method-box h4{color:var(--text);font-size:12.5px}
+        .formula{background:none;color:var(--text);border-left:2px solid var(--blue);border-radius:0;text-align:left;padding:3px 8px;margin:5px 0;font-size:12px}
+        .table-wrap,.unified-table-wrap{border-radius:3px}
+        .data-table{font-size:12px}
+        .data-table th{background:var(--pane-head);color:var(--text2);font-size:11px;font-weight:600;padding:5px}
+        :root.light .data-table th{background:var(--pane-head)}
+        .data-table td{padding:3px}
+        .data-table input{padding:2px 4px;font-size:12px}
+        .file-upload{border-width:1px;border-radius:3px;padding:12px}
+        .settings-card,.unit-item,.preset-card,.template-card,.unit-preview,.preview-item,.well-item,.map-legend,.add-well-form,.modal-content{border-radius:3px}
+        .settings-card{padding:12px}
+        .settings-card h4{color:var(--text);font-size:13px}
+        .preset-card:hover{transform:none}
+        .modal{background:rgba(15,20,28,.45)}
+        .modal-content{padding:14px;box-shadow:0 12px 32px rgba(0,0,0,.28)}
+        .modal-header h3{color:var(--text);font-size:14px}
+        .modal-close{color:var(--text2)}
+        .notification{border-radius:3px;top:auto;bottom:32px;right:12px;z-index:10001}
+        .footer{margin:12px;padding:12px;border:1px solid var(--border);background:var(--card);border-radius:3px;text-align:left}
+        .footer .copy{color:var(--accent-text)}
+        .footer a{color:var(--accent-text)}
+        #mapContainer{height:calc(100vh - 230px);min-height:360px;border-radius:3px}
+        ::-webkit-scrollbar{width:9px;height:9px}
+        ::-webkit-scrollbar-track{background:transparent}
+        ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:5px;border:2px solid transparent;background-clip:content-box}
+        @media(max-width:1000px){
+            body{overflow:auto}
+            .app{height:auto;min-height:100dvh}
+            .main{overflow:visible}
+            .page.active{display:block;height:auto}
+            .page-header{flex-wrap:wrap;gap:2px 10px}
+            .page-header h2,.page-header p{white-space:normal}
+            .page>.toolbar{flex-wrap:wrap;justify-content:flex-start;padding:4px 12px}
+            .page>.grid-2{grid-template-columns:1fr}
+            .page>.grid-2>div,.page>.grid-2>div:last-child,.stage-center,.stage-dock{overflow:visible}
+            .stage{display:block;height:auto}
+            .stage-dock{border-left:0}
+            .doc-title,.sb-right{display:none}
+            .chart-container{height:320px}
+        }
+        @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+        @media print{.chrome,.statusbar{display:none}body{overflow:visible}}
     </style>
 </head>
 <body>
 <div class="app">
-    <nav class="sidebar">
-        <div class="logo"><h1>🌍 AquaTerra</h1><p>Pumping Test Analysis Software v4.1</p></div>
-        
-        <div class="nav-section">
-            <h3>📊 Analysis</h3>
-            <div class="nav-item active" onclick="showPage('theis',this)">📈 Theis Type Curve</div>
-            <div class="nav-item" onclick="showPage('jacob',this)">📉 Cooper-Jacob</div>
-            <div class="nav-item" onclick="showPage('recovery',this)">🔄 Recovery Test</div>
-            <div class="nav-item" onclick="showPage('step',this)">📊 Step Drawdown</div>
-            <div class="nav-item" onclick="showPage('multiwell',this)">🔬 Multi-Well</div>
-            <div class="nav-item" onclick="showPage('hantush',this)">🌊 Hantush-Jacob</div>
-            <div class="nav-item" onclick="showPage('distdd',this)">📏 Distance-DD</div>
-            <div class="nav-item" onclick="showPage('superpos',this)">🔀 Superposition</div>
-            <div class="nav-item" onclick="showPage('singlewell',this)">🔧 Single Well</div>
-            <div class="nav-item" onclick="showPage('slugtest',this)">💉 Slug Test</div>
-            <div class="nav-item" onclick="showPage('unconfined',this)">🌊 Unconfined</div>
+    <header class="chrome">
+        <div class="titlebar">
+            <img class="app-logo" src="favicon.png" alt="" width="20" height="20">
+            <span class="app-name">AquaTerra</span>
+            <div class="qat">
+                <button type="button" class="qat-btn" onclick="saveProject()" title="บันทึกโปรเจกต์" aria-label="บันทึกโปรเจกต์"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M5 4h11l3 3v13H5Z"/><path class="ax" d="M8 4v5h7V4M8 20v-6h8v6"/></svg></button>
+                <button type="button" class="qat-btn" onclick="loadProject()" title="เปิดโปรเจกต์" aria-label="เปิดโปรเจกต์"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 19V5h6l2 2h8v3"/><path class="ax" d="M3 19l3-9h15l-3 9Z"/></svg></button>
+                <button type="button" class="qat-btn" onclick="showReportConfig()" title="สร้างรายงาน" aria-label="สร้างรายงาน"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"/><path class="ax" d="M15 3v4h4"/><path class="cv" d="M9 17l2.500-3 2 1.500L16 11"/></svg></button>
+            </div>
+            <span class="doc-title" id="docTitle">Theis Type Curve</span>
+            <span class="app-ver">v4.1</span>
         </div>
-        
-        <div class="nav-section">
-            <h3>🗺️ Location</h3>
-            <div class="nav-item" onclick="showPage('map',this)">📍 Well Map</div>
+        <div class="tabstrip" role="tablist" aria-label="เมนูหลัก">
+            <button type="button" class="rb-tab active" role="tab" aria-selected="true" data-tab="analysis" onclick="switchRibbonTab('analysis')">วิเคราะห์</button>
+            <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="project" onclick="switchRibbonTab('project')">โปรเจกต์</button>
+            <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="tools" onclick="switchRibbonTab('tools')">เครื่องมือ</button>
+            <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="view" onclick="switchRibbonTab('view')">มุมมอง</button>
+            <button type="button" class="rb-collapse" id="ribbonCollapse" onclick="toggleRibbon()" title="ซ่อนหรือแสดงริบบอน" aria-label="ซ่อนหรือแสดงริบบอน" aria-expanded="true"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 15l6-6 6 6"/></svg></button>
         </div>
-        
-        <div class="nav-section">
-            <h3>🗃️ Project</h3>
-            <div class="nav-item" onclick="saveProject()">💾 Save Project</div>
-            <div class="nav-item" onclick="loadProject()">📂 Load Project</div>
-            <div class="nav-item" onclick="showReportConfig()">📄 Export Report (PDF)</div>
-        </div>
-        
-        <div class="nav-section">
-            <h3>🧮 Tools</h3>
-            <div class="nav-item" onclick="calculateAdditionalParameters()">📐 Additional Parameters</div>
-            <div class="nav-item" onclick="compareMethods()">📈 Compare Methods</div>
-            <div class="nav-item" onclick="runQualityCheck()">🔍 Quality Check</div>
-            <div class="nav-item" onclick="showRadiusCalc()">🎯 Radius of Influence</div>
-        </div>
-        
-        <div class="nav-section">
-            <h3>📁 Data</h3>
-            <div class="nav-item" onclick="showPage('templates',this)">📋 Templates</div>
-        </div>
-        
-        <div class="nav-section">
-            <h3>⚙️ Settings</h3>
-            <div class="nav-item" onclick="showPage('settings',this)">🔧 Unit Settings</div>
-            <div class="nav-item" onclick="toggleTheme()" id="themeToggleBtn">🌙 Dark / ☀️ Light</div>
-        </div>
-    </nav>
+        <nav class="ribbon" id="ribbon" aria-label="คำสั่ง">
+            <div class="rb-panel active" data-ribbon="analysis">
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item active" onclick="showPage('theis',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18C10 17 12 9 20 5"/></svg><span>Theis Type Curve</span></button><button type="button" class="nav-item" onclick="showPage('jacob',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18 20 6"/><circle class="pt" cx="9" cy="15.4" r="1.3"/><circle class="pt" cx="14" cy="11" r="1.3"/><circle class="pt" cx="18" cy="7.7" r="1.3"/></svg><span>Cooper-Jacob</span></button><button type="button" class="nav-item" onclick="showPage('recovery',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 5C9 12 13 16 20 17"/></svg><span>Recovery Test</span></button><button type="button" class="nav-item" onclick="showPage('multiwell',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 12C9 11 13 7 20 4"/><path class="cv" d="M6 15C10 14 14 11 20 8.500"/><path class="cv" d="M6 18C11 17.500 15 15 20 13"/></svg><span>Multi-Well</span></button><button type="button" class="nav-item" onclick="showPage('distdd',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 6 20 17"/><circle class="pt" cx="9" cy="8.400" r="1.300"/><circle class="pt" cx="14" cy="12.300" r="1.300"/><circle class="pt" cx="18" cy="15.400" r="1.300"/></svg><span>Distance-DD</span></button></div><div class="rb-label">ชั้นน้ำมีแรงดัน</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('hantush',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18C8 10 12 7.500 20 7.500"/></svg><span>Hantush-Jacob</span></button><button type="button" class="nav-item" onclick="showPage('unconfined',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18C8 10 10 10 13 10S17 9 20 4"/></svg><span>Unconfined</span></button></div><div class="rb-label">ชั้นน้ำรั่วซึมและไม่มีแรงดัน</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('step',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18h4v-4h4v-4h4V6h2"/></svg><span>Step Drawdown</span></button><button type="button" class="nav-item" onclick="showPage('singlewell',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 7h18"/><path class="ax" d="M10 3v18M14 3v18"/><path class="cv" d="M10 13h4"/></svg><span>Single Well</span></button><button type="button" class="nav-item" onclick="showPage('slugtest',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M9 3v18M15 3v18"/><path class="cv" d="M12 5v9M9.500 11.500 12 14l2.500-2.500"/></svg><span>Slug Test</span></button></div><div class="rb-label">ประสิทธิภาพบ่อ</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('superpos',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M2 6h20"/><path class="cv" d="M3 6c3 0 3 9 5 9s2-6 4-6 2 9 4 9 3-12 5-12"/></svg><span>Superposition</span></button></div><div class="rb-label">คาดการณ์</div></div>
+            </div>
+            <div class="rb-panel" data-ribbon="project">
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="saveProject()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M5 4h11l3 3v13H5Z"/><path class="ax" d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span>Save Project</span></button><button type="button" class="nav-item" onclick="loadProject()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 19V5h6l2 2h8v3"/><path class="ax" d="M3 19l3-9h15l-3 9Z"/></svg><span>Load Project</span></button></div><div class="rb-label">ไฟล์</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showReportConfig()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"/><path class="ax" d="M15 3v4h4"/><path class="cv" d="M9 17l2.500-3 2 1.500L16 11"/></svg><span>Export Report (PDF)</span></button></div><div class="rb-label">ผลลัพธ์</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('map',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M12 21s7-6.300 7-11.500A7 7 0 0 0 5 9.500C5 14.700 12 21 12 21Z"/><circle class="cv" cx="12" cy="9.500" r="2.300"/></svg><span>Well Map</span></button><button type="button" class="nav-item" onclick="showPage('templates',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="4" y="4" width="16" height="16" rx="1"/><path class="ax" d="M4 9.500h16M4 15h16M10 4v16"/></svg><span>Templates</span></button></div><div class="rb-label">ข้อมูล</div></div>
+            </div>
+            <div class="rb-panel" data-ribbon="tools">
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="runQualityCheck()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M8 12l3 3 7-8"/></svg><span>Quality Check</span></button><button type="button" class="nav-item" onclick="compareMethods()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M8 20v-7M12.500 20V8M17 20v-10"/></svg><span>Compare Methods</span></button></div><div class="rb-label">ตรวจสอบ</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="calculateAdditionalParameters()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="5" y="3" width="14" height="18" rx="1"/><path class="ax" d="M8 7h8"/><path class="cv" d="M8 11h.01M12 11h.01M16 11h.01M8 14.500h.01M12 14.500h.01M16 14.500h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><span>Additional Parameters</span></button><button type="button" class="nav-item" onclick="showRadiusCalc()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="9"/><circle class="ax" cx="12" cy="12" r="5"/><circle class="cv" cx="12" cy="12" r="1.200"/></svg><span>Radius of Influence</span></button></div><div class="rb-label">คำนวณเพิ่ม</div></div>
+            </div>
+            <div class="rb-panel" data-ribbon="view">
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('settings',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 8h18v8H3Z"/><path class="cv" d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg><span>Unit Settings</span></button><button type="button" class="nav-item" onclick="toggleTheme()" id="themeToggleBtn"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="8"/><path class="cv" d="M12 4a8 8 0 0 1 0 16Z"/></svg><span>สลับโหมดมืด/สว่าง</span></button></div><div class="rb-label">การแสดงผล</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showAbout()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="9"/><path class="cv" d="M12 11v5M12 8h.01"/></svg><span>เกี่ยวกับ</span></button></div><div class="rb-label">ข้อมูลโปรแกรม</div></div>
+            </div>
+        </nav>
+    </header>
     
     <main class="main">
         <!-- Notification -->
@@ -288,21 +433,21 @@
         
         <!-- THEIS PAGE -->
         <div class="page active" id="theisPage">
-            <div class="page-header"><h2>📈 Theis Type Curve Method</h2><p>วิเคราะห์ Pumping Test สำหรับ Confined Aquifer</p></div>
+            <div class="page-header"><h2>Theis Type Curve Method</h2><p>วิเคราะห์ Pumping Test สำหรับ Confined Aquifer</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('theis')">🔍 Check Data Quality</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('theis')">📈 Export Chart</button>
-                <button class="btn btn-sm btn-secondary" onclick="copyResults('theis')">📋 Copy Results</button>
-                <button class="btn btn-sm btn-secondary" onclick="runSensitivity('theis')" style="background:rgba(139,92,246,.2);border-color:#8b5cf6;color:#8b5cf6">📊 Sensitivity</button>
-                <button class="btn btn-sm btn-secondary" id="undoBtn" onclick="undo()" title="Undo (Ctrl+Z)" style="padding:4px 8px">↩️</button>
-                <button class="btn btn-sm btn-secondary" id="redoBtn" onclick="redo()" title="Redo (Ctrl+Y)" style="padding:4px 8px">↪️</button>
+                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('theis')">Check Data Quality</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('theis')">Export Chart</button>
+                <button class="btn btn-sm btn-secondary" onclick="copyResults('theis')">Copy Results</button>
+                <button class="btn btn-sm btn-secondary" onclick="runSensitivity('theis')" style="background:rgba(139,92,246,.2);border-color:#8b5cf6;color:#8b5cf6">Sensitivity</button>
+                <button class="btn btn-sm btn-secondary" id="undoBtn" onclick="undo()" title="Undo (Ctrl+Z)">Undo</button>
+                <button class="btn btn-sm btn-secondary" id="redoBtn" onclick="redo()" title="Redo (Ctrl+Y)">Redo</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Q (Pumping Rate)<span class="unit" id="theis_Qunit_label">m³/day</span></label><input type="number" id="theis_Q" value="500" onchange="updateTheis()"></div>
                             <div class="form-group"><label>Q Unit</label>
@@ -323,15 +468,15 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📋 Data Input</div>
+                            <div class="card-title">Data Input</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('theisFile').click()">📤 Import</button>
+                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('theisFile').click()">Import</button>
                                 <input type="file" id="theisFile" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importFlexData(this,'theis')">
                             </div>
                         </div>
                         <div class="data-type-toggle" style="margin-bottom:8px">
-                            <button class="active" id="theis_modeDD" onclick="setMethodInputMode('theis','dd')">📉 Time + Drawdown</button>
-                            <button id="theis_modeWL" onclick="setMethodInputMode('theis','wl')">💧 Time + Water Level</button>
+                            <button class="active" id="theis_modeDD" onclick="setMethodInputMode('theis','dd')">Time + Drawdown</button>
+                            <button id="theis_modeWL" onclick="setMethodInputMode('theis','wl')">Time + Water Level</button>
                         </div>
                         <div id="theis_swlRow" style="display:none;margin-bottom:8px;">
                             <div class="form-row">
@@ -361,7 +506,7 @@
                 <div>
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📊 Theis Type Curve</div>
+                            <div class="card-title">Theis Type Curve</div>
                             <div style="display:flex;gap:4px;align-items:center">
                                 <select id="theis_plotMode" onchange="switchTheisPlot()" style="font-size:.6rem;padding:2px 4px;background:var(--input);border:1px solid var(--border);color:var(--text);border-radius:3px">
                                     <option value="loglog">Log-Log</option>
@@ -387,10 +532,10 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🎯 Curve Fitting</div>
+                            <div class="card-title">Curve Fitting</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-primary" onclick="autoFit('theis')">🤖 Auto Fit</button>
-                                <button class="btn btn-sm btn-secondary" onclick="resetSliders('theis')">🔄 Reset</button>
+                                <button class="btn btn-sm btn-primary" onclick="autoFit('theis')">Auto Fit</button>
+                                <button class="btn btn-sm btn-secondary" onclick="resetSliders('theis')">Reset</button>
                             </div>
                         </div>
                         <div style="font-size:.6rem;color:var(--text3);margin-bottom:6px">💡 ลาก slider หรือพิมพ์ค่าตรง — กดลูกศร ← → เพื่อปรับละเอียด | Scroll wheel on slider for fine adjust</div>
@@ -429,15 +574,15 @@
                     
                     <div class="card" id="theis_sensitivityCard" style="display:none">
                         <div class="card-header">
-                            <div class="card-title">📊 Sensitivity & Confidence Analysis</div>
-                            <button class="btn btn-sm btn-secondary" onclick="document.getElementById('theis_sensitivityCard').style.display='none'">✕ Close</button>
+                            <div class="card-title">Sensitivity & Confidence Analysis</div>
+                            <button class="btn btn-sm btn-secondary" onclick="document.getElementById('theis_sensitivityCard').style.display='none'">Close</button>
                         </div>
                         <div class="chart-container"><canvas id="theisSensChart"></canvas></div>
                         <div id="theis_sensResults" style="font-size:.72rem;color:var(--text2);margin-top:8px"></div>
                     </div>
                     
                     <div class="method-box">
-                        <h4>📘 Theis Method (1935)</h4>
+                        <h4>Theis Method (1935)</h4>
                         <div class="formula">s = (Q / 4πT) × W(u) | u = r²S / 4Tt</div>
                     </div>
                 </div>
@@ -446,18 +591,18 @@
 
         <!-- MULTI-WELL ANALYSIS PAGE -->
         <div class="page" id="multiwellPage">
-            <div class="page-header"><h2>🔬 Multi-Well Analysis</h2><p>วิเคราะห์ Pumping Test จากหลายบ่อสังเกตการณ์พร้อมกัน — ค่า T, S ที่ได้น่าเชื่อถือกว่าบ่อเดียว</p></div>
+            <div class="page-header"><h2>Multi-Well Analysis</h2><p>วิเคราะห์ Pumping Test จากหลายบ่อสังเกตการณ์พร้อมกัน — ค่า T, S ที่ได้น่าเชื่อถือกว่าบ่อเดียว</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="autoFitMultiWell()">🤖 Auto Fit All Wells</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('multiwell')">📈 Export Chart</button>
-                <button class="btn btn-sm btn-secondary" onclick="loadMultiWellSample()">📋 Sample Data</button>
+                <button class="btn btn-sm btn-primary" onclick="autoFitMultiWell()">Auto Fit All Wells</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('multiwell')">Export Chart</button>
+                <button class="btn btn-sm btn-secondary" onclick="loadMultiWellSample()">Sample Data</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Pumping Well Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Pumping Well Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Q (Pumping Rate)<span class="unit">m³/day</span></label><input type="number" id="mw_Q" value="500" onchange="updateMultiWell()"></div>
                             <div class="form-group"><label>b (Aquifer Thickness)<span class="unit">m</span></label><input type="number" id="mw_b" value="20" onchange="updateMultiWell()"></div>
@@ -466,7 +611,7 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📍 Observation Wells</div>
+                            <div class="card-title">Observation Wells</div>
                             <button class="btn btn-sm btn-secondary" onclick="addObsWell()">+ Add Well</button>
                         </div>
                         <div id="mw_wellsList"></div>
@@ -474,8 +619,8 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🎯 Combined Fitting (Theis)</div>
-                            <button class="btn btn-sm btn-secondary" onclick="resetSliders('multiwell')">🔄 Reset</button>
+                            <div class="card-title">Combined Fitting (Theis)</div>
+                            <button class="btn btn-sm btn-secondary" onclick="resetSliders('multiwell')">Reset</button>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header">
@@ -503,13 +648,13 @@
                 
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 Multi-Well Type Curve Plot</div></div>
+                        <div class="card-header"><div class="card-title">Multi-Well Type Curve Plot</div></div>
                         <div class="chart-container" style="height:400px"><canvas id="mwChart"></canvas></div>
                         <div class="chart-hint">แต่ละสี = บ่อสังเกตการณ์ต่างกัน | เส้น = Theis curve ที่ r ต่างกัน</div>
                     </div>
                     
                     <div class="card" id="mw_comparisonCard" style="display:none">
-                        <div class="card-header"><div class="card-title">📋 Per-Well Results Comparison</div></div>
+                        <div class="card-header"><div class="card-title">Per-Well Results Comparison</div></div>
                         <div class="table-wrap">
                             <table class="data-table">
                                 <thead><tr><th>Well</th><th>r (m)</th><th>Points</th><th>R²</th><th>RMSE</th></tr></thead>
@@ -523,19 +668,19 @@
 
         <!-- HANTUSH-JACOB LEAKY AQUIFER PAGE -->
         <div class="page" id="hantushPage">
-            <div class="page-header"><h2>🌊 Hantush-Jacob Method (Leaky Aquifer)</h2><p>วิเคราะห์ Semi-Confined / Leaky Aquifer — ใช้ Hantush Well Function W(u, r/B)</p></div>
+            <div class="page-header"><h2>Hantush-Jacob Method (Leaky Aquifer)</h2><p>วิเคราะห์ Semi-Confined / Leaky Aquifer — ใช้ Hantush Well Function W(u, r/B)</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="autoFitHantush()">🤖 Auto Fit</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('hantush')">📈 Export</button>
-                <button class="btn btn-sm btn-secondary" onclick="loadSample('hantush')">📋 Sample Data</button>
-                <button class="btn btn-sm btn-secondary" onclick="copyResults('hantush')">📋 Copy</button>
+                <button class="btn btn-sm btn-primary" onclick="autoFitHantush()">Auto Fit</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('hantush')">Export</button>
+                <button class="btn btn-sm btn-secondary" onclick="loadSample('hantush')">Sample Data</button>
+                <button class="btn btn-sm btn-secondary" onclick="copyResults('hantush')">Copy</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Q (Pump Rate)<span class="unit hj-Qunit">m³/day</span></label><input type="number" id="hj_Q" value="500" onchange="updateHantush()"></div>
                             <div class="form-group"><label>r (Distance)<span class="unit hj-runit">m</span></label><input type="number" id="hj_r" value="50" onchange="updateHantush()"></div>
@@ -547,7 +692,7 @@
                     </div>
                     
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 Time-Drawdown Data</div>
+                        <div class="card-header"><div class="card-title">Time-Drawdown Data</div>
                             <div style="display:flex;gap:4px">
                                 <button class="btn btn-sm btn-secondary" onclick="addRow('hantush')">+ Row</button>
                                 <label class="btn btn-sm btn-secondary" style="cursor:pointer">📤<input type="file" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importFlexData(this,'hantush')"></label>
@@ -560,8 +705,8 @@
                     </div>
                     
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🎚️ Curve Fitting</div>
-                            <button class="btn btn-sm btn-secondary" onclick="resetSliders('hantush')">🔄 Reset</button>
+                        <div class="card-header"><div class="card-title">Curve Fitting</div>
+                            <button class="btn btn-sm btn-secondary" onclick="resetSliders('hantush')">Reset</button>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header"><label>Transmissivity (T)</label><span class="slider-value" id="hj_T_val">200 m²/day</span></div>
@@ -589,13 +734,13 @@
                 
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📈 Hantush-Jacob Type Curve</div></div>
+                        <div class="card-header"><div class="card-title">Hantush-Jacob Type Curve</div></div>
                         <div class="chart-container"><canvas id="hantushChart"></canvas></div>
                         <div class="chart-hint">Log-log plot: Observed data + Leaky aquifer curve W(u, r/B)</div>
                     </div>
                     
                     <div class="method-box">
-                        <h4>🌊 Hantush-Jacob Method (1955)</h4>
+                        <h4>Hantush-Jacob Method (1955)</h4>
                         <div class="formula">s = (Q / 4πT) × W(u, r/B)</div>
                         <div class="formula">u = r²S / 4Tt &nbsp;|&nbsp; B = √(Tb'/K')</div>
                         <div style="font-size:.72rem;color:var(--text3);margin-top:6px">
@@ -610,18 +755,18 @@
 
         <!-- DISTANCE-DRAWDOWN ANALYSIS PAGE -->
         <div class="page" id="distddPage">
-            <div class="page-header"><h2>📏 Distance-Drawdown Analysis</h2><p>วิเคราะห์ Drawdown เทียบกับระยะทาง ณ เวลาเดียวกัน จากหลายบ่อสังเกตการณ์</p></div>
+            <div class="page-header"><h2>Distance-Drawdown Analysis</h2><p>วิเคราะห์ Drawdown เทียบกับระยะทาง ณ เวลาเดียวกัน จากหลายบ่อสังเกตการณ์</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="autoFitDistDD()">🤖 Auto Fit</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('distdd')">📈 Export</button>
-                <button class="btn btn-sm btn-secondary" onclick="loadDistDDSample()">📋 Sample Data</button>
+                <button class="btn btn-sm btn-primary" onclick="autoFitDistDD()">Auto Fit</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('distdd')">Export</button>
+                <button class="btn btn-sm btn-secondary" onclick="loadDistDDSample()">Sample Data</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Q (Pump Rate)<span class="unit">m³/day</span></label><input type="number" id="dd_Q" value="500" onchange="updateDistDD()"></div>
                             <div class="form-group"><label>t (Time of snapshot)<span class="unit">min</span></label><input type="number" id="dd_t" value="120" onchange="updateDistDD()"></div>
@@ -632,7 +777,7 @@
                     </div>
                     
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 Distance vs Drawdown Data</div>
+                        <div class="card-header"><div class="card-title">Distance vs Drawdown Data</div>
                             <button class="btn btn-sm btn-secondary" onclick="addDistDDRow()">+ Row</button>
                         </div>
                         <div class="table-wrap" style="max-height:250px">
@@ -642,10 +787,10 @@
                     </div>
                     
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🎯 Analysis Method</div></div>
+                        <div class="card-header"><div class="card-title">Analysis Method</div></div>
                         <div class="data-type-toggle" style="margin-bottom:12px">
-                            <button class="active" id="dd_modeJacob" onclick="setDistDDMethod('jacob')">📉 Cooper-Jacob (Straight Line)</button>
-                            <button id="dd_modeTheis" onclick="setDistDDMethod('theis')">📈 Theis (Type Curve)</button>
+                            <button class="active" id="dd_modeJacob" onclick="setDistDDMethod('jacob')">Cooper-Jacob (Straight Line)</button>
+                            <button id="dd_modeTheis" onclick="setDistDDMethod('theis')">Theis (Type Curve)</button>
                         </div>
                         
                         <!-- Cooper-Jacob sliders -->
@@ -673,7 +818,7 @@
                         </div>
                         
                         <div style="margin-top:8px">
-                            <button class="btn btn-sm btn-secondary" onclick="resetSliders('distdd')">🔄 Reset</button>
+                            <button class="btn btn-sm btn-secondary" onclick="resetSliders('distdd')">Reset</button>
                         </div>
                         
                         <div class="results-grid" style="margin-top:10px">
@@ -688,13 +833,13 @@
                 
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📈 Distance-Drawdown Plot</div></div>
+                        <div class="card-header"><div class="card-title">Distance-Drawdown Plot</div></div>
                         <div class="chart-container"><canvas id="distddChart"></canvas></div>
                         <div class="chart-hint" id="dd_chartHint">Semi-log: Drawdown vs Distance (log scale)</div>
                     </div>
                     
                     <div class="method-box" id="dd_methodBox">
-                        <h4 id="dd_methodTitle">📏 Cooper-Jacob Distance-Drawdown</h4>
+                        <h4 id="dd_methodTitle">Cooper-Jacob Distance-Drawdown</h4>
                         <div class="formula" id="dd_formula1">s = (2.303Q / 2πT) × log(r₀/r)</div>
                         <div class="formula" id="dd_formula2">T = 2.303Q / 2πΔs &nbsp;|&nbsp; S = 2.25Tt / r₀²</div>
                         <div style="font-size:.72rem;color:var(--text3);margin-top:6px" id="dd_methodDesc">
@@ -709,18 +854,18 @@
 
         <!-- SUPERPOSITION PAGE -->
         <div class="page" id="superposPage">
-            <div class="page-header"><h2>🔀 Superposition Analysis</h2><p>คำนวณ Drawdown จากหลายบ่อสูบ (Space) และ/หรือ หลายอัตราสูบ (Time) โดยใช้หลัก Superposition</p></div>
+            <div class="page-header"><h2>Superposition Analysis</h2><p>คำนวณ Drawdown จากหลายบ่อสูบ (Space) และ/หรือ หลายอัตราสูบ (Time) โดยใช้หลัก Superposition</p></div>
             <div style="font-size:.68rem;color:var(--text3);margin:-6px 0 10px">📐 หน้านี้ใช้หน่วย SI คงที่ (m, m³/day, m²/day, นาที) ไม่เปลี่ยนตาม Unit Settings</div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="calcSuperposition()">🧮 Calculate</button>
-                <button class="btn btn-sm btn-success" onclick="runFullSPAnalysis()">🔍 Full Analysis</button>
-                <button class="btn btn-sm btn-secondary" onclick="exportChart('superpos')">📈 Export</button>
-                <button class="btn btn-sm btn-secondary" onclick="exportContourPNG()">📷 PNG</button>
-                <button class="btn btn-sm btn-secondary" onclick="exportSPCSV()">📊 CSV</button>
-                <button class="btn btn-sm btn-secondary" onclick="exportSPReport()">📄 Report</button>
-                <button class="btn btn-sm btn-secondary" onclick="loadSuperposSample()">📋 Sample</button>
-                <button class="btn btn-sm btn-secondary" onclick="clearSuperpos()">🗑️ Clear</button>
+                <button class="btn btn-sm btn-primary" onclick="calcSuperposition()">Calculate</button>
+                <button class="btn btn-sm btn-success" onclick="runFullSPAnalysis()">Full Analysis</button>
+                <button class="btn btn-sm btn-secondary" onclick="exportChart('superpos')">Export</button>
+                <button class="btn btn-sm btn-secondary" onclick="exportContourPNG()">PNG</button>
+                <button class="btn btn-sm btn-secondary" onclick="exportSPCSV()">CSV</button>
+                <button class="btn btn-sm btn-secondary" onclick="exportSPReport()">Report</button>
+                <button class="btn btn-sm btn-secondary" onclick="loadSuperposSample()">Sample</button>
+                <button class="btn btn-sm btn-secondary" onclick="clearSuperpos()">Clear</button>
             </div>
             
             <div class="grid-2">
@@ -728,18 +873,18 @@
                 <div>
                     <!-- Aquifer Parameters -->
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Aquifer Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Aquifer Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>T (m²/day)</label><input type="number" id="sp_T" value="200" step="any" onchange="calcSuperposition()"></div>
                             <div class="form-group"><label>S (Storativity)</label><input type="number" id="sp_S" value="0.0001" step="any" onchange="calcSuperposition()"></div>
                         </div>
-                        <div style="margin-top:4px"><button class="btn btn-sm btn-secondary" onclick="importSPFromResults()" style="font-size:.6rem;padding:2px 6px">📥 ดึง T,S จากผลวิเคราะห์</button></div>
+                        <div style="margin-top:4px"><button class="btn btn-sm btn-secondary" onclick="importSPFromResults()" style="font-size:.6rem;padding:2px 6px">ดึง T,S จากผลวิเคราะห์</button></div>
                     </div>
                     
                     <!-- Coordinates & Obs Point -->
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🌐 พิกัด & จุดสังเกต</div>
-                            <button class="btn btn-sm btn-secondary" onclick="importWellsFromMap()" style="font-size:.58rem;padding:2px 5px">📍 Import Map</button>
+                        <div class="card-header"><div class="card-title">พิกัด & จุดสังเกต</div>
+                            <button class="btn btn-sm btn-secondary" onclick="importWellsFromMap()" style="font-size:.58rem;padding:2px 5px">Import Map</button>
                         </div>
                         <div class="form-row" style="margin-bottom:4px">
                             <div class="form-group"><label>ระบบพิกัด</label>
@@ -761,9 +906,9 @@
                     <!-- Pumping Wells -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🏗️ บ่อสูบน้ำ</div>
+                            <div class="card-title">บ่อสูบน้ำ</div>
                             <div style="display:flex;gap:3px">
-                                <button class="btn btn-sm btn-secondary" onclick="importWellsFromMap()" style="font-size:.55rem;padding:2px 4px">📍 Map</button>
+                                <button class="btn btn-sm btn-secondary" onclick="importWellsFromMap()" style="font-size:.55rem;padding:2px 4px">Map</button>
                                 <button class="btn btn-sm btn-secondary" onclick="addSPWell()">+ เพิ่มบ่อ</button>
                             </div>
                         </div>
@@ -778,12 +923,12 @@
                     <!-- Daily Schedule -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📅 ตารางรายวัน</div>
+                            <div class="card-title">ตารางรายวัน</div>
                             <div style="display:flex;gap:3px">
                                 <button class="btn btn-sm btn-secondary" onclick="addSPDay()" style="font-size:.55rem;padding:2px 4px">+วัน</button>
-                                <button class="btn btn-sm btn-secondary" onclick="copySPLastDay()" style="font-size:.55rem;padding:2px 4px">📋</button>
+                                <button class="btn btn-sm btn-secondary" onclick="copySPLastDay()" style="font-size:.55rem;padding:2px 4px" title="คัดลอกวันล่าสุด" aria-label="คัดลอกวันล่าสุด">Copy</button>
                                 <button class="btn btn-sm btn-secondary" onclick="addSPDaysBulk()" style="font-size:.55rem;padding:2px 4px">+7</button>
-                                <button class="btn btn-sm btn-success" onclick="genSPScheduleFromDaily()" style="font-size:.55rem;padding:2px 4px">🔄 Gen</button>
+                                <button class="btn btn-sm btn-success" onclick="genSPScheduleFromDaily()" style="font-size:.55rem;padding:2px 4px">Gen</button>
                             </div>
                         </div>
                         <div class="table-wrap" style="max-height:200px;overflow:auto">
@@ -798,7 +943,7 @@
                     <!-- Pumping Events -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">⏱️ Pumping Events</div>
+                            <div class="card-title">Pumping Events</div>
                             <button class="btn btn-sm btn-secondary" onclick="addSPSchedule()">+ เพิ่ม</button>
                         </div>
                         <div class="table-wrap" style="max-height:130px">
@@ -811,13 +956,13 @@
                     
                     <!-- Map & Color Settings -->
                     <div class="card">
-                        <div class="card-header"><div class="card-title">⚙️ Map & Color</div></div>
+                        <div class="card-header"><div class="card-title">Map & Color</div></div>
                         <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:end">
                             <div class="form-group" style="flex:0 0 60px"><label style="font-size:.55rem">X min</label><input type="number" id="sp_xMin" placeholder="auto" style="font-size:.62rem;padding:2px" onchange="drawContourFrame()"></div>
                             <div class="form-group" style="flex:0 0 60px"><label style="font-size:.55rem">X max</label><input type="number" id="sp_xMax" placeholder="auto" style="font-size:.62rem;padding:2px" onchange="drawContourFrame()"></div>
                             <div class="form-group" style="flex:0 0 60px"><label style="font-size:.55rem">Y min</label><input type="number" id="sp_yMin" placeholder="auto" style="font-size:.62rem;padding:2px" onchange="drawContourFrame()"></div>
                             <div class="form-group" style="flex:0 0 60px"><label style="font-size:.55rem">Y max</label><input type="number" id="sp_yMax" placeholder="auto" style="font-size:.62rem;padding:2px" onchange="drawContourFrame()"></div>
-                            <button class="btn btn-sm btn-secondary" onclick="resetContourExtent()" style="font-size:.55rem;padding:2px 4px">🔄</button>
+                            <button class="btn btn-sm btn-secondary" onclick="resetContourExtent()" style="font-size:.55rem;padding:2px 4px" title="รีเซ็ตขอบเขต" aria-label="รีเซ็ตขอบเขต">Reset</button>
                         </div>
                         <div style="display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;align-items:end">
                             <div class="form-group" style="flex:0 0 65px"><label style="font-size:.55rem">Interval (m)</label><input type="number" id="sp_contourInterval" placeholder="auto" step="0.01" style="font-size:.62rem;padding:2px" onchange="drawContourFrame()"></div>
@@ -835,7 +980,7 @@
                                 <option value="blue" selected>Blue-Red</option><option value="jet">Jet</option><option value="thermal">Thermal</option>
                                 <option value="viridis">Viridis</option><option value="cool">Cool</option><option value="earth">Earth</option><option value="gray">Gray</option>
                             </select>
-                            <button class="btn btn-sm btn-secondary" onclick="autoColorStops()" style="font-size:.55rem;padding:2px 4px">🔄 Auto</button>
+                            <button class="btn btn-sm btn-secondary" onclick="autoColorStops()" style="font-size:.55rem;padding:2px 4px">Auto</button>
                         </div>
                         <div id="sp_colorStopsArea" style="display:none;margin-top:4px">
                             <div id="sp_colorStopsVisual" style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:3px"></div>
@@ -852,7 +997,7 @@
                 <div>
                     <!-- Results + Interactive DD -->
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 ผลลัพธ์ ณ จุดสังเกตการณ์</div></div>
+                        <div class="card-header"><div class="card-title">ผลลัพธ์ ณ จุดสังเกตการณ์</div></div>
                         <div class="results-grid">
                             <div class="result-box hl"><div class="label">s (total)</div><div class="value" id="sp_resS">-</div><div class="runit">m</div></div>
                             <div class="result-box"><div class="label">s (max)</div><div class="value" id="sp_resMaxDD">-</div><div class="runit">m</div></div>
@@ -868,7 +1013,7 @@
                     <!-- Chart: Drawdown vs Time -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📈 Drawdown vs Time</div>
+                            <div class="card-title">Drawdown vs Time</div>
                             <label style="font-size:.6rem;display:flex;align-items:center;gap:3px;color:var(--text3)"><input type="checkbox" id="sp_showQ" checked onchange="calcSuperposition()"> Q rate</label>
                         </div>
                         <div class="chart-container" style="height:280px;position:relative">
@@ -880,7 +1025,7 @@
                     <!-- Contour Map -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🗺️ Drawdown Contour Map</div>
+                            <div class="card-title">Drawdown Contour Map</div>
                             <div style="display:flex;gap:4px;align-items:center">
                                 <select id="sp_mapMode" style="font-size:.58rem;padding:2px;background:var(--input);border:1px solid var(--border);color:var(--text);border-radius:3px" onchange="toggleSPMapMode()">
                                     <option value="canvas">Canvas</option>
@@ -899,10 +1044,10 @@
                         
                         <!-- Animation Controls -->
                         <div style="margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-                            <button class="btn btn-sm btn-primary" id="sp_playBtn" onclick="toggleSPAnimation()" style="width:70px">▶️ Play</button>
-                            <button class="btn btn-sm btn-secondary" onclick="document.getElementById('sp_timeSlider').value=1;onSPTimeSlider(1)">⏮⏮</button>
-                            <button class="btn btn-sm btn-secondary" onclick="stepSPAnimation(-1)">⏮</button>
-                            <button class="btn btn-sm btn-secondary" onclick="stepSPAnimation(1)">⏭</button>
+                            <button class="btn btn-sm btn-primary" id="sp_playBtn" onclick="toggleSPAnimation()" style="width:70px">▶Play</button>
+                            <button class="btn btn-sm btn-secondary" onclick="document.getElementById('sp_timeSlider').value=1;onSPTimeSlider(1)" title="กลับไปเริ่มต้น" aria-label="กลับไปเริ่มต้น">|◀</button>
+                            <button class="btn btn-sm btn-secondary" onclick="stepSPAnimation(-1)" title="ย้อนกลับ" aria-label="ย้อนกลับ">◀</button>
+                            <button class="btn btn-sm btn-secondary" onclick="stepSPAnimation(1)" title="ถัดไป" aria-label="ถัดไป">▶</button>
                             <label style="font-size:.55rem;display:flex;align-items:center;gap:2px;color:var(--text3)"><input type="checkbox" id="sp_loopAnim">🔁</label>
                             <input type="range" id="sp_timeSlider" min="1" max="720" value="120" step="1" style="flex:1;min-width:100px" oninput="onSPTimeSlider(this.value)">
                             <span style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--cyan);min-width:130px" id="sp_timeDisplay">t = 120 min</span>
@@ -926,8 +1071,8 @@
                     <!-- Cross-Section Profile (Animated) - ต่อจาก Contour Map -->
                     <div class="card" id="sp_crossCard" style="display:none">
                         <div class="card-header">
-                            <div class="card-title">🎯 ภาคตัดขวาง (Cross-Section) <span style="font-size:.55rem;color:var(--cyan)">🔄 sync</span></div>
-                            <button class="btn btn-sm btn-secondary" onclick="exportCrossCSV()" style="font-size:.55rem;padding:2px 5px">📊 CSV</button>
+                            <div class="card-title">ภาคตัดขวาง (Cross-Section) <span style="font-size:.55rem;color:var(--cyan)">sync</span></div>
+                            <button class="btn btn-sm btn-secondary" onclick="exportCrossCSV()" style="font-size:.55rem;padding:2px 5px">CSV</button>
                         </div>
                         <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:end;margin-bottom:4px">
                             <div class="form-group" style="flex:0 0 65px"><label style="font-size:.55rem">A: X₁</label><input type="number" id="sp_crossX1" placeholder="auto" style="font-size:.62rem;padding:2px" onchange="_spCrossYMax=0;drawCrossSection()"></div>
@@ -938,9 +1083,9 @@
                             <div class="form-group" style="flex:0 0 55px"><label style="font-size:.55rem">จุด</label><input type="number" id="sp_crossNpts" value="80" min="20" max="200" step="10" style="font-size:.62rem;padding:2px" onchange="drawCrossSection()"></div>
                         </div>
                         <div style="margin-bottom:4px;display:flex;gap:4px;align-items:center">
-                            <button class="btn btn-sm btn-primary" onclick="_spCrossYMax=0;drawCrossSection()" style="font-size:.6rem">📐 ตัดขวาง</button>
-                            <button class="btn btn-sm btn-secondary" onclick="autoCrossFromWells()" style="font-size:.55rem">🔄 บ่อ→Obs</button>
-                            <button class="btn btn-sm btn-secondary" onclick="autoCrossDiagonal()" style="font-size:.55rem">↗️ ทแยง</button>
+                            <button class="btn btn-sm btn-primary" onclick="_spCrossYMax=0;drawCrossSection()" style="font-size:.6rem">ตัดขวาง</button>
+                            <button class="btn btn-sm btn-secondary" onclick="autoCrossFromWells()" style="font-size:.55rem">บ่อ→Obs</button>
+                            <button class="btn btn-sm btn-secondary" onclick="autoCrossDiagonal()" style="font-size:.55rem">↗ทแยง</button>
                             <span id="sp_crossInfo" style="font-size:.55rem;color:var(--text3)"></span>
                         </div>
                         <div class="chart-container" style="height:220px"><canvas id="sp_crossChart"></canvas></div>
@@ -949,8 +1094,8 @@
                     <!-- Full Analysis Summary -->
                     <div class="card" id="sp_analysisCard" style="display:none">
                         <div class="card-header">
-                            <div class="card-title">📋 สรุปผลวิเคราะห์ Superposition</div>
-                            <button class="btn btn-sm btn-primary" onclick="runFullSPAnalysis()">🔍 วิเคราะห์ทั้งหมด</button>
+                            <div class="card-title">สรุปผลวิเคราะห์ Superposition</div>
+                            <button class="btn btn-sm btn-primary" onclick="runFullSPAnalysis()">วิเคราะห์ทั้งหมด</button>
                         </div>
                         <div id="sp_fullAnalysis" style="font-size:.7rem;color:var(--text2)"></div>
                     </div>
@@ -958,10 +1103,10 @@
                     <!-- Scenario Comparison -->
                     <div class="card" id="sp_scenarioCard" style="display:none">
                         <div class="card-header">
-                            <div class="card-title">📈 เปรียบเทียบ Scenario</div>
+                            <div class="card-title">เปรียบเทียบ Scenario</div>
                             <div style="display:flex;gap:3px">
-                                <button class="btn btn-sm btn-success" onclick="saveCurrentScenario()">💾 บันทึก</button>
-                                <button class="btn btn-sm btn-secondary" onclick="clearScenarios()">🗑️ ล้าง</button>
+                                <button class="btn btn-sm btn-success" onclick="saveCurrentScenario()">บันทึก</button>
+                                <button class="btn btn-sm btn-secondary" onclick="clearScenarios()">ล้าง</button>
                             </div>
                         </div>
                         <div id="sp_scenarioList" style="font-size:.65rem;margin-bottom:6px;color:var(--text3)"></div>
@@ -971,12 +1116,12 @@
                     <!-- Recovery Prediction -->
                     <div class="card" id="sp_recoveryCard" style="display:none">
                         <div class="card-header">
-                            <div class="card-title">🔄 Recovery Prediction</div>
+                            <div class="card-title">Recovery Prediction</div>
                         </div>
                         <div class="form-row" style="margin-bottom:6px">
                             <div class="form-group"><label style="font-size:.6rem">หยุดสูบที่ t (min)</label><input type="number" id="sp_recStopTime" placeholder="720" style="font-size:.65rem;padding:2px"></div>
                             <div class="form-group"><label style="font-size:.6rem">คำนวณถึง (min)</label><input type="number" id="sp_recEndTime" placeholder="1440" style="font-size:.65rem;padding:2px"></div>
-                            <div class="form-group" style="flex:0 0 auto"><label>&nbsp;</label><button class="btn btn-sm btn-primary" onclick="calcRecoveryPrediction()">🔄 คำนวณ</button></div>
+                            <div class="form-group" style="flex:0 0 auto"><label>&nbsp;</label><button class="btn btn-sm btn-primary" onclick="calcRecoveryPrediction()">คำนวณ</button></div>
                         </div>
                         <div class="chart-container" style="height:200px"><canvas id="sp_recoveryChart"></canvas></div>
                         <div id="sp_recoveryInfo" style="font-size:.65rem;margin-top:4px;color:var(--text2)"></div>
@@ -984,7 +1129,7 @@
                     
                     <!-- Method Info -->
                     <div class="method-box">
-                        <h4>🔀 Superposition Principle</h4>
+                        <h4>Superposition Principle</h4>
                         <div class="formula">s_total(x,y,t) = Σᵢ (Qᵢ / 4πT) × W(uᵢ)</div>
                         <div class="formula">uᵢ = rᵢ²S / 4T(t − tᵢ) &nbsp;|&nbsp; rᵢ = √[(x−xᵢ)² + (y−yᵢ)²]</div>
                     </div>
@@ -993,27 +1138,27 @@
         </div>
 
         <div class="page" id="stepPage">
-            <div class="page-header"><h2>📊 Step Drawdown Test Analysis</h2><p>วิเคราะห์ประสิทธิภาพบ่อน้ำและ Well Loss Parameters — รองรับข้อมูลดิบ (Water Level / Drawdown)</p></div>
+            <div class="page-header"><h2>Step Drawdown Test Analysis</h2><p>วิเคราะห์ประสิทธิภาพบ่อน้ำและ Well Loss Parameters — รองรับข้อมูลดิบ (Water Level / Drawdown)</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('step')">🔍 Check Quality</button>
-                <button class="btn btn-sm btn-success" onclick="exportStepCharts()">📈 Export Charts</button>
-                <button class="btn btn-sm btn-secondary" onclick="copyStepResults()">📋 Copy Results</button>
-                <button class="btn btn-sm btn-secondary" onclick="plotAllRawData()">📊 Plot Raw Data</button>
+                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('step')">Check Quality</button>
+                <button class="btn btn-sm btn-success" onclick="exportStepCharts()">Export Charts</button>
+                <button class="btn btn-sm btn-secondary" onclick="copyStepResults()">Copy Results</button>
+                <button class="btn btn-sm btn-secondary" onclick="plotAllRawData()">Plot Raw Data</button>
                 <select id="sp_stepDDMethod" style="font-size:.62rem;padding:2px 4px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:3px" title="วิธีคำนวณ DD ตัวแทนของแต่ละ Step">
                     <option value="last">DD: ค่าสุดท้าย</option>
                     <option value="max">DD: ค่าสูงสุด</option>
                     <option value="avg3">DD: เฉลี่ย 3 ท้าย</option>
                     <option value="avg1_3">DD: เฉลี่ย 1/3 ท้าย</option>
                 </select>
-                <button class="btn btn-sm btn-primary" onclick="autoAnalyzeFromRaw()">🤖 Auto Analyze</button>
+                <button class="btn btn-sm btn-primary" onclick="autoAnalyzeFromRaw()">Auto Analyze</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <!-- Parameters -->
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Aquifer Thickness (b)<span class="unit">m</span></label>
@@ -1045,18 +1190,18 @@
                     <!-- Import Mode Selection -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📋 ข้อมูลดิบจากการตรวจวัด</div>
+                            <div class="card-title">ข้อมูลดิบจากการตรวจวัด</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('stepFile').click()">📤 Import File</button>
+                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('stepFile').click()">Import File</button>
                                 <input type="file" id="stepFile" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importUnifiedRawData(this)">
                             </div>
                         </div>
                         
                         <!-- Import Mode Tabs -->
                         <div class="data-type-toggle" style="margin-bottom:10px;">
-                            <button class="active" id="modeBtn_full" onclick="setInputMode('full')">📊 Full Data (Time + WL/DD + Q)</button>
-                            <button id="modeBtn_wl" onclick="setInputMode('wl')">💧 Time + Water Level</button>
-                            <button id="modeBtn_dd" onclick="setInputMode('dd')">📉 Time + Drawdown</button>
+                            <button class="active" id="modeBtn_full" onclick="setInputMode('full')">Full Data (Time + WL/DD + Q)</button>
+                            <button id="modeBtn_wl" onclick="setInputMode('wl')">Time + Water Level</button>
+                            <button id="modeBtn_dd" onclick="setInputMode('dd')">Time + Drawdown</button>
                         </div>
                         
                         <!-- Mode Info Box -->
@@ -1101,9 +1246,9 @@
                         </div>
                         <div class="btn-group" style="margin-top:8px">
                             <button class="btn btn-sm btn-secondary" onclick="addUnifiedRow()">+ Add Row</button>
-                            <button class="btn btn-sm btn-secondary" onclick="loadUnifiedSample()">📊 Sample</button>
-                            <button class="btn btn-sm btn-secondary" onclick="clearUnifiedData()">🗑️ Clear</button>
-                            <button class="btn btn-sm btn-primary" onclick="autoAnalyzeFromRaw()">🤖 Auto Analyze</button>
+                            <button class="btn btn-sm btn-secondary" onclick="loadUnifiedSample()">Sample</button>
+                            <button class="btn btn-sm btn-secondary" onclick="clearUnifiedData()">Clear</button>
+                            <button class="btn btn-sm btn-primary" onclick="autoAnalyzeFromRaw()">Auto Analyze</button>
                             <span style="margin-left:auto;font-size:.7rem;color:var(--text3)" id="unifiedCount">0 rows</span>
                         </div>
                     </div>
@@ -1111,7 +1256,7 @@
                     <!-- Step Summary Table (auto-calculated) -->
                     <div class="card" id="stepSummaryCard" style="display:none">
                         <div class="card-header">
-                            <div class="card-title">📋 Step Summary (Auto-calculated)</div>
+                            <div class="card-title">Step Summary (Auto-calculated)</div>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-secondary" id="stepModeBtn" onclick="switchStepMode('step')">Edit Summary</button>
                             </div>
@@ -1145,12 +1290,12 @@
                     <!-- RAW DATA PLOT -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📊 Raw Data Time Series</div>
+                            <div class="card-title">Raw Data Time Series</div>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-secondary active" id="rawPlotWL" onclick="setRawPlotMode('wl')">Water Level</button>
                                 <button class="btn btn-sm btn-secondary" id="rawPlotDD" onclick="setRawPlotMode('dd')">Drawdown</button>
                                 <button class="btn btn-sm btn-secondary" id="rawPlotBoth" onclick="setRawPlotMode('both')">Both</button>
-                                <button class="btn btn-sm btn-secondary" id="rawPlotInvert" onclick="toggleRawYInvert()" title="Invert Y-axis">🔃 Invert Y</button>
+                                <button class="btn btn-sm btn-secondary" id="rawPlotInvert" onclick="toggleRawYInvert()" title="Invert Y-axis">Invert Y</button>
                             </div>
                         </div>
                         <div class="raw-chart-container"><canvas id="stepTimeChart"></canvas></div>
@@ -1159,7 +1304,7 @@
                     
                     <!-- s/Q vs Q Analysis -->
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📈 Well Loss Analysis (s/Q vs Q)</div></div>
+                        <div class="card-header"><div class="card-title">Well Loss Analysis (s/Q vs Q)</div></div>
                         <div class="chart-container"><canvas id="stepAnalysisChart"></canvas></div>
                         <div class="chart-hint">Linear regression: s/Q = B + CQ</div>
                         <div id="stepSQverify" style="font-size:.62rem;color:var(--text3);margin-top:4px"></div>
@@ -1167,10 +1312,10 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🎯 Calculation Results</div>
+                            <div class="card-title">Calculation Results</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-primary" onclick="autoFitStep()">🤖 Auto Fit</button>
-                                <button class="btn btn-sm btn-secondary" onclick="resetStepSliders()">🔄 Reset</button>
+                                <button class="btn btn-sm btn-primary" onclick="autoFitStep()">Auto Fit</button>
+                                <button class="btn btn-sm btn-secondary" onclick="resetStepSliders()">Reset</button>
                             </div>
                         </div>
                         
@@ -1233,7 +1378,7 @@
                     </div>
                     
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 Well Efficiency Analysis</div></div>
+                        <div class="card-header"><div class="card-title">Well Efficiency Analysis</div></div>
                         <div class="table-wrap">
                             <table class="data-table">
                                 <thead>
@@ -1246,7 +1391,7 @@
                     </div>
                     
                     <div class="method-box">
-                        <h4>📘 Step Drawdown Method (Jacob 1947)</h4>
+                        <h4>Step Drawdown Method (Jacob 1947)</h4>
                         <div class="formula">s = BQ + CQ² | s/Q = B + CQ</div>
                         <p style="font-size:.75rem;margin-top:8px;color:var(--text2)">
                             B: Aquifer loss coefficient (linear)<br>
@@ -1258,7 +1403,7 @@
                     <!-- Unit Conversion Reference (collapsible) -->
                     <div class="card" style="margin-top:12px">
                         <div class="card-header" style="cursor:pointer" onclick="toggleUnitRef()">
-                            <div class="card-title">📐 Unit Conversion Reference</div>
+                            <div class="card-title">Unit Conversion Reference</div>
                             <span id="unitRefChevron" style="font-size:.8rem;color:var(--text3)">▼</span>
                         </div>
                         <div id="unitRefBody" style="display:none">
@@ -1300,19 +1445,19 @@
 
         <!-- JACOB PAGE -->
         <div class="page" id="jacobPage">
-            <div class="page-header"><h2>📉 Cooper-Jacob Straight Line Method</h2><p>วิธีลดรูปจาก Theis สำหรับ Late time (u < 0.01)</p></div>
+            <div class="page-header"><h2>Cooper-Jacob Straight Line Method</h2><p>วิธีลดรูปจาก Theis สำหรับ Late time (u < 0.01)</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('jacob')">🔍 Check Data Quality</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('jacob')">📈 Export Chart</button>
-                <button class="btn btn-sm btn-secondary" onclick="copyResults('jacob')">📋 Copy Results</button>
-                <button class="btn btn-sm btn-secondary" onclick="runSensitivity('jacob')" style="background:rgba(139,92,246,.2);border-color:#8b5cf6;color:#8b5cf6">📊 Sensitivity</button>
+                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('jacob')">Check Data Quality</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('jacob')">Export Chart</button>
+                <button class="btn btn-sm btn-secondary" onclick="copyResults('jacob')">Copy Results</button>
+                <button class="btn btn-sm btn-secondary" onclick="runSensitivity('jacob')" style="background:rgba(139,92,246,.2);border-color:#8b5cf6;color:#8b5cf6">Sensitivity</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Q (Pumping Rate)<span class="unit" id="jacob_Qunit_label">m³/day</span></label><input type="number" id="jacob_Q" value="500" onchange="updateJacob()"></div>
                             <div class="form-group"><label>Q Unit</label>
@@ -1333,16 +1478,16 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📋 Data Input</div>
+                            <div class="card-title">Data Input</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-secondary" onclick="copyFromTheis()">📋 Copy Theis</button>
-                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('jacobFile').click()">📤 Import</button>
+                                <button class="btn btn-sm btn-secondary" onclick="copyFromTheis()">Copy Theis</button>
+                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('jacobFile').click()">Import</button>
                                 <input type="file" id="jacobFile" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importFlexData(this,'jacob')">
                             </div>
                         </div>
                         <div class="data-type-toggle" style="margin-bottom:8px">
-                            <button class="active" id="jacob_modeDD" onclick="setMethodInputMode('jacob','dd')">📉 Time + Drawdown</button>
-                            <button id="jacob_modeWL" onclick="setMethodInputMode('jacob','wl')">💧 Time + Water Level</button>
+                            <button class="active" id="jacob_modeDD" onclick="setMethodInputMode('jacob','dd')">Time + Drawdown</button>
+                            <button id="jacob_modeWL" onclick="setMethodInputMode('jacob','wl')">Time + Water Level</button>
                         </div>
                         <div id="jacob_swlRow" style="display:none;margin-bottom:8px;">
                             <div class="form-row">
@@ -1371,17 +1516,17 @@
                 
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 Semi-Log Plot</div></div>
+                        <div class="card-header"><div class="card-title">Semi-Log Plot</div></div>
                         <div class="chart-container"><canvas id="jacobChart"></canvas></div>
                         <div class="chart-hint">🟢 Observed | 🟠 Straight line fit</div>
                     </div>
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🎯 Line Fitting</div>
+                            <div class="card-title">Line Fitting</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-primary" onclick="autoFit('jacob')">🤖 Auto Fit</button>
-                                <button class="btn btn-sm btn-secondary" onclick="resetSliders('jacob')">🔄 Reset</button>
+                                <button class="btn btn-sm btn-primary" onclick="autoFit('jacob')">Auto Fit</button>
+                                <button class="btn btn-sm btn-secondary" onclick="resetSliders('jacob')">Reset</button>
                             </div>
                         </div>
                         <div style="font-size:.6rem;color:var(--text3);margin-bottom:6px">💡 ลาก slider หรือพิมพ์ค่าตรง — กดลูกศร ← → เพื่อปรับละเอียด</div>
@@ -1421,15 +1566,15 @@
                     
                     <div class="card" id="jacob_sensitivityCard" style="display:none">
                         <div class="card-header">
-                            <div class="card-title">📊 Sensitivity & Confidence Analysis</div>
-                            <button class="btn btn-sm btn-secondary" onclick="document.getElementById('jacob_sensitivityCard').style.display='none'">✕ Close</button>
+                            <div class="card-title">Sensitivity & Confidence Analysis</div>
+                            <button class="btn btn-sm btn-secondary" onclick="document.getElementById('jacob_sensitivityCard').style.display='none'">Close</button>
                         </div>
                         <div class="chart-container"><canvas id="jacobSensChart"></canvas></div>
                         <div id="jacob_sensResults" style="font-size:.72rem;color:var(--text2);margin-top:8px"></div>
                     </div>
                     
                     <div class="method-box">
-                        <h4>📗 Cooper-Jacob Method (1946)</h4>
+                        <h4>Cooper-Jacob Method (1946)</h4>
                         <div class="formula">T = 2.303Q / 4πΔs | S = 2.25Tt₀ / r²</div>
                     </div>
                 </div>
@@ -1438,18 +1583,18 @@
 
         <!-- RECOVERY PAGE -->
         <div class="page" id="recoveryPage">
-            <div class="page-header"><h2>🔄 Theis Recovery Test</h2><p>วิเคราะห์จากการฟื้นตัวของระดับน้ำหลังหยุดสูบ</p></div>
+            <div class="page-header"><h2>Theis Recovery Test</h2><p>วิเคราะห์จากการฟื้นตัวของระดับน้ำหลังหยุดสูบ</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('recovery')">🔍 Check Data Quality</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('recovery')">📈 Export Chart</button>
-                <button class="btn btn-sm btn-secondary" onclick="copyResults('recovery')">📋 Copy Results</button>
+                <button class="btn btn-sm btn-primary" onclick="checkDataQuality('recovery')">Check Data Quality</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('recovery')">Export Chart</button>
+                <button class="btn btn-sm btn-secondary" onclick="copyResults('recovery')">Copy Results</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🔧 Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Q (Pumping Rate)<span class="unit" id="rec_Qunit_label">m³/day</span></label><input type="number" id="rec_Q" value="500" onchange="updateRecovery()"></div>
                             <div class="form-group"><label>Q Unit</label>
@@ -1470,15 +1615,15 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📋 Recovery Data</div>
+                            <div class="card-title">Recovery Data</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('recFile').click()">📤 Import</button>
+                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('recFile').click()">Import</button>
                                 <input type="file" id="recFile" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importFlexData(this,'recovery')">
                             </div>
                         </div>
                         <div class="data-type-toggle" style="margin-bottom:8px">
-                            <button class="active" id="recovery_modeDD" onclick="setMethodInputMode('recovery','dd')">📉 t' + Residual DD (s')</button>
-                            <button id="recovery_modeWL" onclick="setMethodInputMode('recovery','wl')">💧 t' + Water Level</button>
+                            <button class="active" id="recovery_modeDD" onclick="setMethodInputMode('recovery','dd')">t' + Residual DD (s')</button>
+                            <button id="recovery_modeWL" onclick="setMethodInputMode('recovery','wl')">t' + Water Level</button>
                         </div>
                         <div id="recovery_swlRow" style="display:none;margin-bottom:8px;">
                             <div class="form-row">
@@ -1510,8 +1655,8 @@
                 
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 s' vs t/t' Plot (Semi-Log)</div>
-                            <button class="btn btn-sm btn-secondary" onclick="if(charts.recovery) charts.recovery.resetZoom()">🔍 Reset Zoom</button>
+                        <div class="card-header"><div class="card-title">s' vs t/t' Plot (Semi-Log)</div>
+                            <button class="btn btn-sm btn-secondary" onclick="if(charts.recovery) charts.recovery.resetZoom()">Reset Zoom</button>
                         </div>
                         <div class="chart-container"><canvas id="recChart"></canvas></div>
                         
@@ -1519,10 +1664,10 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🎯 Line Fitting (Semi-Log)</div>
+                            <div class="card-title">Line Fitting (Semi-Log)</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-primary" onclick="autoFit('recovery')">🤖 Auto Fit</button>
-                                <button class="btn btn-sm btn-secondary" onclick="resetSliders('recovery')">🔄 Reset</button>
+                                <button class="btn btn-sm btn-primary" onclick="autoFit('recovery')">Auto Fit</button>
+                                <button class="btn btn-sm btn-secondary" onclick="resetSliders('recovery')">Reset</button>
                             </div>
                         </div>
                         <div class="slider-group">
@@ -1549,7 +1694,7 @@
                     </div>
                     
                     <div class="method-box">
-                        <h4>📕 Theis Recovery Method</h4>
+                        <h4>Theis Recovery Method</h4>
                         <div class="formula">T = 2.303Q / 4πΔs' | s' = Δs'·log(t/t') + s₀'</div>
                     </div>
                 </div>
@@ -1558,20 +1703,20 @@
 
         <!-- MAP PAGE -->
         <div class="page" id="mapPage">
-            <div class="page-header"><h2>🗺️ Well Location Map</h2><p>จัดการตำแหน่งบ่อสูบและบ่อสังเกตการณ์</p></div>
+            <div class="page-header"><h2>Well Location Map</h2><p>จัดการตำแหน่งบ่อสูบและบ่อสังเกตการณ์</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-success" onclick="exportWells()">📥 Export Wells</button>
-                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('wellFile').click()">📤 Import Wells</button>
+                <button class="btn btn-sm btn-success" onclick="exportWells()">Export Wells</button>
+                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('wellFile').click()">Import Wells</button>
                 <input type="file" id="wellFile" accept=".csv,.txt" style="display:none" onchange="importWells(this.files[0]);this.value=''">
-                <button class="btn btn-sm btn-primary" onclick="calculateDistances()">📏 Calculate All Distances</button>
+                <button class="btn btn-sm btn-primary" onclick="calculateDistances()">Calculate All Distances</button>
             </div>
             
             <div class="grid-2">
                 <div>
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📍 Wells</div>
+                            <div class="card-title">Wells</div>
                             <button class="btn btn-sm btn-success" onclick="toggleAddWell()">+ Add</button>
                         </div>
                         <div id="addWellForm" class="add-well-form" style="display:none">
@@ -1671,8 +1816,8 @@
                             </div>
                             
                             <div class="btn-group">
-                                <button class="btn btn-success btn-sm" onclick="addWell()">✅ Add Well</button>
-                                <button class="btn btn-secondary btn-sm" onclick="previewCoord()">👁️ Preview</button>
+                                <button class="btn btn-success btn-sm" onclick="addWell()">Add Well</button>
+                                <button class="btn btn-secondary btn-sm" onclick="previewCoord()">Preview</button>
                             </div>
                             
                             <!-- Preview Result -->
@@ -1683,7 +1828,7 @@
                     </div>
                     
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📏 Distance Matrix (m)</div></div>
+                        <div class="card-header"><div class="card-title">Distance Matrix (m)</div></div>
                         <div id="distMatrix" style="overflow-x:auto;font-size:.7rem"></div>
                     </div>
                 </div>
@@ -1691,11 +1836,11 @@
                 <div>
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">🗺️ Map</div>
+                            <div class="card-title">Map</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-secondary" onclick="zoomToWells()">📍 Fit All</button>
-                                <button class="btn btn-sm btn-secondary" onclick="changeLayer()">🗺️ Layer</button>
-                                <button class="btn btn-sm btn-secondary" onclick="exportMapImage()">📸 Export Map</button>
+                                <button class="btn btn-sm btn-secondary" onclick="zoomToWells()">Fit All</button>
+                                <button class="btn btn-sm btn-secondary" onclick="changeLayer()">Layer</button>
+                                <button class="btn btn-sm btn-secondary" onclick="exportMapImage()">Export Map</button>
                             </div>
                         </div>
                         <div id="mapContainer"></div>
@@ -1710,23 +1855,23 @@
 
         <!-- TEMPLATES PAGE -->
         <div class="page" id="templatesPage">
-            <div class="page-header"><h2>📋 Data Templates</h2><p>ดาวน์โหลด Template สำหรับนำเข้าข้อมูล</p></div>
+            <div class="page-header"><h2>Data Templates</h2><p>ดาวน์โหลด Template สำหรับนำเข้าข้อมูล</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="downloadAllTemplates()">📦 Download All Templates</button>
-                <button class="btn btn-sm btn-secondary" onclick="showDataFormatHelp()">❓ Data Format Help</button>
+                <button class="btn btn-sm btn-primary" onclick="downloadAllTemplates()">Download All Templates</button>
+                <button class="btn btn-sm btn-secondary" onclick="showDataFormatHelp()">Data Format Help</button>
             </div>
             
             <div class="grid-3">
-                <div class="template-card" onclick="downloadTemplate('pumping')"><h4>📈 Pumping Test</h4><p>Time-Drawdown สำหรับ Theis/Jacob</p><div class="dl">📥 Download</div></div>
-                <div class="template-card" onclick="downloadTemplate('recovery')"><h4>🔄 Recovery Test</h4><p>t' และ s' สำหรับ Recovery</p><div class="dl">📥 Download</div></div>
-                <div class="template-card" onclick="downloadTemplate('wells')"><h4>📍 Well Locations</h4><p>พิกัด X, Y ของบ่อ</p><div class="dl">📥 Download</div></div>
-                <div class="template-card" onclick="downloadTemplate('step')"><h4>📊 Step Drawdown</h4><p>Step, Q, Drawdown</p><div class="dl">📥 Download</div></div>
-                <div class="template-card" onclick="downloadTemplate('rawstep')"><h4>📊 Raw Step Data</h4><p>Time-Water Level สำหรับแต่ละ Step</p><div class="dl">📥 Download</div></div>
+                <div class="template-card" onclick="downloadTemplate('pumping')"><h4>Pumping Test</h4><p>Time-Drawdown สำหรับ Theis/Jacob</p><div class="dl">📥 Download</div></div>
+                <div class="template-card" onclick="downloadTemplate('recovery')"><h4>Recovery Test</h4><p>t' และ s' สำหรับ Recovery</p><div class="dl">📥 Download</div></div>
+                <div class="template-card" onclick="downloadTemplate('wells')"><h4>Well Locations</h4><p>พิกัด X, Y ของบ่อ</p><div class="dl">📥 Download</div></div>
+                <div class="template-card" onclick="downloadTemplate('step')"><h4>Step Drawdown</h4><p>Step, Q, Drawdown</p><div class="dl">📥 Download</div></div>
+                <div class="template-card" onclick="downloadTemplate('rawstep')"><h4>Raw Step Data</h4><p>Time-Water Level สำหรับแต่ละ Step</p><div class="dl">📥 Download</div></div>
             </div>
             
             <div class="card" style="margin-top:15px">
-                <div class="card-header"><div class="card-title">📖 Data Format</div></div>
+                <div class="card-header"><div class="card-title">Data Format</div></div>
                 <div class="grid-3">
                     <div>
                         <h5 style="font-size:.85rem;margin-bottom:8px">Pumping Test:</h5>
@@ -1781,18 +1926,18 @@ OW-02,ow,669834.17,1530713.57</pre>
 
         <!-- SETTINGS PAGE -->
         <div class="page" id="settingsPage">
-            <div class="page-header"><h2>⚙️ Unit Settings</h2><p>ตั้งค่าหน่วยวัดสำหรับการวิเคราะห์ Pumping Test</p></div>
+            <div class="page-header"><h2>Unit Settings</h2><p>ตั้งค่าหน่วยวัดสำหรับการวิเคราะห์ Pumping Test</p></div>
             
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="applyUnits()">✅ Apply Units</button>
-                <button class="btn btn-sm btn-secondary" onclick="resetUnitsToDefault()">🔄 Reset to Default</button>
-                <button class="btn btn-sm btn-success" onclick="exportUnitSettings()">💾 Export Settings</button>
-                <button class="btn btn-sm btn-secondary" onclick="importUnitSettings()">📂 Import Settings</button>
+                <button class="btn btn-sm btn-primary" onclick="applyUnits()">Apply Units</button>
+                <button class="btn btn-sm btn-secondary" onclick="resetUnitsToDefault()">Reset to Default</button>
+                <button class="btn btn-sm btn-success" onclick="exportUnitSettings()">Export Settings</button>
+                <button class="btn btn-sm btn-secondary" onclick="importUnitSettings()">Import Settings</button>
             </div>
             
             <!-- Preset Systems -->
             <div class="settings-card">
-                <h4>📐 Preset Unit Systems</h4>
+                <h4>Preset Unit Systems</h4>
                 <p style="font-size:.75rem;color:var(--text2);margin-bottom:12px">เลือกชุดหน่วยที่ใช้บ่อย หรือตั้งค่าหน่วยแต่ละรายการด้านล่าง</p>
                 <div class="preset-grid">
                     <div class="preset-card active" id="preset_SI" onclick="applyPreset('SI')">
@@ -1825,7 +1970,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             
             <!-- Individual Unit Settings -->
             <div class="settings-card">
-                <h4>📏 Length / Distance Units</h4>
+                <h4>Length / Distance Units</h4>
                 <div class="unit-grid">
                     <div class="unit-item">
                         <label>Drawdown (s)</label>
@@ -1872,7 +2017,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             </div>
             
             <div class="settings-card">
-                <h4>⏱️ Time Units</h4>
+                <h4>Time Units</h4>
                 <div class="unit-grid">
                     <div class="unit-item">
                         <label>Time (t)</label>
@@ -1898,7 +2043,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             </div>
             
             <div class="settings-card">
-                <h4>💧 Flow Rate Units</h4>
+                <h4>Flow Rate Units</h4>
                 <div class="unit-grid">
                     <div class="unit-item">
                         <label>Pumping Rate (Q)</label>
@@ -1922,7 +2067,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             </div>
             
             <div class="settings-card">
-                <h4>📊 Result / Output Units</h4>
+                <h4>Result / Output Units</h4>
                 <div class="unit-grid">
                     <div class="unit-item">
                         <label>Transmissivity (T)</label>
@@ -1963,7 +2108,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             </div>
             
             <div class="settings-card">
-                <h4>📍 Coordinate Units</h4>
+                <h4>Coordinate Units</h4>
                 <div class="unit-grid">
                     <div class="unit-item">
                         <label>Coordinate System</label>
@@ -1980,7 +2125,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             
             <!-- Unit Preview -->
             <div class="settings-card">
-                <h4>👁️ Current Unit Preview</h4>
+                <h4>Current Unit Preview</h4>
                 <p style="font-size:.75rem;color:var(--text2);margin-bottom:12px">ตัวอย่างการแสดงผลตามหน่วยที่เลือก</p>
                 <div class="preview-grid" id="unitPreviewGrid">
                     <!-- Populated by JS -->
@@ -1989,7 +2134,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             
             <!-- Conversion Helper -->
             <div class="settings-card">
-                <h4>🔄 Quick Unit Converter</h4>
+                <h4>Quick Unit Converter</h4>
                 <div class="form-row" style="margin-bottom:10px">
                     <div class="form-group">
                         <label>Value</label>
@@ -2074,18 +2219,18 @@ OW-02,ow,669834.17,1530713.57</pre>
 
         <!-- ============ SINGLE WELL ANALYSIS (NO OBS WELL) ============ -->
         <div class="page" id="singlewellPage">
-            <div class="page-header"><h2>🔧 Single Well Analysis (No Observation Well)</h2><p>วิเคราะห์จากบ่อสูบตัวเดียว — Specific Capacity, Jacob Correction, Transmissivity Estimation | หลายวิธี Curve Fitting</p></div>
+            <div class="page-header"><h2>Single Well Analysis (No Observation Well)</h2><p>วิเคราะห์จากบ่อสูบตัวเดียว — Specific Capacity, Jacob Correction, Transmissivity Estimation | หลายวิธี Curve Fitting</p></div>
             <div style="font-size:.68rem;color:var(--text3);margin:-6px 0 10px">📐 หน้านี้ใช้หน่วย SI คงที่ (m, m³/day, นาที) ไม่เปลี่ยนตาม Unit Settings</div>
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="calcSingleWell()">🧮 Calculate</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('singlewell')">📈 Export Chart</button>
-                <button class="btn btn-sm btn-secondary" onclick="loadSingleWellSample()">📋 Sample</button>
-                <button class="btn btn-sm btn-secondary" onclick="clearSWData()">🗑️ Clear</button>
+                <button class="btn btn-sm btn-primary" onclick="calcSingleWell()">Calculate</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('singlewell')">Export Chart</button>
+                <button class="btn btn-sm btn-secondary" onclick="loadSingleWellSample()">Sample</button>
+                <button class="btn btn-sm btn-secondary" onclick="clearSWData()">Clear</button>
             </div>
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">⚙️ Well & Aquifer Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Well & Aquifer Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Pumping Rate Q<span class="unit">m³/day</span></label><input type="number" id="sw_Q" value="500" onchange="calcSingleWell()"></div>
                             <div class="form-group"><label>Well Radius rw<span class="unit">m</span></label><input type="number" id="sw_rw" value="0.15" step="0.01" onchange="calcSingleWell()"></div>
@@ -2117,15 +2262,15 @@ OW-02,ow,669834.17,1530713.57</pre>
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📊 Drawdown Data (at pumping well)</div>
+                            <div class="card-title">Drawdown Data (at pumping well)</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('swFileInput').click()">📤 Import</button>
+                                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('swFileInput').click()">Import</button>
                                 <input type="file" id="swFileInput" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importSWData(this)">
                             </div>
                         </div>
                         <div class="data-type-toggle" style="margin-bottom:8px">
-                            <button class="active" id="sw_modeDD" onclick="setSWInputMode('dd')">📉 Time + Drawdown</button>
-                            <button id="sw_modeWL" onclick="setSWInputMode('wl')">💧 Time + Water Level</button>
+                            <button class="active" id="sw_modeDD" onclick="setSWInputMode('dd')">Time + Drawdown</button>
+                            <button id="sw_modeWL" onclick="setSWInputMode('wl')">Time + Water Level</button>
                         </div>
                         <div id="sw_wlNote" style="display:none;font-size:.65rem;color:var(--text3);margin-bottom:6px">💡 Drawdown = Water Level − SWL (คำนวณอัตโนมัติ)</div>
                         <div class="table-wrap" style="max-height:250px;overflow-y:auto">
@@ -2144,7 +2289,7 @@ OW-02,ow,669834.17,1530713.57</pre>
                 <div>
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📈 Drawdown vs Time</div>
+                            <div class="card-title">Drawdown vs Time</div>
                             <div style="display:flex;gap:4px;align-items:center">
                                 <select id="sw_plotType" onchange="calcSingleWell()" style="font-size:.6rem;padding:2px 4px;background:var(--input);border:1px solid var(--border);color:var(--text);border-radius:3px">
                                     <option value="semilog">Semi-Log (log t vs s)</option>
@@ -2159,9 +2304,9 @@ OW-02,ow,669834.17,1530713.57</pre>
                     </div>
                     <div class="card" id="sw_sliderPanel">
                         <div class="card-header">
-                            <div class="card-title">🎛️ Curve Fitting — Manual Adjust</div>
+                            <div class="card-title">Curve Fitting — Manual Adjust</div>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-primary" onclick="swAutoFit()">🤖 Auto Fit</button>
+                                <button class="btn btn-sm btn-primary" onclick="swAutoFit()">Auto Fit</button>
                             </div>
                         </div>
                         <div style="font-size:.65rem;color:var(--text3);margin-bottom:8px">ลาก slider เพื่อปรับเส้น fit ด้วยตนเอง — กด Auto Fit เพื่อกลับสู่ค่าที่ดีที่สุดอัตโนมัติ</div>
@@ -2179,7 +2324,7 @@ OW-02,ow,669834.17,1530713.57</pre>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🎯 Results</div></div>
+                        <div class="card-header"><div class="card-title">Results</div></div>
                         <div class="results-grid" style="grid-template-columns:1fr 1fr">
                             <div class="result-box hl"><div class="label">Specific Capacity (Q/s)</div><div class="value" id="sw_SC">-</div><div class="runit">m³/day/m</div></div>
                             <div class="result-box hl"><div class="label">Max Drawdown</div><div class="value" id="sw_maxDD">-</div><div class="runit">m</div></div>
@@ -2192,7 +2337,7 @@ OW-02,ow,669834.17,1530713.57</pre>
                         </div>
                     </div>
                     <div class="method-box">
-                        <h4>🔧 Single Well Methods — สมการที่ใช้</h4>
+                        <h4>Single Well Methods — สมการที่ใช้</h4>
                         <div class="formula">Specific Capacity: Sc = Q / s<sub>max</sub></div>
                         <div class="formula">Logan (1964): T ≈ 1.22 × Q / s<sub>max</sub></div>
                         <div class="formula">Cooper-Jacob: T = 2.3Q / (4π Δs)&emsp;,&emsp;S = 2.25 T t₀ / r²</div>
@@ -2203,7 +2348,7 @@ OW-02,ow,669834.17,1530713.57</pre>
 
                     <!-- Parameter Description Section -->
                     <div class="card" style="margin-top:12px">
-                        <div class="card-header"><div class="card-title">📖 คำอธิบาย Well & Aquifer Parameters</div></div>
+                        <div class="card-header"><div class="card-title">คำอธิบาย Well & Aquifer Parameters</div></div>
                         <div style="font-size:.78rem;line-height:1.7;color:var(--text2)">
                             <table style="width:100%;border-collapse:collapse;font-size:.78rem">
                                 <tr style="border-bottom:1px solid var(--border)">
@@ -2252,17 +2397,17 @@ OW-02,ow,669834.17,1530713.57</pre>
 
         <!-- ============ SLUG TEST ============ -->
         <div class="page" id="slugtestPage">
-            <div class="page-header"><h2>💉 Slug Test Analysis</h2><p>Hvorslev Method & Bouwer-Rice Method — ทดสอบค่า K จาก Slug Test / Bail Test</p></div>
+            <div class="page-header"><h2>Slug Test Analysis</h2><p>Hvorslev Method & Bouwer-Rice Method — ทดสอบค่า K จาก Slug Test / Bail Test</p></div>
             <div style="font-size:.68rem;color:var(--text3);margin:-6px 0 10px">📐 หน้านี้ใช้หน่วย SI คงที่ (m, วินาที) ไม่เปลี่ยนตาม Unit Settings</div>
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="calcSlugTest()">🧮 Calculate</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('slugtest')">📈 Export</button>
-                <button class="btn btn-sm btn-secondary" onclick="loadSlugSample()">📋 Sample</button>
+                <button class="btn btn-sm btn-primary" onclick="calcSlugTest()">Calculate</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('slugtest')">Export</button>
+                <button class="btn btn-sm btn-secondary" onclick="loadSlugSample()">Sample</button>
             </div>
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">⚙️ Well Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Well Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Casing Radius rc<span class="unit">m</span></label><input type="number" id="slug_rc" value="0.051" step="0.001" onchange="calcSlugTest()"></div>
                             <div class="form-group"><label>Screen Radius rs<span class="unit">m</span></label><input type="number" id="slug_rs" value="0.051" step="0.001" onchange="calcSlugTest()"></div>
@@ -2285,7 +2430,7 @@ OW-02,ow,669834.17,1530713.57</pre>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 Recovery Data (H/H₀ vs Time)</div></div>
+                        <div class="card-header"><div class="card-title">Recovery Data (H/H₀ vs Time)</div></div>
                         <div class="table-wrap" style="max-height:280px;overflow-y:auto">
                             <table class="data-table"><thead><tr><th>#</th><th>Time (sec)</th><th>H (m)</th><th></th></tr></thead>
                             <tbody id="slugBody"></tbody></table>
@@ -2298,12 +2443,12 @@ OW-02,ow,669834.17,1530713.57</pre>
                 </div>
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📈 ln(H/H₀) vs Time</div></div>
+                        <div class="card-header"><div class="card-title">ln(H/H₀) vs Time</div></div>
                         <div class="chart-container" style="height:280px"><canvas id="slugChart"></canvas></div>
                         <div class="chart-hint">เส้นตรง fit ผ่านข้อมูล — ความชัน = -1/T₀ (Hvorslev) หรือ slope สำหรับ Bouwer-Rice</div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🎯 Results</div></div>
+                        <div class="card-header"><div class="card-title">Results</div></div>
                         <div class="results-grid" style="grid-template-columns:1fr 1fr">
                             <div class="result-item"><div class="result-label">K (Hvorslev)</div><div class="result-value" id="slug_Kh">-</div></div>
                             <div class="result-item"><div class="result-label">K (Bouwer-Rice)</div><div class="result-value" id="slug_Kb">-</div></div>
@@ -2314,7 +2459,7 @@ OW-02,ow,669834.17,1530713.57</pre>
                         </div>
                     </div>
                     <div class="method-box">
-                        <h4>💉 Slug Test Methods</h4>
+                        <h4>Slug Test Methods</h4>
                         <div class="formula">Hvorslev: K = r²c × ln(Le/rs) / (2 × Le × T₀)</div>
                         <div class="formula">T₀ = time when H/H₀ = 0.37 (from ln plot)</div>
                         <div class="formula">Bouwer-Rice: K = [r²c × ln(Re/rw)] / (2Le) × (1/t) × ln(H₀/H)</div>
@@ -2326,17 +2471,17 @@ OW-02,ow,669834.17,1530713.57</pre>
 
         <!-- ============ UNCONFINED AQUIFER ============ -->
         <div class="page" id="unconfinedPage">
-            <div class="page-header"><h2>🌊 Unconfined Aquifer Analysis</h2><p>Neuman (1975) Type Curve — Delayed Yield / Gravity Drainage | Jacob Correction</p></div>
+            <div class="page-header"><h2>Unconfined Aquifer Analysis</h2><p>Neuman (1975) Type Curve — Delayed Yield / Gravity Drainage | Jacob Correction</p></div>
             <div style="font-size:.68rem;color:var(--text3);margin:-6px 0 10px">📐 หน้านี้ใช้หน่วย SI คงที่ (m, m³/day, นาที) ไม่เปลี่ยนตาม Unit Settings</div>
             <div class="toolbar">
-                <button class="btn btn-sm btn-primary" onclick="calcUnconfined()">🧮 Calculate</button>
-                <button class="btn btn-sm btn-success" onclick="exportChart('unconfined')">📈 Export</button>
-                <button class="btn btn-sm btn-secondary" onclick="loadUnconfinedSample()">📋 Sample</button>
+                <button class="btn btn-sm btn-primary" onclick="calcUnconfined()">Calculate</button>
+                <button class="btn btn-sm btn-success" onclick="exportChart('unconfined')">Export</button>
+                <button class="btn btn-sm btn-secondary" onclick="loadUnconfinedSample()">Sample</button>
             </div>
             <div class="grid-2">
                 <div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">⚙️ Parameters</div></div>
+                        <div class="card-header"><div class="card-title">Parameters</div></div>
                         <div class="form-row">
                             <div class="form-group"><label>Q (Pumping Rate)<span class="unit">m³/day</span></label><input type="number" id="unc_Q" value="500" onchange="calcUnconfined()"></div>
                             <div class="form-group"><label>r (Distance)<span class="unit">m</span></label><input type="number" id="unc_r" value="30" onchange="calcUnconfined()"></div>
@@ -2357,8 +2502,8 @@ OW-02,ow,669834.17,1530713.57</pre>
                     </div>
                     <div class="card" id="unc_neumanPanel">
                         <div class="card-header">
-                            <div class="card-title">🎯 Neuman Curve Fitting</div>
-                            <button class="btn btn-sm btn-primary" onclick="autoFitUnconfinedUI()">🤖 Auto Fit</button>
+                            <div class="card-title">Neuman Curve Fitting</div>
+                            <button class="btn btn-sm btn-primary" onclick="autoFitUnconfinedUI()">Auto Fit</button>
                         </div>
                         <div class="slider-group"><div class="slider-header"><label>Transmissivity T</label><span class="slider-value" id="unc_sl_T_val">-</span></div><input type="range" id="unc_sl_T" min="-2" max="5" value="2.3" step="0.0001" oninput="calcUnconfined()"></div>
                         <div class="slider-group"><div class="slider-header"><label>Storativity S (early)</label><span class="slider-value" id="unc_sl_S_val">-</span></div><input type="range" id="unc_sl_S" min="-7" max="-1" value="-3" step="0.0001" oninput="calcUnconfined()"></div>
@@ -2366,7 +2511,7 @@ OW-02,ow,669834.17,1530713.57</pre>
                         <div class="slider-group"><div class="slider-header"><label>β = r²Kz/(b²Kr)</label><span class="slider-value" id="unc_sl_beta_val">-</span></div><input type="range" id="unc_sl_beta" min="-4" max="1.5" value="-2" step="0.0001" oninput="calcUnconfined()"></div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">📊 Time-Drawdown Data</div></div>
+                        <div class="card-header"><div class="card-title">Time-Drawdown Data</div></div>
                         <div class="table-wrap" style="max-height:250px;overflow-y:auto">
                             <table class="data-table"><thead><tr><th>#</th><th>Time (min)</th><th>Drawdown (m)</th><th>s' (corrected)</th><th></th></tr></thead>
                             <tbody id="uncBody"></tbody></table>
@@ -2380,14 +2525,14 @@ OW-02,ow,669834.17,1530713.57</pre>
                 <div>
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">📈 Time-Drawdown Plot</div>
+                            <div class="card-title">Time-Drawdown Plot</div>
                             <label style="font-size:.6rem;display:flex;align-items:center;gap:3px;color:var(--text3)"><input type="checkbox" id="unc_showCorrected" checked onchange="calcUnconfined()"> Show corrected s'</label>
                         </div>
                         <div class="chart-container" style="height:300px"><canvas id="uncChart"></canvas></div>
                         <div class="chart-hint">Neuman: เส้นชมพู = ผล fit, เส้นประ = Theis ช่วงต้น (S) และช่วงปลาย (Sy)</div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><div class="card-title">🎯 Results</div></div>
+                        <div class="card-header"><div class="card-title">Results</div></div>
                         <div class="results-grid" style="grid-template-columns:1fr 1fr">
                             <div class="result-item"><div class="result-label">Transmissivity T</div><div class="result-value" id="unc_T">-</div></div>
                             <div class="result-item"><div class="result-label">Hydraulic Conductivity K</div><div class="result-value" id="unc_K">-</div></div>
@@ -2401,7 +2546,7 @@ OW-02,ow,669834.17,1530713.57</pre>
                         </div>
                     </div>
                     <div class="method-box">
-                        <h4>🌊 Unconfined Aquifer Methods</h4>
+                        <h4>Unconfined Aquifer Methods</h4>
                         <div class="formula">Jacob Correction: s' = s − s²/(2b)</div>
                         <div class="formula">Cooper-Jacob (late-time): T = 2.3Q/(4πΔs') , Sy = 2.25Tt₀/r²</div>
                         <div class="formula">Neuman: s = Q/(4πT) × W(uA,uB,β)</div>
@@ -2429,12 +2574,17 @@ OW-02,ow,669834.17,1530713.57</pre>
             </p>
             
             <div style="margin-top:10px;">
-                <button class="btn btn-sm btn-secondary" onclick="runQualityCheck()">🔍 Run Full Quality Check</button>
-                <button class="btn btn-sm btn-success" onclick="saveProject()">💾 Save Project</button>
-                <button class="btn btn-sm btn-primary" onclick="showReportConfig()">📊 Generate Report</button>
+                <button class="btn btn-sm btn-secondary" onclick="runQualityCheck()">Run Full Quality Check</button>
+                <button class="btn btn-sm btn-success" onclick="saveProject()">Save Project</button>
+                <button class="btn btn-sm btn-primary" onclick="showReportConfig()">Generate Report</button>
             </div>
         </footer>
     </main>
+    <footer class="statusbar">
+        <span id="statusMethod">Theis Type Curve</span>
+        <span id="statusUnits"></span>
+        <span class="sb-right">© 2025–2026 Anirut Ladawadee, Apache-2.0</span>
+    </footer>
 </div>
 
 <!-- ============ REPORT CONFIG MODAL ============ -->
@@ -2442,12 +2592,12 @@ OW-02,ow,669834.17,1530713.57</pre>
     <div class="modal-content" style="max-width:780px;max-height:90vh">
         <div class="modal-header">
             <h3>📋 ตั้งค่ารายงาน — Report Configuration</h3>
-            <button class="modal-close" onclick="closeReportConfig()">✕</button>
+            <button class="modal-close" onclick="closeReportConfig()" title="ปิด" aria-label="ปิด">✕</button>
         </div>
         <div class="modal-body">
             <!-- Project Info Section -->
             <div style="background:var(--input);border-left:3px solid var(--cyan);padding:12px;border-radius:4px;margin-bottom:14px">
-                <h4 style="margin:0 0 10px 0;color:var(--cyan);font-size:.95rem">🏗️ ข้อมูลโปรเจกต์ (Project Information)</h4>
+                <h4 style="margin:0 0 10px 0;color:var(--cyan);font-size:.95rem">ข้อมูลโปรเจกต์ (Project Information)</h4>
                 <div class="form-row">
                     <div class="form-group">
                         <label>ชื่อโปรเจกต์ (Project Name)</label>
@@ -2500,10 +2650,10 @@ OW-02,ow,669834.17,1530713.57</pre>
             
             <!-- Section Selector -->
             <div style="background:var(--input);border-left:3px solid var(--green);padding:12px;border-radius:4px;margin-bottom:14px">
-                <h4 style="margin:0 0 8px 0;color:var(--green);font-size:.95rem">✅ เลือกหัวข้อที่ต้องการส่งออก (Select Sections)</h4>
+                <h4 style="margin:0 0 8px 0;color:var(--green);font-size:.95rem">เลือกหัวข้อที่ต้องการส่งออก (Select Sections)</h4>
                 <div style="display:flex;gap:6px;margin-bottom:8px">
-                    <button class="btn btn-sm btn-secondary" onclick="toggleAllSections(true)" type="button">✓ เลือกทั้งหมด</button>
-                    <button class="btn btn-sm btn-secondary" onclick="toggleAllSections(false)" type="button">✗ ไม่เลือก</button>
+                    <button class="btn btn-sm btn-secondary" onclick="toggleAllSections(true)" type="button">เลือกทั้งหมด</button>
+                    <button class="btn btn-sm btn-secondary" onclick="toggleAllSections(false)" type="button">ไม่เลือก</button>
                 </div>
                 <div id="rep_sectionList" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:.78rem">
                     <!-- Populated by JS -->
@@ -2512,7 +2662,7 @@ OW-02,ow,669834.17,1530713.57</pre>
             
             <!-- Output Options -->
             <div style="background:var(--input);border-left:3px solid var(--orange);padding:12px;border-radius:4px">
-                <h4 style="margin:0 0 8px 0;color:var(--orange);font-size:.95rem">⚙️ ตัวเลือกการส่งออก (Output Options)</h4>
+                <h4 style="margin:0 0 8px 0;color:var(--orange);font-size:.95rem">ตัวเลือกการส่งออก (Output Options)</h4>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.78rem">
                     <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="rep_includeCharts" checked> รวมกราฟ (Include Charts)</label>
                     <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="rep_includeFormulas" checked> รวมสมการ (Include Formulas)</label>
@@ -2522,9 +2672,9 @@ OW-02,ow,669834.17,1530713.57</pre>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-sm btn-secondary" onclick="closeReportConfig()">ยกเลิก</button>
-            <button class="btn btn-sm btn-success" onclick="saveReportConfig()">💾 บันทึกการตั้งค่า</button>
-            <button class="btn btn-sm btn-primary" onclick="generateReportFromConfig()">📄 สร้างรายงาน</button>
+            <button class="btn btn-sm btn-secondary" onclick="closeReportConfig()" title="ปิด" aria-label="ปิด">ยกเลิก</button>
+            <button class="btn btn-sm btn-success" onclick="saveReportConfig()">บันทึกการตั้งค่า</button>
+            <button class="btn btn-sm btn-primary" onclick="generateReportFromConfig()">สร้างรายงาน</button>
         </div>
     </div>
 </div>
@@ -2805,7 +2955,7 @@ function calculateAdditionalParameters() {
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="document.getElementById('calcModal').remove()">Close</button>
-                <button class="btn btn-primary" onclick="copyAdditionalParameters()">📋 Copy</button>
+                <button class="btn btn-primary" onclick="copyAdditionalParameters()">Copy</button>
             </div>
         </div>`;
     document.body.appendChild(modal);
@@ -2958,10 +3108,10 @@ function calcUnconfined() {
         type: 'scatter', data: { datasets },
         options: { responsive: true, maintainAspectRatio: false, animation: false,
             scales: {
-                x: { type: 'logarithmic', title: { display: true, text: 'Time (min)' }, grid: { color: 'rgba(255,255,255,.1)' } },
+                x: { type: 'logarithmic', title: { display: true, text: 'Time (min)' }, grid: { color: chartGrid() } },
                 y: method === 'neuman'
-                    ? { type: 'logarithmic', title: { display: true, text: 'Drawdown (m)' }, grid: { color: 'rgba(255,255,255,.1)' } }
-                    : { title: { display: true, text: 'Drawdown (m)' }, reverse: true, grid: { color: 'rgba(255,255,255,.1)' } }
+                    ? { type: 'logarithmic', title: { display: true, text: 'Drawdown (m)' }, grid: { color: chartGrid() } }
+                    : { title: { display: true, text: 'Drawdown (m)' }, reverse: true, grid: { color: chartGrid() } }
             },
             plugins: { legend: { display: true, position: 'bottom', labels: { font: { size: 8 } } } }
         }
@@ -3207,7 +3357,7 @@ function renderObsWellsList() {
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
                 <input type="text" value="${w.name}" style="flex:1;padding:4px 8px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem" onchange="obsWells[${i}].name=this.value;updateMultiWell()">
                 <div class="form-group" style="margin:0;flex:0 0 100px"><label style="font-size:.6rem">r (${getUnitLabel(currentUnits.distance)})</label><input type="number" value="${w.r}" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem" onchange="obsWells[${i}].r=parseFloat(this.value)||50;updateMultiWell()"></div>
-                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('mwFile${i}').click()" style="font-size:.65rem">📤</button>
+                <button class="btn btn-sm btn-secondary" onclick="document.getElementById('mwFile${i}').click()" style="font-size:.65rem" title="นำเข้า" aria-label="นำเข้า">Import</button>
                 <input type="file" id="mwFile${i}" accept=".xlsx,.xls,.csv,.txt" style="display:none" onchange="importMWData(this,${i})">
                 <button class="del-btn" onclick="removeObsWell(${i})">×</button>
             </div>
@@ -3429,10 +3579,65 @@ function autoFitMultiWell() {
 function showPage(page, el) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    el.classList.add('active');
+    if (el) el.classList.add('active');
     document.getElementById(page + 'Page').classList.add('active');
+    const label = el ? (el.querySelector('span')?.textContent || '') : '';
+    ['docTitle', 'statusMethod'].forEach(id => { const t = document.getElementById(id); if (t && label) t.textContent = label; });
+    if (page !== 'map' && typeof map !== 'undefined') { /* the map resizes when it is shown again */ }
+    window.dispatchEvent(new Event('resize'));
     if (page === 'map') setTimeout(() => { if (!map) initMap(); else map.invalidateSize(); }, 100);
 }
+
+// ============ RIBBON ============
+function switchRibbonTab(name) {
+    document.querySelectorAll('.rb-tab').forEach(t => {
+        const on = t.dataset.tab === name;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.rb-panel').forEach(p => p.classList.toggle('active', p.dataset.ribbon === name));
+    document.querySelector('.chrome').classList.remove('collapsed');
+    document.getElementById('ribbonCollapse').setAttribute('aria-expanded', 'true');
+}
+function toggleRibbon() {
+    const collapsed = document.querySelector('.chrome').classList.toggle('collapsed');
+    document.getElementById('ribbonCollapse').setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    try { localStorage.setItem('aquaterraRibbon', collapsed ? 'collapsed' : 'open'); } catch (e) {}
+    window.dispatchEvent(new Event('resize'));
+}
+function showAbout() {
+    const nav = [...document.querySelectorAll('.nav-item')].find(n => (n.getAttribute('onclick') || '').includes("'settings'"));
+    showPage('settings', nav);
+    const page = document.getElementById('settingsPage');
+    page.querySelector('.footer')?.scrollIntoView();
+}
+function updateStatusUnits() {
+    const el = document.getElementById('statusUnits');
+    if (el && typeof currentUnits !== 'undefined') {
+        const L = getUnitLabel;
+        el.textContent = `Q ${L(currentUnits.Q)}, s ${L(currentUnits.drawdown)}, t ${L(currentUnits.time)}, T ${L(currentUnits.T)}`;
+    }
+}
+function initRibbonUI() {
+    // The credits and version history live with the settings
+    const footer = document.querySelector('.main > .footer');
+    if (footer) document.getElementById('settingsPage').appendChild(footer);
+    // Three panes, as in ARutGIS: inputs on the left, plots in the middle, fitting and results on the right
+    document.querySelectorAll('.page > .grid-2 > div:last-child').forEach(col => {
+        const center = document.createElement('div'), dock = document.createElement('div');
+        center.className = 'stage-center'; dock.className = 'stage-dock';
+        [...col.previousElementSibling.children].forEach(c => { if (c.querySelector('input[type=range], .results-grid')) dock.appendChild(c); });
+        [...col.children].forEach(c => (c.querySelector('canvas, #mapContainer') ? center : dock).appendChild(c));
+        const stage = document.createElement('div');
+        stage.className = 'stage' + (dock.children.length && center.children.length ? '' : ' no-dock');
+        if (center.children.length) stage.appendChild(center);
+        if (dock.children.length) stage.appendChild(dock);
+        col.appendChild(stage);
+    });
+    try { if (localStorage.getItem('aquaterraRibbon') === 'collapsed') toggleRibbon(); } catch (e) {}
+    updateStatusUnits();
+}
+const chartGrid = () => document.documentElement.classList.contains('light') ? 'rgba(31,38,48,.10)' : 'rgba(255,255,255,.10)';
 
 // ============ NOTIFICATION SYSTEM ============
 function showNotification(message, type = 'info', duration = 3000) {
@@ -3448,33 +3653,30 @@ function showNotification(message, type = 'info', duration = 3000) {
 
 
 // ============ THEME TOGGLE ============
+function applyChartTheme(isLight) {
+    Chart.defaults.color = isLight ? '#5E6977' : '#9AA4B1';
+    Chart.defaults.borderColor = isLight ? '#DDE2E9' : '#343B45';
+}
+
 function toggleTheme() {
     document.documentElement.classList.toggle('light');
     const isLight = document.documentElement.classList.contains('light');
-    const btn = document.getElementById('themeToggleBtn');
-    if (btn) btn.innerHTML = isLight ? '☀️ Light Mode (Click → Dark)' : '🌙 Dark / ☀️ Light';
-    // Update chart colors
-    try { 
-        Chart.defaults.color = isLight ? '#334155' : '#94a3b8';
-        Chart.defaults.borderColor = isLight ? '#e2e8f0' : '#334155';
-        // Redraw all charts
+    try {
+        applyChartTheme(isLight);
         destroyAllCharts();
-        updateTheis(); updateJacob(); updateRecovery(); updateStepAnalysis();
+        ['updateTheis', 'updateJacob', 'updateRecovery', 'updateStepAnalysis', 'updateMultiWell', 'updateHantush',
+         'updateDistDD', 'calcSingleWell', 'calcSlugTest', 'calcUnconfined'].forEach(fn => { try { window[fn](); } catch (e) {} });
+        if (spWells.length) calcSuperposition();
     } catch(e) {}
     try { localStorage.setItem('pumpTestTheme', isLight ? 'light' : 'dark'); } catch(e) {}
 }
 
 function loadTheme() {
-    try {
-        const saved = localStorage.getItem('pumpTestTheme');
-        if (saved === 'light') {
-            document.documentElement.classList.add('light');
-            const btn = document.getElementById('themeToggleBtn');
-            if (btn) btn.innerHTML = '☀️ Light Mode (Click → Dark)';
-            Chart.defaults.color = '#334155';
-            Chart.defaults.borderColor = '#e2e8f0';
-        }
-    } catch(e) {}
+    let saved = null;
+    try { saved = localStorage.getItem('pumpTestTheme'); } catch(e) {}
+    const isLight = saved !== 'dark'; // light unless the person chose dark
+    document.documentElement.classList.toggle('light', isLight);
+    try { applyChartTheme(isLight); } catch(e) {}
 }
 
 // ============ UNDO / REDO SYSTEM ============
@@ -4219,7 +4421,7 @@ function showRadiusCalc() {
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="document.getElementById('roiModal').remove()">Close</button>
-                <button class="btn btn-primary" onclick="copyROIResults()">📋 Copy</button>
+                <button class="btn btn-primary" onclick="copyROIResults()">Copy</button>
             </div>
         </div>
     `;
@@ -6090,7 +6292,7 @@ function exportSPReport() {
     <h1>🔀 Superposition Analysis Report</h1>
     <p>Generated: ${new Date().toLocaleString('th-TH')} | Coordinate: ${coordSys}</p>
     
-    <h2>⚙️ Parameters</h2>
+    <h2>Parameters</h2>
     <div class="param-grid">
         <div class="param-box"><label>Transmissivity (T)</label><div class="val">${T} m²/day</div></div>
         <div class="param-box"><label>Storativity (S)</label><div class="val">${S}</div></div>
@@ -6098,22 +6300,22 @@ function exportSPReport() {
         <div class="param-box"><label>Analysis Duration</label><div class="val">${tMax} min</div></div>
     </div>
     
-    <h2>📊 Results</h2>
+    <h2>Results</h2>
     <div class="param-grid">
         <div class="param-box"><label>Total Drawdown (final)</label><div class="val" style="color:#dc2626">${finalDD} m</div></div>
         <div class="param-box"><label>Max Drawdown</label><div class="val" style="color:#ea580c">${maxDD} m</div></div>
     </div>
     
-    <h2>🏗️ Wells (${spWells.length})</h2>
+    <h2>Wells (${spWells.length})</h2>
     <table><thead><tr><th>Name</th><th>X/E</th><th>Y/N</th><th>Q (m³/d)</th><th>t start (min)</th></tr></thead><tbody>${wellsTable}</tbody></table>
     
-    <h2>📈 Drawdown vs Time</h2>
+    <h2>Drawdown vs Time</h2>
     ${chartImg?`<img src="${chartImg}">`:'<p>No chart</p>'}
     
-    <h2>🗺️ Contour Map</h2>
+    <h2>Contour Map</h2>
     ${contourImg?`<img src="${contourImg}">`:'<p>No map</p>'}
     
-    ${crossImg?`<h2>🎯 Cross-Section</h2><img src="${crossImg}">`:''}
+    ${crossImg?`<h2>Cross-Section</h2><img src="${crossImg}">`:''}
     
     <div class="footer">🌍 AquaTerra v4.1 | © 2025–2026 Anirut Ladawadee | Superposition Analysis Report | ${new Date().getFullYear()}</div>
     </body></html>`;
@@ -6497,7 +6699,7 @@ function calcSingleWell() {
     }
 
     // Scales
-    const gc='rgba(255,255,255,.08)',fc={size:11},cc='#94a3b8';
+    const gc=chartGrid(),fc={size:11},cc='#94a3b8';
     let xScale,yScale;
     if(plotType==='semilog'){
         xScale={type:'logarithmic',title:{display:true,text:'Time (min)',color:cc,font:fc},grid:{color:gc}};
@@ -6701,6 +6903,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize unit system
     initUnitSystem();
+    initRibbonUI();
 
     // Restore the pages not covered by loadFromLocalStorage (inputs are stored in the saved units)
     try {
@@ -9820,7 +10023,7 @@ function compareMethods() {
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="document.getElementById('compareModal').remove()">Close</button>
-                <button class="btn btn-primary" onclick="copyComparisonResults()">📋 Copy</button>
+                <button class="btn btn-primary" onclick="copyComparisonResults()">Copy</button>
             </div>
         </div>
     `;
@@ -10188,7 +10391,7 @@ function runQualityCheck() {
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="document.getElementById('fullQualityModal').remove()">Close</button>
                 <button class="btn btn-primary" onclick="copyFullQualityReport()">Copy Full Report</button>
-                <button class="btn btn-success" onclick="fixCommonIssues()">🛠️ Fix Common Issues</button>
+                <button class="btn btn-success" onclick="fixCommonIssues()">Fix Common Issues</button>
             </div>
         </div>
     `;
@@ -10396,8 +10599,8 @@ function renderWellList() {
                     WGS84: <span>${w.lat.toFixed(6)}°, ${w.lng.toFixed(6)}°</span>
                 </div>
             </div>
-            <button class="btn btn-sm btn-secondary" onclick="showWellDetail('${w.id}')" title="Detail">📋</button>
-            <button class="btn btn-sm btn-secondary" onclick="focusWell('${w.id}')" title="Focus">📍</button>
+            <button class="btn btn-sm btn-secondary" onclick="showWellDetail('${w.id}')" title="Detail">Detail</button>
+            <button class="btn btn-sm btn-secondary" onclick="focusWell('${w.id}')" title="Focus">Focus</button>
             <button class="btn btn-sm btn-secondary" onclick="deleteWell('${w.id}')" style="color:var(--red)" title="Delete">×</button>
         </div>
     `}).join('');
@@ -10985,6 +11188,7 @@ function shiftLogSlider(id, factor) {
 }
 
 function applyUnits() {
+    setTimeout(updateStatusUnits, 0);
     // Save OLD unit settings before update
     const oldUnits = { ...currentUnits };
     
@@ -11805,7 +12009,7 @@ function showWellDetail(id) {
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="document.getElementById('wellDetailModal').remove()">Close</button>
-                <button class="btn btn-primary" onclick="copyWellCoords('${w.id}')">📋 Copy Coords</button>
+                <button class="btn btn-primary" onclick="copyWellCoords('${w.id}')">Copy Coords</button>
             </div>
         </div>
     `;

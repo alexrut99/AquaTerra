@@ -5,7 +5,10 @@ const nd=require('./ref/neuman_data.json'); const nr=require('./ref/neuman_ref.j
 const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'aquaterra-')); const fx=f=>path.join(__dirname,'fixtures',f);
 let pass=0,fail=0; const ok=(name,cond,info='')=>{cond?pass++:fail++;console.log((cond?'PASS ':'FAIL ')+name+(info?'  → '+info:''))};
 const near=(a,b,tol)=>Math.abs(a-b)/Math.abs(b)<=tol;
-const nav=(page,t)=>page.click(`.nav-item:has-text("${t}")`).then(()=>page.waitForTimeout(200));
+// Ribbon commands sit on tabs: open the tab a command is on, as a person would, then click it.
+const openTabFor=async(page,t)=>{const tab=await page.evaluate(t=>[...document.querySelectorAll('.nav-item')].find(x=>x.textContent.includes(t))?.closest('[data-ribbon]')?.dataset.ribbon,t);if(!tab)throw new Error('no ribbon command: '+t);await page.click(`.rb-tab[data-tab="${tab}"]`);};
+const navClick=async(page,t)=>{await openTabFor(page,t);await page.click(`.nav-item:has-text("${t}")`);};
+const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
 (async()=>{
  const {browser,page,errors,ctx}=await open();
  const ext=[];page.on('request',r=>{if(!r.url().startsWith('file:')&&!r.url().startsWith('data:')&&!r.url().startsWith('blob:'))ext.push(r.url())});
@@ -90,14 +93,14 @@ const nav=(page,t)=>page.click(`.nav-item:has-text("${t}")`).then(()=>page.waitF
  const [dl]=await Promise.all([page.waitForEvent('download'),page.click('#askTextOk')]);
  await dl.saveAs(path.join(tmp,'proj2.alproj')); ok('Save asks name via own dialog',true,dl.suggestedFilename());
  const b=await open();
- const [fc]=await Promise.all([b.page.waitForEvent('filechooser'),b.page.click('.nav-item:has-text("Load Project")')]);
+ const [fc]=await Promise.all([b.page.waitForEvent('filechooser'),navClick(b.page,'Load Project')]);
  await fc.setFiles(path.join(tmp,'proj2.alproj'));await b.page.waitForTimeout(2500);
  const st=()=>({hj_r:document.getElementById('hj_r').value,dd_Q:document.getElementById('dd_Q').value,sp_T:document.getElementById('sp_T').value,sw_Q:document.getElementById('sw_Q').value,slug_Le:document.getElementById('slug_Le').value,slug_Lw:document.getElementById('slug_Lw').value,unc_Q:document.getElementById('unc_Q').value,jacob_t0:document.getElementById('jacob_t0').value,jacobS:document.getElementById('jacob_resS').textContent,sp:spWells.length,sw:swData.length,sl:slugData.length,un:uncData.length,dd:distddData.length,hj:data.hantush.length,mw:obsWells.length});
  const a2=await b.page.evaluate(st);
  ok('Save/Load keeps everything',JSON.stringify(a2)===JSON.stringify(mark),JSON.stringify(a2)===JSON.stringify(mark)?'':JSON.stringify(a2)+' vs '+JSON.stringify(mark));
  ok('Load: no errors',b.errors.length===0,b.errors.join());
  // old project file still loads
- const [fc2]=await Promise.all([b.page.waitForEvent('filechooser'),b.page.click('.nav-item:has-text("Load Project")')]);
+ const [fc2]=await Promise.all([b.page.waitForEvent('filechooser'),navClick(b.page,'Load Project')]);
  await fc2.setFiles(fx('old-format.alproj'));await b.page.waitForTimeout(1500);
  ok('Old-format project still loads',b.errors.length===0&&await b.page.evaluate(()=>data.theis.length>0),b.errors.join());
  await b.browser.close();
@@ -107,7 +110,7 @@ const nav=(page,t)=>page.click(`.nav-item:has-text("${t}")`).then(()=>page.waitF
  ok('Reload keeps everything',JSON.stringify(a3)===JSON.stringify(mark),JSON.stringify(a3)===JSON.stringify(mark)?'':JSON.stringify(a3));
 
  // ---- buttons by real click
- const clk=async(sel,name)=>{const n=errors.length;await page.click(sel);await page.waitForTimeout(400);ok(name,errors.length===n,errors.slice(n).join())};
+ const clk=async(sel,name)=>{const n=errors.length;const m=sel.match(/has-text\("(.+)"\)/);if(m)await navClick(page,m[1]);else await page.click(sel);await page.waitForTimeout(400);ok(name,errors.length===n,errors.slice(n).join())};
  await clk('.nav-item:has-text("Quality Check")','Quality Check opens');
  ok(' one summary only',await page.evaluate(()=>document.querySelectorAll('#fullQualityModal').length===1&&document.querySelectorAll('#qualityModal').length===0));
  await page.evaluate(()=>document.getElementById('fullQualityModal').remove());
@@ -137,8 +140,21 @@ const nav=(page,t)=>page.click(`.nav-item:has-text("${t}")`).then(()=>page.waitF
  for(const [nm,tp] of [['Multi-Well','multiwell'],['Hantush-Jacob','hantush'],['Unconfined','unconfined'],['Slug Test','slugtest'],['Single Well','singlewell']]){
    await nav(page,nm);const [d]=await Promise.all([page.waitForEvent('download',{timeout:4000}).catch(()=>null),page.evaluate(t=>exportChart(t),tp)]);ok('Export chart '+tp,!!d);
  }
+ // Ribbon interface
+ for(const tab of ['analysis','project','tools','view']){await page.click(`.rb-tab[data-tab="${tab}"]`);ok('Ribbon tab '+tab,await page.evaluate(n=>document.querySelector(`.rb-panel[data-ribbon="${n}"]`).offsetHeight>0,tab));}
+ await page.click('.rb-tab[data-tab="analysis"]');
+ await page.click('#ribbonCollapse');ok('Ribbon collapses',await page.evaluate(()=>document.getElementById('ribbon').offsetHeight===0));
+ await page.click('#ribbonCollapse');ok('Ribbon opens again',await page.evaluate(()=>document.getElementById('ribbon').offsetHeight>0));
+ const layout=await page.evaluate(async()=>{const bad=[];for(const n of document.querySelectorAll('.nav-item[onclick*=showPage]')){n.click();await new Promise(r=>setTimeout(r,60));
+   if(document.documentElement.scrollWidth>innerWidth)bad.push(n.innerText+': page overflows');
+   const p=document.querySelector('.page.active');if(p.offsetHeight>innerHeight)bad.push(n.innerText+': page taller than window');
+   p.querySelectorAll('button').forEach(b=>{if(b.offsetParent&&!b.textContent.trim()&&!b.querySelector('svg,img'))bad.push(n.innerText+': empty button '+(b.getAttribute('onclick')||''));});
+ }return bad});
+ ok('Every page fits with labelled buttons',layout.length===0,layout.join(' | '));
+ const dark0=await page.evaluate(()=>{toggleTheme();const d=getComputedStyle(document.body).backgroundColor;toggleTheme();return [d,getComputedStyle(document.body).backgroundColor]});
+ ok('Light and dark themes differ',dark0[0]!==dark0[1],dark0.join(' / '));
  // Report
- await page.click('.nav-item:has-text("Export Report")');await page.waitForTimeout(300);
+ await navClick(page,'Export Report');await page.waitForTimeout(300);
  const cfg=await page.evaluate(()=>[...document.querySelectorAll('#rep_sectionList label')].map(l=>[l.innerText.trim().replace(/^●|○/,''),l.querySelector('span').textContent==='●']));
  ok('Report detects data in all sections',cfg.every(c=>c[1]),cfg.filter(c=>!c[1]).join());
  await page.evaluate(()=>toggleAllSections(true));
