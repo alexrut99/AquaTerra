@@ -1,4 +1,4 @@
-<p align="center"><img src="build/icon.png" width="120" alt="AquaTerra icon"></p>
+<p align="center"><img src="docs/logo.svg" width="120" alt="AquaTerra logo: a water drop with a pumping well and its cone of drawdown"></p>
 <h1 align="center">AquaTerra</h1>
 <p align="center"><b>โปรแกรมวิเคราะห์ Pumping Test ฟรีและโอเพนซอร์ส</b><br>Free and open-source pumping test analysis, for the web and the desktop.</p>
 <p align="center">
