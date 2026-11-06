@@ -1,5 +1,5 @@
 // AquaTerra desktop app: the same page as the website, in its own window, working offline.
-const { app, BrowserWindow, Menu, shell, dialog } = require('electron');
+const { app, BrowserWindow, Menu, shell, dialog, session } = require('electron');
 const path = require('path');
 
 const WEB_DIR = path.join(__dirname, '..', 'web');
@@ -102,6 +102,9 @@ app.whenReady().then(() => {
   createWindow();
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });
+
+// Write the auto-saved session to disk before the app exits
+app.on('before-quit', () => { session.defaultSession.flushStorageData(); });
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

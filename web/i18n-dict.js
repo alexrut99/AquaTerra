@@ -1,6 +1,116 @@
 // Generated list of interface text in English and Thai. {#} is a number, {*} any value.
 window.I18N_DICT=[
 {
+"k": "หน้าหลัก",
+"en": "Home",
+"th": "หน้าหลัก"
+},
+{
+"k": "Home",
+"en": "Home",
+"th": "หน้าหลัก"
+},
+{
+"k": "ข้อมูล",
+"en": "Data",
+"th": "ข้อมูล"
+},
+{
+"k": "New Project",
+"en": "New Project",
+"th": "โปรเจกต์ใหม่"
+},
+{
+"k": "Import Data",
+"en": "Import Data",
+"th": "นำเข้าข้อมูล"
+},
+{
+"k": "Sample Data",
+"en": "Sample Data",
+"th": "ข้อมูลตัวอย่าง"
+},
+{
+"k": "Clear Data",
+"en": "Clear Data",
+"th": "ล้างข้อมูล"
+},
+{
+"k": "Auto Fit",
+"en": "Auto Fit",
+"th": "ปรับอัตโนมัติ"
+},
+{
+"k": "Check Quality",
+"en": "Check Quality",
+"th": "ตรวจคุณภาพ"
+},
+{
+"k": "Export Chart",
+"en": "Export Chart",
+"th": "ส่งออกกราฟ"
+},
+{
+"k": "Copy Results",
+"en": "Copy Results",
+"th": "คัดลอกผลลัพธ์"
+},
+{
+"k": "Undo",
+"en": "Undo",
+"th": "เลิกทำ"
+},
+{
+"k": "Redo",
+"en": "Redo",
+"th": "ทำซ้ำ"
+},
+{
+"k": "สร้างรายงาน",
+"en": "Create Report",
+"th": "สร้างรายงาน"
+},
+{
+"k": "เริ่มงาน",
+"en": "Start",
+"th": "เริ่มงาน"
+},
+{
+"k": "แก้ไข",
+"en": "Edit",
+"th": "แก้ไข"
+},
+{
+"k": "ไฟล์",
+"en": "File",
+"th": "ไฟล์"
+},
+{
+"k": "เปรียบเทียบ",
+"en": "Compare",
+"th": "เปรียบเทียบ"
+},
+{
+"k": "ข้อมูลของหน้านี้",
+"en": "This page's data",
+"th": "ข้อมูลของหน้านี้"
+},
+{
+"k": "ตรวจสอบ",
+"en": "Check",
+"th": "ตรวจสอบ"
+},
+{
+"k": "แบบฟอร์มและบ่อ",
+"en": "Templates and wells",
+"th": "แบบฟอร์มและบ่อ"
+},
+{
+"k": "Start a new project? Unsaved data will be lost.",
+"en": "Start a new project? Unsaved data will be lost.",
+"th": "เริ่มโปรเจกต์ใหม่หรือไม่ ข้อมูลที่ยังไม่บันทึกจะหายไป"
+},
+{
 "k": "Q {*}, s {*}, t {*}, T {*}",
 "en": "Q {*}, s {*}, t {*}, T {*}",
 "th": "Q {*}, s {*}, t {*}, T {*}"
@@ -936,11 +1046,6 @@ window.I18N_DICT=[
 "th": "กำหนดหน่วยเอง"
 },
 {
-"k": "ข้อมูล",
-"en": "Data",
-"th": "ข้อมูล"
-},
-{
 "k": "ข้อมูลดิบจากการตรวจวัด",
 "en": "Raw measured data",
 "th": "ข้อมูลดิบจากการตรวจวัด"
@@ -1109,11 +1214,6 @@ window.I18N_DICT=[
 "k": "ดึงค่า T={*}, S={*} จากผลวิเคราะห์",
 "en": "Loaded T={*}, S={*} from analysis results",
 "th": "ดึงค่า T={*}, S={*} จากผลวิเคราะห์"
-},
-{
-"k": "ตรวจสอบ",
-"en": "Check",
-"th": "ตรวจสอบ"
 },
 {
 "k": "ตัดขวาง",
@@ -1511,11 +1611,6 @@ window.I18N_DICT=[
 "th": "สรุปผลแต่ละบ่อ (ที่จุดสังเกต)"
 },
 {
-"k": "สร้างรายงาน",
-"en": "Create report",
-"th": "สร้างรายงาน"
-},
-{
 "k": "สัมประสิทธิ์การนำน้ำ",
 "en": "Hydraulic conductivity",
 "th": "ค่าการซึมผ่าน"
@@ -1726,11 +1821,6 @@ window.I18N_DICT=[
 "th": "ใช้ได้เมื่อ u < {#} (การประมาณช่วงปลาย)"
 },
 {
-"k": "ไฟล์",
-"en": "File",
-"th": "ไฟล์"
-},
-{
 "k": "ไม่นำมาเฉลี่ย: R² < {#})",
 "en": "Excluded from mean: R² < {#})",
 "th": "ไม่นำมาเฉลี่ย: R² < {#})"
@@ -1931,11 +2021,6 @@ window.I18N_DICT=[
 "th": "วิเคราะห์อัตโนมัติ"
 },
 {
-"k": "Auto Fit",
-"en": "Auto fit",
-"th": "ปรับอัตโนมัติ"
-},
-{
 "k": "Auto Fit All Wells",
 "en": "Auto fit all wells",
 "th": "ปรับอัตโนมัติทุกบ่อ"
@@ -2099,11 +2184,6 @@ window.I18N_DICT=[
 "k": "Check Data Quality",
 "en": "Check data quality",
 "th": "ตรวจสอบคุณภาพข้อมูล"
-},
-{
-"k": "Check Quality",
-"en": "Check quality",
-"th": "ตรวจสอบคุณภาพ"
 },
 {
 "k": "CHECK REQUIRED",
@@ -2274,11 +2354,6 @@ window.I18N_DICT=[
 "k": "Copy Report",
 "en": "Copy report",
 "th": "คัดลอกรายงาน"
-},
-{
-"k": "Copy Results",
-"en": "Copy results",
-"th": "คัดลอกผลลัพธ์"
 },
 {
 "k": "Copy Theis",
@@ -2636,11 +2711,6 @@ window.I18N_DICT=[
 "th": "ส่งออก"
 },
 {
-"k": "Export Chart",
-"en": "Export chart",
-"th": "ส่งออกกราฟ"
-},
-{
 "k": "Export Charts",
 "en": "Export charts",
 "th": "ส่งออกกราฟ"
@@ -2899,11 +2969,6 @@ window.I18N_DICT=[
 "k": "Hemisphere",
 "en": "Hemisphere",
 "th": "ซีกโลก"
-},
-{
-"k": "Home",
-"en": "Home",
-"th": "หน้าหลัก"
 },
 {
 "k": "hours (hr)",
@@ -3836,11 +3901,6 @@ window.I18N_DICT=[
 "th": "ข้อมูลการทดสอบการคืนตัวของน้ำ"
 },
 {
-"k": "Redo",
-"en": "Redo",
-"th": "ทำซ้ำ"
-},
-{
 "k": "Redo (Ctrl+Y)",
 "en": "Redo (Ctrl+Y)",
 "th": "ทำซ้ำ (Ctrl+Y)"
@@ -3969,11 +4029,6 @@ window.I18N_DICT=[
 "k": "Sample",
 "en": "Sample",
 "th": "ตัวอย่าง"
-},
-{
-"k": "Sample Data",
-"en": "Sample data",
-"th": "ข้อมูลตัวอย่าง"
 },
 {
 "k": "Satellite",
@@ -4589,11 +4644,6 @@ window.I18N_DICT=[
 "k": "Unconfined aquifer: S ≈ Sy ≈ {#} – {#}",
 "en": "Unconfined aquifer: S ≈ Sy ≈ {#} – {#}",
 "th": "ชั้นน้ำไม่มีแรงดัน: S ≈ Sy ≈ {#} – {#}"
-},
-{
-"k": "Undo",
-"en": "Undo",
-"th": "เลิกทำ"
 },
 {
 "k": "Undo (Ctrl+Z)",

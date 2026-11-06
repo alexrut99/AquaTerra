@@ -25,7 +25,7 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  ok('W(u,r/B) vs mpmath',Math.max(...fn.H)<1e-5,'max err '+Math.max(...fn.H).toExponential(1));
  ok('Neuman W vs independent solution',Math.max(...fn.N)<0.005,'max err '+Math.max(...fn.N).toExponential(1));
  if(process.env.EXPECT_XLSX) ok('SheetJS version',fn.xlsx===process.env.EXPECT_XLSX,fn.xlsx); else console.log('    SheetJS',fn.xlsx);
- await page.evaluate(()=>showPage('theis',document.querySelector('.nav-item')));
+ await page.evaluate(()=>showPage('theis',[...document.querySelectorAll('.nav-item')].find(x=>(x.getAttribute('onclick')||'').includes("'theis'"))));
  for(const f of ['drawdown.csv','drawdown.xlsx']){ await page.setInputFiles('#theisFile',fx(f));await page.waitForTimeout(500); ok('Import '+f,(await page.evaluate(()=>data.theis.length))>=5);}
  const r=await page.evaluate(async({ref,nd})=>{
   const o={};const g=i=>document.getElementById(i);const t=i=>g(i)?.textContent;const cp=x=>JSON.parse(JSON.stringify(x));
@@ -141,7 +141,19 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
    await nav(page,nm);const [d]=await Promise.all([page.waitForEvent('download',{timeout:4000}).catch(()=>null),page.evaluate(t=>exportChart(t),tp)]);ok('Export chart '+tp,!!d);
  }
  // Ribbon interface
- for(const tab of ['analysis','project','tools','view']){await page.click(`.rb-tab[data-tab="${tab}"]`);ok('Ribbon tab '+tab,await page.evaluate(n=>document.querySelector(`.rb-panel[data-ribbon="${n}"]`).offsetHeight>0,tab));}
+ for(const tab of ['project','home','data','analysis','tools','view']){await page.click(`.rb-tab[data-tab="${tab}"]`);ok('Ribbon tab '+tab,await page.evaluate(n=>document.querySelector(`.rb-panel[data-ribbon="${n}"]`).offsetHeight>0,tab));}
+ ok('Project is the first tab',await page.evaluate(()=>document.querySelector('.rb-tab').dataset.tab==='project'));
+ // Home and Data commands act on the open page
+ await nav(page,'Theis Type Curve');await page.click('.rb-tab[data-tab="data"]');
+ await page.click('[data-ribbon="data"] [data-cmd="sample"]');await page.waitForTimeout(300);
+ ok('Data tab: Sample Data',await page.evaluate(()=>data.theis.length>0));
+ await page.evaluate(()=>{const s=document.getElementById('theis_T');s.value=0;updateTheis()});
+ await page.click('.rb-tab[data-tab="home"]');await page.click('[data-ribbon="home"] [data-cmd="fit"]');await page.waitForTimeout(500);
+ ok('Home tab: Auto Fit',await page.evaluate(()=>parseFloat(document.getElementById('theis_R2').textContent)>0.9));
+ await nav(page,'Templates');await page.click('.rb-tab[data-tab="home"]');
+ ok('Commands not on this page are disabled',await page.evaluate(()=>document.querySelector('[data-ribbon="home"] [data-cmd="fit"]').disabled));
+ const allCmds=await page.evaluate(async()=>{const bad=[];for(const n of document.querySelectorAll('.nav-item[onclick*=showPage]')){const m=n.getAttribute('onclick').match(/'(\w+)'/)[1];n.click();await new Promise(r=>setTimeout(r,40));const f=!document.querySelector('[data-ribbon="home"] [data-cmd="fit"]').disabled;if(!['map','templates','settings'].includes(m)&&!f)bad.push(m+': no Auto Fit')}return bad});
+ ok('Every method page has Auto Fit on Home',allCmds.length===0,allCmds.join());
  await page.click('.rb-tab[data-tab="analysis"]');
  await page.click('#ribbonCollapse');ok('Ribbon collapses',await page.evaluate(()=>document.getElementById('ribbon').offsetHeight===0));
  await page.click('#ribbonCollapse');ok('Ribbon opens again',await page.evaluate(()=>document.getElementById('ribbon').offsetHeight>0));

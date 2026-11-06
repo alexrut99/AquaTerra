@@ -269,8 +269,11 @@
         .rb-group{display:flex;flex-direction:column;padding:0 5px;border-right:1px solid var(--border);flex:none}
         .rb-items{display:flex;gap:1px;flex:1}
         .rb-label{font-size:10.5px;line-height:15px;color:var(--text2);text-align:center;padding-bottom:1px;white-space:nowrap}
-        .ribbon .nav-item{all:unset;box-sizing:border-box;width:72px;min-height:62px;padding:4px 2px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:3px;cursor:pointer;color:var(--text);font-size:11px;line-height:14px;text-align:center}
-        .ribbon .nav-item span{display:block;max-width:100%}
+        .ribbon .rb-cmd,.ribbon .nav-item{all:unset;box-sizing:border-box;width:72px;min-height:62px;padding:4px 2px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:3px;cursor:pointer;color:var(--text);font-size:11px;line-height:14px;text-align:center}
+        .ribbon .nav-item span,.ribbon .rb-cmd span{display:block;max-width:100%}
+        .ribbon .rb-cmd:hover{background:var(--hover)}
+        .ribbon .rb-cmd:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+        .ribbon .rb-cmd[disabled]{opacity:.38;cursor:default;background:none}
         .ribbon .nav-item:hover{background:var(--hover)}
         .ribbon .nav-item.active{background:var(--checked);color:var(--accent-text);font-weight:600}
         .ribbon .nav-item:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
@@ -428,26 +431,38 @@
             <button type="button" class="qat-btn" onclick="toggleTheme()" title="สลับโหมดมืด/สว่าง" aria-label="สลับโหมดมืด/สว่าง"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="8"></circle><path class="cv" d="M12 4a8 8 0 0 1 0 16Z"></path></svg></button>
         </div>
         <div class="tabstrip" role="tablist" aria-label="เมนูหลัก">
-            <button type="button" class="rb-tab active" role="tab" aria-selected="true" data-tab="analysis" onclick="switchRibbonTab('analysis')">วิเคราะห์</button>
             <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="project" onclick="switchRibbonTab('project')">โปรเจกต์</button>
+            <button type="button" class="rb-tab active" role="tab" aria-selected="true" data-tab="home" onclick="switchRibbonTab('home')">หน้าหลัก</button>
+            <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="data" onclick="switchRibbonTab('data')">ข้อมูล</button>
+            <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="analysis" onclick="switchRibbonTab('analysis')">วิเคราะห์</button>
             <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="tools" onclick="switchRibbonTab('tools')">เครื่องมือ</button>
             <button type="button" class="rb-tab" role="tab" aria-selected="false" data-tab="view" onclick="switchRibbonTab('view')">มุมมอง</button>
             <button type="button" class="rb-collapse" id="ribbonCollapse" onclick="toggleRibbon()" title="ซ่อนหรือแสดงริบบอน" aria-label="ซ่อนหรือแสดงริบบอน" aria-expanded="true"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 15l6-6 6 6"/></svg></button>
         </div>
         <nav class="ribbon" id="ribbon" aria-label="คำสั่ง">
-            <div class="rb-panel active" data-ribbon="analysis">
+            <div class="rb-panel" data-ribbon="project">
+                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" onclick="newProject()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"></path><path class="ax" d="M15 3v4h4"></path><path class="cv" d="M12.500 10.500v6M9.500 13.500h6"></path></svg><span>New Project</span></button><button type="button" class="nav-item" onclick="saveProject()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M5 4h11l3 3v13H5Z"></path><path class="ax" d="M8 4v5h7V4M8 20v-6h8v6"></path></svg><span>Save Project</span></button><button type="button" class="nav-item" onclick="loadProject()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 19V5h6l2 2h8v3"></path><path class="ax" d="M3 19l3-9h15l-3 9Z"></path></svg><span>Load Project</span></button></div><div class="rb-label">ไฟล์</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showReportConfig()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"></path><path class="ax" d="M15 3v4h4"></path><path class="cv" d="M9 17l2.500-3 2 1.500L16 11"></path></svg><span>Export Report (PDF)</span></button></div><div class="rb-label">ผลลัพธ์</div></div>
+            </div>
+            <div class="rb-panel active" data-ribbon="home">
+                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" data-cmd="import" onclick="runPageCommand('import')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 15v5h16v-5"></path><path class="cv" d="M12 4v11M8 11l4 4 4-4"></path></svg><span>Import Data</span></button><button type="button" class="rb-cmd" data-cmd="sample" onclick="runPageCommand('sample')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="4" y="4" width="16" height="16" rx="1"></rect><path class="ax" d="M4 10h16M10 4v16"></path><path class="cv" d="M13 13h4M13 16.500h4"></path></svg><span>Sample Data</span></button></div><div class="rb-label">เริ่มงาน</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" data-cmd="fit" onclick="runPageCommand('fit')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"></path><path class="cv" d="M6 18C10 17 12 9 20 5"></path><circle class="pt" cx="8" cy="16.500" r="1.300"></circle><circle class="pt" cx="12.500" cy="11" r="1.300"></circle><circle class="pt" cx="17" cy="6.700" r="1.300"></circle></svg><span>Auto Fit</span></button><button type="button" class="rb-cmd" data-cmd="quality" onclick="runPageCommand('quality')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"></path><path class="cv" d="M8 12l3 3 7-8"></path></svg><span>Check Quality</span></button></div><div class="rb-label">วิเคราะห์</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" data-cmd="export" onclick="runPageCommand('export')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="3" y="4" width="18" height="14" rx="1"></rect><path class="cv" d="M6 15l4-4 3 2 5-6"></path><path class="ax" d="M9 21h6"></path></svg><span>Export Chart</span></button><button type="button" class="rb-cmd" data-cmd="copy" onclick="runPageCommand('copy')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="8" y="8" width="12" height="12" rx="1"></rect><path class="ax" d="M16 8V4H4v12h4"></path></svg><span>Copy Results</span></button><button type="button" class="rb-cmd" onclick="showReportConfig()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"></path><path class="ax" d="M15 3v4h4"></path><path class="cv" d="M9 17l2.500-3 2 1.500L16 11"></path></svg><span>สร้างรายงาน</span></button></div><div class="rb-label">ผลลัพธ์</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" onclick="undo()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="cv" d="M8 6L4 10l4 4"></path><path class="ax" d="M4 10h11a5 5 0 0 1 0 10h-3"></path></svg><span>Undo</span></button><button type="button" class="rb-cmd" onclick="redo()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="cv" d="M16 6l4 4-4 4"></path><path class="ax" d="M20 10H9a5 5 0 0 0 0 10h3"></path></svg><span>Redo</span></button></div><div class="rb-label">แก้ไข</div></div>
+            </div>
+            <div class="rb-panel" data-ribbon="data">
+                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" data-cmd="import" onclick="runPageCommand('import')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 15v5h16v-5"></path><path class="cv" d="M12 4v11M8 11l4 4 4-4"></path></svg><span>Import Data</span></button><button type="button" class="rb-cmd" data-cmd="sample" onclick="runPageCommand('sample')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="4" y="4" width="16" height="16" rx="1"></rect><path class="ax" d="M4 10h16M10 4v16"></path><path class="cv" d="M13 13h4M13 16.500h4"></path></svg><span>Sample Data</span></button><button type="button" class="rb-cmd" data-cmd="clear" onclick="runPageCommand('clear')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"></path><path class="cv" d="M10.500 11v5.500M13.500 11v5.500"></path></svg><span>Clear Data</span></button></div><div class="rb-label">ข้อมูลของหน้านี้</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="runQualityCheck()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M8 12l3 3 7-8"/></svg><span>Quality Check</span></button></div><div class="rb-label">ตรวจสอบ</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('templates',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="4" y="4" width="16" height="16" rx="1"></rect><path class="ax" d="M4 9.500h16M4 15h16M10 4v16"></path></svg><span>Templates</span></button><button type="button" class="nav-item" onclick="showPage('map',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M12 21s7-6.300 7-11.500A7 7 0 0 0 5 9.500C5 14.700 12 21 12 21Z"></path><circle class="cv" cx="12" cy="9.500" r="2.300"></circle></svg><span>Well Map</span></button></div><div class="rb-label">แบบฟอร์มและบ่อ</div></div>
+            </div>
+            <div class="rb-panel" data-ribbon="analysis">
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item active" onclick="showPage('theis',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18C10 17 12 9 20 5"/></svg><span>Theis Type Curve</span></button><button type="button" class="nav-item" onclick="showPage('jacob',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18 20 6"/><circle class="pt" cx="9" cy="15.4" r="1.3"/><circle class="pt" cx="14" cy="11" r="1.3"/><circle class="pt" cx="18" cy="7.7" r="1.3"/></svg><span>Cooper-Jacob</span></button><button type="button" class="nav-item" onclick="showPage('recovery',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 5C9 12 13 16 20 17"/></svg><span>Recovery Test</span></button><button type="button" class="nav-item" onclick="showPage('multiwell',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 12C9 11 13 7 20 4"/><path class="cv" d="M6 15C10 14 14 11 20 8.500"/><path class="cv" d="M6 18C11 17.500 15 15 20 13"/></svg><span>Multi-Well</span></button><button type="button" class="nav-item" onclick="showPage('distdd',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 6 20 17"/><circle class="pt" cx="9" cy="8.400" r="1.300"/><circle class="pt" cx="14" cy="12.300" r="1.300"/><circle class="pt" cx="18" cy="15.400" r="1.300"/></svg><span>Distance-DD</span></button></div><div class="rb-label">ชั้นน้ำมีแรงดัน</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('hantush',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18C8 10 12 7.500 20 7.500"/></svg><span>Hantush-Jacob</span></button><button type="button" class="nav-item" onclick="showPage('unconfined',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18C8 10 10 10 13 10S17 9 20 4"/></svg><span>Unconfined</span></button></div><div class="rb-label">ชั้นน้ำรั่วซึมและไม่มีแรงดัน</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('step',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M6 18h4v-4h4v-4h4V6h2"/></svg><span>Step Drawdown</span></button><button type="button" class="nav-item" onclick="showPage('singlewell',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 7h18"/><path class="ax" d="M10 3v18M14 3v18"/><path class="cv" d="M10 13h4"/></svg><span>Single Well</span></button><button type="button" class="nav-item" onclick="showPage('slugtest',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M9 3v18M15 3v18"/><path class="cv" d="M12 5v9M9.500 11.500 12 14l2.500-2.500"/></svg><span>Slug Test</span></button></div><div class="rb-label">ประสิทธิภาพบ่อ</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('superpos',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M2 6h20"/><path class="cv" d="M3 6c3 0 3 9 5 9s2-6 4-6 2 9 4 9 3-12 5-12"/></svg><span>Superposition</span></button></div><div class="rb-label">คาดการณ์</div></div>
             </div>
-            <div class="rb-panel" data-ribbon="project">
-                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="saveProject()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M5 4h11l3 3v13H5Z"/><path class="ax" d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span>Save Project</span></button><button type="button" class="nav-item" onclick="loadProject()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 19V5h6l2 2h8v3"/><path class="ax" d="M3 19l3-9h15l-3 9Z"/></svg><span>Load Project</span></button></div><div class="rb-label">ไฟล์</div></div>
-                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showReportConfig()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"/><path class="ax" d="M15 3v4h4"/><path class="cv" d="M9 17l2.500-3 2 1.500L16 11"/></svg><span>Export Report (PDF)</span></button></div><div class="rb-label">ผลลัพธ์</div></div>
-                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('map',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M12 21s7-6.300 7-11.500A7 7 0 0 0 5 9.500C5 14.700 12 21 12 21Z"/><circle class="cv" cx="12" cy="9.500" r="2.300"/></svg><span>Well Map</span></button><button type="button" class="nav-item" onclick="showPage('templates',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="4" y="4" width="16" height="16" rx="1"/><path class="ax" d="M4 9.500h16M4 15h16M10 4v16"/></svg><span>Templates</span></button></div><div class="rb-label">ข้อมูล</div></div>
-            </div>
             <div class="rb-panel" data-ribbon="tools">
-                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="runQualityCheck()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M8 12l3 3 7-8"/></svg><span>Quality Check</span></button><button type="button" class="nav-item" onclick="compareMethods()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M8 20v-7M12.500 20V8M17 20v-10"/></svg><span>Compare Methods</span></button></div><div class="rb-label">ตรวจสอบ</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="compareMethods()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"/><path class="cv" d="M8 20v-7M12.500 20V8M17 20v-10"/></svg><span>Compare Methods</span></button></div><div class="rb-label">เปรียบเทียบ</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="calculateAdditionalParameters()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="5" y="3" width="14" height="18" rx="1"/><path class="ax" d="M8 7h8"/><path class="cv" d="M8 11h.01M12 11h.01M16 11h.01M8 14.500h.01M12 14.500h.01M16 14.500h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><span>Additional Parameters</span></button><button type="button" class="nav-item" onclick="showRadiusCalc()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="9"/><circle class="ax" cx="12" cy="12" r="5"/><circle class="cv" cx="12" cy="12" r="1.200"/></svg><span>Radius of Influence</span></button></div><div class="rb-label">คำนวณเพิ่ม</div></div>
             </div>
             <div class="rb-panel" data-ribbon="view">
@@ -3613,7 +3628,7 @@ function showPage(page, el) {
     document.getElementById(page + 'Page').classList.add('active');
     const label = el ? (el.querySelector('span')?.textContent || '') : '';
     ['docTitle', 'statusMethod'].forEach(id => { const t = document.getElementById(id); if (t && label) t.textContent = label; });
-    if (page !== 'map' && typeof map !== 'undefined') { /* the map resizes when it is shown again */ }
+    if (typeof updatePageCommands === 'function') updatePageCommands();
     window.dispatchEvent(new Event('resize'));
     if (page === 'map') setTimeout(() => { if (!map) initMap(); else map.invalidateSize(); }, 100);
 }
@@ -3634,6 +3649,37 @@ function toggleRibbon() {
     document.getElementById('ribbonCollapse').setAttribute('aria-expanded', collapsed ? 'false' : 'true');
     try { localStorage.setItem('aquaterraRibbon', collapsed ? 'collapsed' : 'open'); } catch (e) {}
     window.dispatchEvent(new Event('resize'));
+}
+// Commands on the Home and Data tabs act on the page that is open, using that page's own button
+const PAGE_COMMANDS = {
+    import: ['[onclick*="\').click()"]'],
+    sample: ['[onclick^="load"][onclick*="Sample"]'],
+    clear: ['[onclick^="clear"]'],
+    fit: ['[onclick^="autoAnalyze"]', '[onclick^="autoFit"]', '[onclick^="calc"]:not([onclick^="calculate"])'],
+    quality: ['[onclick^="checkDataQuality"]'],
+    export: ['[onclick^="exportChart"]', '[onclick^="exportStep"]'],
+    copy: ['[onclick^="copyResults"]', '[onclick^="copyStep"]'],
+};
+function pageCommandTarget(kind) {
+    const page = document.querySelector('.page.active');
+    for (const sel of PAGE_COMMANDS[kind] || []) {
+        const el = page.querySelector(sel);
+        if (el) return el;
+    }
+    return null;
+}
+function runPageCommand(kind) {
+    const el = pageCommandTarget(kind);
+    if (el) el.click();
+}
+function updatePageCommands() {
+    document.querySelectorAll('.rb-cmd[data-cmd]').forEach(b => { b.disabled = !pageCommandTarget(b.dataset.cmd); });
+}
+function newProject() {
+    if (!confirm('Start a new project? Unsaved data will be lost.')) return;
+    _appReady = false; // keep the page from saving itself again while it reloads
+    try { localStorage.removeItem('pumpingTestData'); } catch (e) {}
+    location.reload();
 }
 function showAbout() {
     const nav = [...document.querySelectorAll('.nav-item')].find(n => (n.getAttribute('onclick') || '').includes("'settings'"));
@@ -3715,6 +3761,7 @@ function initRibbonUI() {
             title.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
         });
     });
+    updatePageCommands();
     I18N.init();
     try { if (localStorage.getItem('aquaterraRibbon') === 'collapsed') toggleRibbon(); } catch (e) {}
     updateStatusUnits();
@@ -7736,6 +7783,7 @@ function addMultipleMeasurements() {
 
 function renderRawStepTable() {
     const body = document.getElementById('rawStepBody');
+    if (!body) return; // legacy table, not on the current page
     const count = document.getElementById('rawStepCount');
     
     if (!rawStepData[currentRawStep]) {
