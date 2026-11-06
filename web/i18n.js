@@ -17,8 +17,13 @@
   const clean = (s) => s.replace(/\s+/g, ' ').trim();
   const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-  function index(entry) {
-    for (const key of new Set([entry.k, entry.en, entry.th])) {
+  // Dictionary text is matched the way page text is: without leading or trailing marks, numbers as {#}
+  const strip = (t) => clean(t.replace(LEAD, '').replace(TRAIL, ''));
+  const keyOf = (t) => strip(t).replace(NUM, '{#}');
+
+  function index(raw) {
+    const entry = { en: strip(raw.en), th: strip(raw.th) };
+    for (const key of new Set([keyOf(raw.k), keyOf(raw.en), keyOf(raw.th)])) {
       if (!key) continue;
       if (key.includes('{*}')) {
         const literal = key.replace(/\{[*#]\}/g, '');
@@ -41,6 +46,11 @@
     if (!text || !LETTERS.test(text)) return text;
     const c = cache[target];
     if (c.has(text)) return c.get(text);
+    if (text.includes('\n') && text.trim().includes('\n')) {
+      const joined = text.split('\n').map((line) => translate(line, target)).join('\n');
+      c.set(text, joined);
+      return joined;
+    }
     const lead = (text.match(LEAD) || [''])[0];
     const body = text.slice(lead.length);
     const trail = (body.match(TRAIL) || [''])[0];
@@ -55,7 +65,7 @@
       } else {
         for (const w of wild) {
           const m = core.match(w.re);
-          if (m) { result = lead + fill(w.entry[target], m.slice(1)) + trail; break; }
+          if (m) { result = lead + fill(w.entry[target], m.slice(1).map((v) => translate(v, target))) + trail; break; }
         }
       }
     }
@@ -151,6 +161,10 @@
     });
   }
 
+  // Ready before the first chart is drawn
+  ((window.I18N_DICT) || []).forEach(index);
+  lang = chooseLanguage();
+
   window.I18N = {
     t: (s) => translate(s),
     lang: () => lang,
@@ -164,8 +178,6 @@
       if (typeof window.redrawAllCharts === 'function') window.redrawAllCharts();
     },
     init() {
-      ((window.I18N_DICT) || []).forEach(index);
-      lang = chooseLanguage();
       markSwitch();
       applyTree(document.body, lang);
       new MutationObserver((records) => {

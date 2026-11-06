@@ -27,6 +27,8 @@
 
 นอกจากนี้มี Well Map (UTM), รายงาน, เปรียบเทียบผลหลายวิธี และนำเข้า Excel/CSV ใช้งานแบบ offline ได้ ยกเว้นแผนที่ฐาน
 
+ใช้ได้ทั้งภาษาไทยและอังกฤษ สลับได้จากปุ่ม ไทย/EN มุมขวาบน / Available in Thai and English: use the switch at the top right. ข้อความอยู่ที่ `web/i18n-dict.js`
+
 ## ความถูกต้อง
 
 ทุกการเปลี่ยนแปลงต้องผ่าน [ชุดทดสอบ](tests/acceptance.js) ซึ่งเทียบผลกับคำตอบที่คำนวณแยกจากโปรแกรมด้วย SciPy และ mpmath ([tests/ref](tests/ref))

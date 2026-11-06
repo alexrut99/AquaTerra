@@ -264,12 +264,12 @@
         .chrome.collapsed .rb-collapse .ri{transform:rotate(180deg)}
         .chrome.collapsed .ribbon{display:none}
         .ribbon{background:var(--ribbon);border-bottom:1px solid var(--border);overflow-x:auto;overflow-y:hidden}
-        .rb-panel{display:none;align-items:stretch;min-height:82px;padding:3px 4px 0}
+        .rb-panel{display:none;align-items:stretch;min-height:86px;padding:3px 4px 0}
         .rb-panel.active{display:flex}
         .rb-group{display:flex;flex-direction:column;padding:0 5px;border-right:1px solid var(--border);flex:none}
         .rb-items{display:flex;gap:1px;flex:1}
         .rb-label{font-size:10.5px;line-height:15px;color:var(--text2);text-align:center;padding-bottom:1px;white-space:nowrap}
-        .ribbon .nav-item{all:unset;box-sizing:border-box;width:70px;min-height:60px;padding:4px 2px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:3px;cursor:pointer;color:var(--text);font-size:11px;line-height:13px;text-align:center}
+        .ribbon .nav-item{all:unset;box-sizing:border-box;width:72px;min-height:62px;padding:4px 2px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:3px;cursor:pointer;color:var(--text);font-size:11px;line-height:14px;text-align:center}
         .ribbon .nav-item span{display:block;max-width:100%}
         .ribbon .nav-item:hover{background:var(--hover)}
         .ribbon .nav-item.active{background:var(--checked);color:var(--accent-text);font-weight:600}
@@ -285,7 +285,7 @@
         .page-header{margin:0;padding:6px 12px;background:var(--pane-head);border-bottom:1px solid var(--border);min-width:0;display:flex;align-items:baseline;gap:10px;grid-column:1;grid-row:1}
         .page-header h2{font-size:13.5px;font-weight:600;margin:0;white-space:nowrap}
         .page-header p{font-size:11.5px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .page>.toolbar{grid-column:2;grid-row:1;margin:0;padding:4px 10px 4px 0;background:var(--pane-head);border-bottom:1px solid var(--border);align-items:center;flex-wrap:nowrap;justify-content:flex-end}
+        .page>.toolbar{grid-column:2;grid-row:1;margin:0;padding:4px 10px 4px 0;background:var(--pane-head);border-bottom:1px solid var(--border);align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:72vw}
         .page>.page-header+div:not([class]){grid-column:1/-1;grid-row:2;margin:0!important;padding:3px 12px;background:var(--card);border-bottom:1px solid var(--border);font-size:11px;color:var(--text2)!important}
         .page>.grid-2{grid-column:1/-1;grid-row:3;grid-template-columns:330px minmax(0,1fr);gap:0;min-height:0}
         .page>.grid-2>div{min-height:0;overflow:auto}
@@ -6397,7 +6397,10 @@ function exportSPReport() {
     <div class="footer">🌍 AquaTerra v4.1 | © 2025–2026 Anirut Ladawadee | Superposition Analysis Report | ${new Date().getFullYear()}</div>
     </body></html>`;
     
-    const blob = new Blob([html],{type:'text/html'});
+    // The saved report follows the interface language
+    const repDoc = new DOMParser().parseFromString(html, 'text/html');
+    I18N.applyTo(repDoc.documentElement);
+    const blob = new Blob(['<!DOCTYPE html>' + repDoc.documentElement.outerHTML],{type:'text/html'});
     const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
     a.download=`superposition_report_${new Date().toISOString().slice(0,10)}.html`; a.click();
     showNotification('Report exported as HTML (เปิดในเบราว์เซอร์แล้วพิมพ์เป็น PDF ได้)', 'success');
