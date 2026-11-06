@@ -236,7 +236,33 @@
         :root.light{--bg:#E4E8EE;--card:#FBFCFD;--input:#FFFFFF;--border:#DDE2E9;--border-strong:#C3CAD4;--blue:#2563EB;--cyan:#0E7C70;--green:#169A5A;--purple:#6D4FD8;--orange:#B97A0F;--red:#D13C3C;--pink:#1F2630;--text:#1F2630;--text2:#5E6977;--text3:#5E6977;--header:#EEF1F5;--ribbon:#FFFFFF;--pane-head:#F3F5F8;--hover:#E9F0FB;--checked:#DCE8FA;--accent-text:#1D4ED8;--status:#F3F5F8;--icon:#3A4554}
         html,body{height:100%}
         body{overflow:hidden;font-size:13px;min-height:0}
-        .app{display:grid;grid-template-rows:auto minmax(0,1fr) 24px;height:100vh;height:100dvh;min-height:0}
+        .app{display:grid;grid-template-columns:216px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) 24px;height:100vh;height:100dvh;min-height:0}
+        .chrome,.statusbar{grid-column:1/-1}
+        .app.tree-closed{grid-template-columns:minmax(0,1fr)}
+        .app.tree-closed .project-tree{display:none}
+        .project-tree{background:var(--card);border-right:1px solid var(--border-strong);display:flex;flex-direction:column;min-height:0;min-width:0}
+        .pt-head{padding:4px;border-bottom:1px solid var(--border);background:var(--pane-head)}
+        .pt-name{all:unset;box-sizing:border-box;display:block;width:100%;padding:4px 6px;border-radius:3px;font-weight:600;font-size:12.5px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .pt-name:hover{background:var(--hover)}
+        .pt-name:focus-visible,.pt-item:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+        .pt-body{flex:1;overflow:auto;padding:2px 0 6px}
+        .pt-group>summary{list-style:none;cursor:pointer;padding:6px 8px 3px;font-size:11px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:5px;user-select:none}
+        .pt-group>summary::-webkit-details-marker{display:none}
+        .pt-group>summary::before{content:'';width:5px;height:5px;border-right:1.5px solid var(--text2);border-bottom:1.5px solid var(--text2);transform:rotate(-45deg);flex:none}
+        .pt-group[open]>summary::before{transform:rotate(45deg) translate(-1px,-1px)}
+        .pt-count{margin-left:auto;font-weight:400}
+        .pt-item{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:6px;width:100%;padding:3px 8px 3px 16px;font-size:12px;line-height:17px;color:var(--text);cursor:pointer}
+        .pt-item:hover{background:var(--hover)}
+        .pt-item.active{background:var(--checked);color:var(--accent-text);font-weight:600;box-shadow:inset 2px 0 0 var(--blue)}
+        .pt-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .pt-value{margin-left:auto;padding-left:6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;color:var(--text2);white-space:nowrap;flex:none}
+        .pt-dot{display:inline-block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--border-strong);flex:none;box-sizing:border-box}
+        .pt-dot.data{border-color:var(--blue);background:linear-gradient(90deg,var(--blue) 50%,transparent 50%)}
+        .pt-dot.fit{border-color:var(--blue);background:var(--blue)}
+        .pt-dot.pw{border-color:var(--red);background:var(--red)}
+        .pt-dot.ow{border-color:var(--blue);background:var(--blue);border-radius:2px}
+        .pt-legend{display:flex;flex-wrap:wrap;gap:2px 9px;padding:5px 8px;border-top:1px solid var(--border);font-size:10.5px;color:var(--text2)}
+        .pt-legend span{display:inline-flex;align-items:center;gap:4px}
         *{transition:none}
         :focus-visible{outline:2px solid var(--blue);outline-offset:1px}
         .chrome{background:var(--header);min-width:0}
@@ -405,10 +431,12 @@
             .stage{display:block;height:auto}
             .stage-dock{border-left:0}
             .doc-title,.sb-right{display:none}
+            .app,.app.tree-closed{grid-template-columns:minmax(0,1fr)}
+            .project-tree{display:none}
             .chart-container{height:320px}
         }
         @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
-        @media print{.chrome,.statusbar{display:none}body{overflow:visible}}
+        @media print{.chrome,.statusbar,.project-tree{display:none}body{overflow:visible}}
     </style>
 </head>
 <body>
@@ -466,12 +494,19 @@
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="calculateAdditionalParameters()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="5" y="3" width="14" height="18" rx="1"/><path class="ax" d="M8 7h8"/><path class="cv" d="M8 11h.01M12 11h.01M16 11h.01M8 14.500h.01M12 14.500h.01M16 14.500h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><span>Additional Parameters</span></button><button type="button" class="nav-item" onclick="showRadiusCalc()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="9"/><circle class="ax" cx="12" cy="12" r="5"/><circle class="cv" cx="12" cy="12" r="1.200"/></svg><span>Radius of Influence</span></button></div><div class="rb-label">คำนวณเพิ่ม</div></div>
             </div>
             <div class="rb-panel" data-ribbon="view">
-                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('settings',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 8h18v8H3Z"/><path class="cv" d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg><span>Unit Settings</span></button><button type="button" class="nav-item" onclick="toggleTheme()" id="themeToggleBtn"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="8"/><path class="cv" d="M12 4a8 8 0 0 1 0 16Z"/></svg><span>สลับโหมดมืด/สว่าง</span></button></div><div class="rb-label">การแสดงผล</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showPage('settings',this)"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M3 8h18v8H3Z"/><path class="cv" d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg><span>Unit Settings</span></button><button type="button" class="rb-cmd" onclick="toggleProjectTree()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 4h6v5H4ZM7 9v10h4M7 14h4"></path><path class="cv" d="M11 12h9M11 19h9"></path></svg><span>แผงโครงสร้าง</span></button><button type="button" class="nav-item" onclick="toggleTheme()" id="themeToggleBtn"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="8"/><path class="cv" d="M12 4a8 8 0 0 1 0 16Z"/></svg><span>สลับโหมดมืด/สว่าง</span></button></div><div class="rb-label">การแสดงผล</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showAbout()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="9"/><path class="cv" d="M12 11v5M12 8h.01"/></svg><span>เกี่ยวกับ</span></button></div><div class="rb-label">ข้อมูลโปรแกรม</div></div>
             </div>
         </nav>
     </header>
     
+    <aside class="project-tree" id="projectTree" aria-label="โครงสร้างโปรเจกต์">
+        <div class="pt-head">
+            <button type="button" class="pt-name" id="ptName" onclick="renameProject()" title="เปลี่ยนชื่อโปรเจกต์"></button>
+        </div>
+        <div class="pt-body" id="ptBody"></div>
+        <div class="pt-legend"><span><i class="pt-dot fit"></i>ปรับเส้นแล้ว</span><span><i class="pt-dot data"></i>มีข้อมูล</span><span><i class="pt-dot"></i>ว่าง</span></div>
+    </aside>
     <main class="main">
         <!-- Notification -->
         <div class="notification" id="notification"></div>
@@ -2916,7 +2951,7 @@ function captureInputs() {
     return out;
 }
 function captureModules() {
-    return { spWells, spSchedule, spDailySchedule, swData, swInputMode, swManualMode, slugData, uncData, distDDMethod };
+    return { spWells, spSchedule, spDailySchedule, swData, swInputMode, swManualMode, slugData, uncData, distDDMethod, projectTitle };
 }
 function restoreModuleState(saved) {
     if (saved.inputs) Object.entries(saved.inputs).forEach(([id, v]) => {
@@ -2925,6 +2960,7 @@ function restoreModuleState(saved) {
         if (el.type === 'checkbox') el.checked = !!v; else el.value = v;
     });
     const m = saved.modules || {};
+    projectTitle = m.projectTitle || saved.metadata?.name || '';
     if (m.spWells) spWells = m.spWells;
     if (m.spSchedule) spSchedule = m.spSchedule;
     if (m.spDailySchedule) spDailySchedule = m.spDailySchedule;
@@ -2943,6 +2979,7 @@ function restoreModuleState(saved) {
         () => calcSingleWell(), () => calcSlugTest(), () => calcUnconfined(),
     ];
     steps.forEach(fn => { try { fn(); } catch (e) { console.warn('restore:', e); } });
+    if (typeof updateProjectTree === 'function') updateProjectTree();
 }
 
 // Saturated part of Additional Parameters (all values in m, day)
@@ -3629,6 +3666,7 @@ function showPage(page, el) {
     const label = el ? (el.querySelector('span')?.textContent || '') : '';
     ['docTitle', 'statusMethod'].forEach(id => { const t = document.getElementById(id); if (t && label) t.textContent = label; });
     if (typeof updatePageCommands === 'function') updatePageCommands();
+    if (typeof updateProjectTree === 'function') updateProjectTree();
     window.dispatchEvent(new Event('resize'));
     if (page === 'map') setTimeout(() => { if (!map) initMap(); else map.invalidateSize(); }, 100);
 }
@@ -3650,6 +3688,128 @@ function toggleRibbon() {
     try { localStorage.setItem('aquaterraRibbon', collapsed ? 'collapsed' : 'open'); } catch (e) {}
     window.dispatchEvent(new Event('resize'));
 }
+// ============ PROJECT TREE ============
+// Shows what the project holds. It reads the same data and results as the pages and changes neither.
+let projectTitle = '';
+const TREE_METHODS = [
+    ['การสูบทดสอบ', [
+        ['theis', 'Theis Type Curve', () => data.theis.length, 'theis_R2', 'T', 'theis_resT'],
+        ['jacob', 'Cooper-Jacob', () => data.jacob.length, 'jacob_R2', 'T', 'jacob_resT'],
+        ['recovery', 'Recovery Test', () => data.recovery.length, 'rec_R2', 'T', 'rec_resT'],
+        ['multiwell', 'Multi-Well', () => obsWells.reduce((n, w) => n + w.data.length, 0), 'mw_R2', 'T', 'mw_resT'],
+        ['distdd', 'Distance-DD', () => distddData.length, 'dd_R2', 'T', 'dd_resT'],
+        ['hantush', 'Hantush-Jacob', () => (data.hantush || []).length, 'hj_R2', 'T', 'hj_resT'],
+        ['unconfined', 'Unconfined', () => uncData.length, 'unc_R2', 'T', 'unc_T'],
+    ]],
+    ['ประสิทธิภาพบ่อ', [
+        ['step', 'Step Drawdown', () => data.step.length, 'step_R2', '', ''],
+        ['singlewell', 'Single Well', () => swData.length, 'sw_R2', 'T', 'sw_Ttheis'],
+        ['slugtest', 'Slug Test', () => slugData.length, 'slug_R2', 'K', 'slug_Kh'],
+    ]],
+    ['คาดการณ์', [
+        ['superpos', 'Superposition', () => spWells.length, '', '', ''],
+    ]],
+];
+function goToPage(page) {
+    const nav = [...document.querySelectorAll('.nav-item')].find(n => (n.getAttribute('onclick') || '').includes(`'${page}'`));
+    if (nav) showPage(page, nav);
+}
+function treeState(count, r2Id) {
+    if (!count) return '';
+    const r2 = parseFloat(document.getElementById(r2Id)?.textContent);
+    return r2 >= 0.9 ? 'fit' : 'data';
+}
+function buildProjectTree() {
+    const body = document.getElementById('ptBody');
+    const group = (name, n) => {
+        const d = document.createElement('details');
+        d.className = 'pt-group'; d.open = true;
+        d.innerHTML = `<summary><span></span>${n === undefined ? '' : `<span class="pt-count" data-count></span>`}</summary>`;
+        d.querySelector('summary span').textContent = name;
+        body.appendChild(d);
+        return d;
+    };
+    const item = (parent, label, onclick, page) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'pt-item';
+        if (page) b.dataset.page = page;
+        b.innerHTML = '<i class="pt-dot"></i><span class="pt-label"></span><span class="pt-value"></span>';
+        b.querySelector('.pt-label').textContent = label;
+        b.onclick = onclick;
+        parent.appendChild(b);
+        return b;
+    };
+    body.innerHTML = '';
+    const wellsGroup = group('บ่อ', 0);
+    wellsGroup.id = 'ptWells';
+    TREE_METHODS.forEach(([name, rows]) => {
+        const g = group(name);
+        rows.forEach(([page, label]) => item(g, label, () => goToPage(page), page));
+    });
+    const out = group('ผลลัพธ์');
+    item(out, 'Compare Methods', () => compareMethods()).querySelector('.pt-dot').style.display = 'none';
+    item(out, 'Export Report (PDF)', () => showReportConfig()).querySelector('.pt-dot').style.display = 'none';
+}
+function updateProjectTree() {
+    const tree = document.getElementById('ptBody');
+    if (!tree || !tree.children.length) return;
+    document.getElementById('ptName').textContent = projectTitle || 'โปรเจกต์ใหม่';
+    const wellsGroup = document.getElementById('ptWells');
+    wellsGroup.querySelectorAll('.pt-item').forEach(b => b.remove());
+    wellsGroup.querySelector('[data-count]').textContent = wells.length;
+    wells.forEach(w => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'pt-item';
+        b.innerHTML = `<i class="pt-dot ${w.type === 'pw' ? 'pw' : 'ow'}"></i><span class="pt-label"></span>`;
+        b.querySelector('.pt-label').textContent = w.name;
+        b.title = w.type === 'pw' ? 'บ่อสูบ' : 'บ่อสังเกตการณ์';
+        b.onclick = () => goToPage('map');
+        wellsGroup.appendChild(b);
+    });
+    TREE_METHODS.forEach(([, rows]) => rows.forEach(([page, , count, r2Id, sym, valueId]) => {
+        const b = tree.querySelector(`.pt-item[data-page="${page}"]`);
+        if (!b) return;
+        let n = 0;
+        try { n = count(); } catch (e) {}
+        const state = r2Id ? treeState(n, r2Id) : (n ? 'fit' : '');
+        b.querySelector('.pt-dot').className = 'pt-dot ' + state;
+        const v = parseFloat(document.getElementById(valueId)?.textContent);
+        b.querySelector('.pt-value').textContent = (state === 'fit' && sym && isFinite(v)) ? `${sym} ${+v.toPrecision(3)}` : '';
+        b.classList.toggle('active', !!document.getElementById(page + 'Page')?.classList.contains('active'));
+    }));
+    const active = document.querySelector('.page.active')?.id;
+    tree.querySelectorAll('.pt-item:not([data-page])').forEach(b => b.classList.remove('active'));
+    if (active === 'mapPage') wellsGroup.querySelectorAll('.pt-item').forEach(b => b.classList.add('active'));
+}
+let _treeTimer = null;
+function scheduleTreeUpdate() {
+    clearTimeout(_treeTimer);
+    _treeTimer = setTimeout(updateProjectTree, 250);
+}
+async function renameProject() {
+    const name = await askText(I18N.t('ชื่อโปรเจกต์'), projectTitle);
+    if (name === null) return;
+    projectTitle = name.trim();
+    updateProjectTree();
+    saveToLocalStorage();
+}
+function toggleProjectTree() {
+    const closed = document.querySelector('.app').classList.toggle('tree-closed');
+    try { localStorage.setItem('aquaterraTree', closed ? 'closed' : 'open'); } catch (e) {}
+    window.dispatchEvent(new Event('resize'));
+}
+function initProjectTree() {
+    buildProjectTree();
+    let pref = null;
+    try { pref = localStorage.getItem('aquaterraTree'); } catch (e) {}
+    if (pref === 'closed' || (pref === null && innerWidth < 1360)) document.querySelector('.app').classList.add('tree-closed');
+    updateProjectTree();
+    // Results change in many places; follow them instead of asking every page to report
+    new MutationObserver(records => {
+        if (records.some(r => !(r.target.parentElement || r.target).closest?.('.project-tree'))) scheduleTreeUpdate();
+    }).observe(document.querySelector('.main'), { subtree: true, childList: true, characterData: true });
+}
+
 // Commands on the Home and Data tabs act on the page that is open, using that page's own button
 const PAGE_COMMANDS = {
     import: ['[onclick*="\').click()"]'],
@@ -3762,6 +3922,7 @@ function initRibbonUI() {
         });
     });
     updatePageCommands();
+    initProjectTree();
     I18N.init();
     try { if (localStorage.getItem('aquaterraRibbon') === 'collapsed') toggleRibbon(); } catch (e) {}
     updateStatusUnits();
@@ -9027,9 +9188,11 @@ function resetSliders(type) {
 
 // ============ PROJECT MANAGEMENT ============
 async function saveProject() {
-    const askedName = await askText("Project name", `Project_${new Date().toISOString().split('T')[0]}`);
+    const askedName = await askText("Project name", projectTitle || `Project_${new Date().toISOString().split('T')[0]}`);
     if (askedName === null) return;
     const projectName = askedName.trim() || "Untitled";
+    projectTitle = projectName;
+    if (typeof updateProjectTree === 'function') updateProjectTree();
     
     const project = {
         metadata: {

@@ -99,6 +99,7 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  const a2=await b.page.evaluate(st);
  ok('Save/Load keeps everything',JSON.stringify(a2)===JSON.stringify(mark),JSON.stringify(a2)===JSON.stringify(mark)?'':JSON.stringify(a2)+' vs '+JSON.stringify(mark));
  ok('Load: no errors',b.errors.length===0,b.errors.join());
+ ok('Project name comes back on load',(await b.page.textContent('#ptName'))==='Audit Run',await b.page.textContent('#ptName'));
  // old project file still loads
  const [fc2]=await Promise.all([b.page.waitForEvent('filechooser'),navClick(b.page,'Load Project')]);
  await fc2.setFiles(fx('old-format.alproj'));await b.page.waitForTimeout(1500);
@@ -165,6 +166,19 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  ok('Every page fits with labelled buttons',layout.length===0,layout.join(' | '));
  const dark0=await page.evaluate(()=>{toggleTheme();const d=getComputedStyle(document.body).backgroundColor;toggleTheme();return [d,getComputedStyle(document.body).backgroundColor]});
  ok('Light and dark themes differ',dark0[0]!==dark0[1],dark0.join(' / '));
+ // Project tree
+ ok('Tree lists the methods',await page.evaluate(()=>document.querySelectorAll('#ptBody .pt-item[data-page]').length===11));
+ await page.click('#ptBody .pt-item[data-page="slugtest"]');await page.waitForTimeout(300);
+ ok('Tree opens a page',await page.evaluate(()=>document.getElementById('slugtestPage').classList.contains('active')&&document.querySelector('#ptBody .pt-item[data-page="slugtest"]').classList.contains('active')));
+ const treeBefore=await page.evaluate(()=>{const n=[...document.querySelectorAll('.nav-item')].find(x=>(x.getAttribute('onclick')||'').includes("'theis'"));n.click();loadSample('theis');const s=document.getElementById('theis_T');s.value=-2;updateTheis();return true});
+ await page.waitForTimeout(500);
+ const rowUnfit=await page.evaluate(()=>document.querySelector('#ptBody .pt-item[data-page="theis"] .pt-dot').className);
+ await page.evaluate(()=>autoFit('theis'));await page.waitForTimeout(500);
+ const rowFit=await page.evaluate(()=>{const r=document.querySelector('#ptBody .pt-item[data-page="theis"]');return [r.querySelector('.pt-dot').className,r.querySelector('.pt-value').textContent]});
+ ok('Tree status follows the fit',/data/.test(rowUnfit)&&/fit/.test(rowFit[0])&&/^T [\d.]+/.test(rowFit[1]),rowUnfit+' -> '+rowFit.join(' '));
+ await page.evaluate(()=>toggleProjectTree());ok('Tree can be hidden',await page.evaluate(()=>document.getElementById('projectTree').offsetWidth===0));await page.evaluate(()=>toggleProjectTree());
+ await page.click('#ptName');await page.waitForSelector('#askTextInput');await page.fill('#askTextInput','Test name');await page.click('#askTextOk');await page.waitForTimeout(200);
+ ok('Project can be renamed',(await page.textContent('#ptName'))==='Test name');
  // Two languages: same numbers, nothing left behind, and the choice is remembered
  const numbers=()=>page.evaluate(()=>['theis_resT','theis_resS','jacob_resT','hj_resT','dd_resT','unc_T','unc_SyRes','slug_Kh','sw_Ttheis'].map(i=>document.getElementById(i)?.textContent));
  const nEn=await numbers();

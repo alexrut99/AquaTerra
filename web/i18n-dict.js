@@ -1,6 +1,76 @@
 // Generated list of interface text in English and Thai. {#} is a number, {*} any value.
 window.I18N_DICT=[
 {
+"k": "โครงสร้างโปรเจกต์",
+"en": "Project tree",
+"th": "โครงสร้างโปรเจกต์"
+},
+{
+"k": "เปลี่ยนชื่อโปรเจกต์",
+"en": "Rename project",
+"th": "เปลี่ยนชื่อโปรเจกต์"
+},
+{
+"k": "ปรับเส้นแล้ว",
+"en": "Fitted",
+"th": "ปรับเส้นแล้ว"
+},
+{
+"k": "มีข้อมูล",
+"en": "Has data",
+"th": "มีข้อมูล"
+},
+{
+"k": "ว่าง",
+"en": "Empty",
+"th": "ว่าง"
+},
+{
+"k": "การสูบทดสอบ",
+"en": "Pumping tests",
+"th": "การสูบทดสอบ"
+},
+{
+"k": "บ่อ",
+"en": "Wells",
+"th": "บ่อ"
+},
+{
+"k": "โปรเจกต์ใหม่",
+"en": "New project",
+"th": "โปรเจกต์ใหม่"
+},
+{
+"k": "ชื่อโปรเจกต์",
+"en": "Project name",
+"th": "ชื่อโปรเจกต์"
+},
+{
+"k": "Project name",
+"en": "Project name",
+"th": "ชื่อโปรเจกต์"
+},
+{
+"k": "บ่อสูบ",
+"en": "Pumping well",
+"th": "บ่อสูบ"
+},
+{
+"k": "บ่อสังเกตการณ์",
+"en": "Observation well",
+"th": "บ่อสังเกตการณ์"
+},
+{
+"k": "แผงโครงสร้าง",
+"en": "Project tree",
+"th": "แผงโครงสร้าง"
+},
+{
+"k": "ผลลัพธ์",
+"en": "Results",
+"th": "ผลลัพธ์"
+},
+{
 "k": "หน้าหลัก",
 "en": "Home",
 "th": "หน้าหลัก"
@@ -1314,11 +1384,6 @@ window.I18N_DICT=[
 "k": "ปิด",
 "en": "Close",
 "th": "ปิด"
-},
-{
-"k": "ผลลัพธ์",
-"en": "Results",
-"th": "ผลลัพธ์"
 },
 {
 "k": "ผลลัพธ์ T ค่อนข้างสอดคล้อง (CV < {#}%) — ยอมรับได้",
@@ -3719,11 +3784,6 @@ window.I18N_DICT=[
 "k": "Project Information",
 "en": "Project information",
 "th": "ข้อมูลโปรเจกต์"
-},
-{
-"k": "Project name",
-"en": "Project name",
-"th": "ชื่อโปรเจกต์"
 },
 {
 "k": "Pump Duration (tp)",
