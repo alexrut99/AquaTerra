@@ -193,6 +193,24 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  await page.evaluate(()=>toggleProjectTree());ok('Tree can be hidden',await page.evaluate(()=>document.getElementById('projectTree').offsetWidth===0));await page.evaluate(()=>toggleProjectTree());
  await page.click('#ptName');await page.waitForSelector('#askTextInput');await page.fill('#askTextInput','Test name');await page.click('#askTextOk');await page.waitForTimeout(200);
  ok('Project can be renamed',(await page.textContent('#ptName'))==='Test name');
+ // Tree follows the test that was run
+ ok('Tree groups methods by test',await page.evaluate(()=>{const sub=document.querySelector('#ptBody .pt-sub');return !!sub&&['theis','jacob','hantush','unconfined','multiwell','distdd','singlewell'].every(p=>sub.querySelector(`[data-page="${p}"]`))&&!sub.querySelector('[data-page="recovery"]')}));
+ // Method guide
+ await page.click('.rb-cmd:has-text("Method Guide")');await page.waitForSelector('#guideModal');
+ await page.click('.guide-opt:has-text("Constant-rate pumping")');
+ const hiddenAfterTest=await page.evaluate(()=>[...document.querySelectorAll('#guideModal .guide-q')].map(f=>f.hidden).join());
+ await page.click('.guide-opt:has-text("Leaky")');await page.click('.guide-opt:has-text("Two or more observation wells")');
+ const recs=await page.evaluate(()=>[...document.querySelectorAll('#guideModal .guide-methods button')].map(b=>b.dataset.page).join());
+ ok('Guide recommends from the answers',hiddenAfterTest==='false,false,false'&&recs==='hantush,multiwell',recs);
+ await page.click('#guideModal .guide-methods .btn-primary');await page.waitForTimeout(300);
+ ok('Guide opens the method and marks the tree',await page.evaluate(()=>!document.getElementById('guideModal')&&document.getElementById('hantushPage').classList.contains('active')&&[...document.querySelectorAll('#ptBody .pt-item.recommended')].map(b=>b.dataset.page).sort().join()==='hantush,multiwell'&&!document.getElementById('ptLegendRec').hidden));
+ const slugAdv=await page.evaluate(()=>guideAdvice({test:'slug'}).methods.join()+'|'+guideAdvice({test:'constant',aquifer:'confined',obs:'none'}).methods.join());
+ ok('Guide covers other tests',slugAdv==='slugtest|singlewell,recovery',slugAdv);
+ // Suitability notes
+ const notes=await page.evaluate(async()=>{const o={};for(const [p,c] of [['theis',()=>{loadSample('theis');autoFit('theis')}],['jacob',()=>{loadSample('jacob');autoFit('jacob')}]]){goToPage(p);c();await new Promise(r=>setTimeout(r,2500));updateProjectTree();const n=document.querySelector(`.method-note[data-page="${p}"]`);o[p]=[n.hidden,n.className,n.innerText.replace(/\s+/g,' ')]}return o});
+ ok('Theis note says the fit suits the data',!notes.theis[0]&&/ok/.test(notes.theis[1])&&/follows the data well/.test(notes.theis[2]),notes.theis.join(' '));
+ ok('Cooper-Jacob note flags early points (u ≥ 0.01)',!notes.jacob[0]&&/warn/.test(notes.jacob[1])&&/points are early/.test(notes.jacob[2]),notes.jacob.join(' '));
+ ok('Slider at its limit is flagged',await page.evaluate(()=>{goToPage('theis');const r=document.getElementById('theis_S');const old=r.value;r.value=r.min;updateTheis();updateProjectTree();const txt=document.querySelector('.method-note[data-page="theis"]').innerText;r.value=old;updateTheis();updateProjectTree();return /end of its slider range/.test(txt)}));
  // Two languages: same numbers, nothing left behind, and the choice is remembered
  const numbers=()=>page.evaluate(()=>['theis_resT','theis_resS','jacob_resT','hj_resT','dd_resT','unc_T','unc_SyRes','slug_Kh','sw_Ttheis'].map(i=>document.getElementById(i)?.textContent));
  const nEn=await numbers();
@@ -207,6 +225,7 @@ const nav=(page,t)=>navClick(page,t).then(()=>page.waitForTimeout(200));
  ok('Thai fits at 1280×720',thFit.length===0,thFit.join(' | '));
  await page.setViewportSize({width:1500,height:950});
  await page.reload();await page.waitForTimeout(1500);
+ ok('Guide answers remembered',await page.evaluate(()=>projectSetup&&projectSetup.aquifer==='leaky'&&document.querySelectorAll('#ptBody .pt-item.recommended').length===2));
  ok('Language remembered',await page.evaluate(()=>I18N.lang()==='th'&&document.documentElement.lang==='th'));
  await page.click('.lang-switch [data-lang="en"]');await page.waitForTimeout(800);
  const thaiLeft=await page.evaluate(()=>{const o=[];const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const p=n.parentElement;if(p.closest('.no-i18n,script,style'))continue;if(/[\u0E00-\u0E7F]/.test(n.nodeValue)&&p.getClientRects().length)o.push(n.nodeValue.trim().slice(0,50))}return o});

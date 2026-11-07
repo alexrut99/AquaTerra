@@ -333,6 +333,33 @@
         @media(max-width:1280px){.page>.grid-2{grid-template-columns:290px minmax(0,1fr)}.stage{grid-template-columns:minmax(0,1fr) 280px}}
         .preset-card .preset-icon{display:none}
         .ribbon-only{display:none!important}
+        .pt-sub{margin-left:10px}
+        .pt-sub>summary{font-weight:500;color:var(--text);font-size:12px;padding-top:4px}
+        .pt-head-label{padding:5px 8px 1px 18px;font-size:10.5px;color:var(--text3,var(--text2))}
+        .pt-sub .pt-item{padding-left:24px}
+        .pt-item.recommended .pt-label::after{content:' ★';color:#d97706}
+        .pt-star{color:#d97706;font-weight:400}
+        .method-note{margin:8px 10px 2px;padding:8px 10px;border-radius:3px;font-size:12px;line-height:1.45;border:1px solid}
+        .method-note.ok{background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.35)}
+        .method-note.warn{background:rgba(217,119,6,.09);border-color:rgba(217,119,6,.45)}
+        .method-note strong{display:block;font-weight:600;margin-bottom:2px}
+        .method-note p{margin:2px 0 0}
+        .modal-content.guide{max-width:620px;width:calc(100vw - 32px);max-height:calc(100vh - 40px);overflow:auto}
+        .guide .modal-header{display:flex;align-items:center;justify-content:space-between}
+        .guide-x{all:unset;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;color:var(--text2)}
+        .guide-q{border:0;margin:0 0 14px;padding:0}
+        .guide-q legend{display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;margin-bottom:6px;padding:0}
+        .guide-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+        .guide-opt{display:grid;grid-template-columns:auto 1fr;column-gap:7px;align-items:start;padding:7px 9px;border:1px solid var(--border-strong);border-radius:3px;cursor:pointer;font-size:12.5px}
+        .guide-opt:hover{background:var(--hover)}
+        .guide-opt:has(input:checked){border-color:var(--blue);background:var(--checked)}
+        .guide-opt input{grid-row:span 2;margin-top:2px}
+        .guide-opt small{color:var(--text2);font-size:11.5px;line-height:1.35}
+        .guide-out{border-top:1px solid var(--border);padding-top:12px}
+        .guide-out-head{font-weight:600;font-size:13px;margin-bottom:6px}
+        .guide-methods{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+        .guide-out p{font-size:12.5px;color:var(--text2);margin:0}
+        @media (max-width:560px){.guide-opts{grid-template-columns:minmax(0,1fr)}}
         .stage-dock .results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
         table:has(>#unifiedRawBody) th{overflow-wrap:anywhere}
         .step-summary-bar{display:block}
@@ -342,7 +369,7 @@
         table:has(>#unifiedRawBody) th:nth-child(2){width:38px}
         table:has(>#unifiedRawBody) th:last-child{width:26px}
         #unifiedRawBody input{width:100%!important;min-width:0;padding:2px 3px}
-        .pt-empty{background:none;border:0;padding:5px 12px 5px 28px;color:var(--blue);font:inherit;font-size:13px;cursor:pointer;text-align:left;width:100%}
+        .pt-empty{background:none;border:0;padding:3px 8px 3px 16px;color:var(--blue);font:inherit;font-size:12px;line-height:17px;cursor:pointer;text-align:left;width:100%}
         .pt-empty:hover{background:var(--hover,rgba(37,99,235,.08))}
         .topic-no{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;flex:none;line-height:1}
         .topic-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;margin-left:6px}
@@ -493,7 +520,7 @@
                 <div class="rb-group"><div class="rb-items"><button type="button" class="nav-item" onclick="showReportConfig()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"></path><path class="ax" d="M15 3v4h4"></path><path class="cv" d="M9 17l2.500-3 2 1.500L16 11"></path></svg><span>Export Report (PDF)</span></button></div><div class="rb-label">ผลลัพธ์</div></div>
             </div>
             <div class="rb-panel active" data-ribbon="home">
-                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" data-cmd="import" onclick="runPageCommand('import')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 15v5h16v-5"></path><path class="cv" d="M12 4v11M8 11l4 4 4-4"></path></svg><span>Import Data</span></button><button type="button" class="rb-cmd" data-cmd="sample" onclick="runPageCommand('sample')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="4" y="4" width="16" height="16" rx="1"></rect><path class="ax" d="M4 10h16M10 4v16"></path><path class="cv" d="M13 13h4M13 16.500h4"></path></svg><span>Sample Data</span></button></div><div class="rb-label">เริ่มงาน</div></div>
+                <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" onclick="openMethodGuide()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><circle class="ax" cx="12" cy="12" r="8.5"></circle><path class="cv" d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6"></path><path class="cv" d="M12 16.6v.4"></path></svg><span>Method Guide</span></button><button type="button" class="rb-cmd" data-cmd="import" onclick="runPageCommand('import')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 15v5h16v-5"></path><path class="cv" d="M12 4v11M8 11l4 4 4-4"></path></svg><span>Import Data</span></button><button type="button" class="rb-cmd" data-cmd="sample" onclick="runPageCommand('sample')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="4" y="4" width="16" height="16" rx="1"></rect><path class="ax" d="M4 10h16M10 4v16"></path><path class="cv" d="M13 13h4M13 16.500h4"></path></svg><span>Sample Data</span></button></div><div class="rb-label">เริ่มงาน</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" data-cmd="fit" onclick="runPageCommand('fit')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"></path><path class="cv" d="M6 18C10 17 12 9 20 5"></path><circle class="pt" cx="8" cy="16.500" r="1.300"></circle><circle class="pt" cx="12.500" cy="11" r="1.300"></circle><circle class="pt" cx="17" cy="6.700" r="1.300"></circle></svg><span>Auto Fit</span></button><button type="button" class="rb-cmd" data-cmd="quality" onclick="runPageCommand('quality')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3v17h17"></path><path class="cv" d="M8 12l3 3 7-8"></path></svg><span>Check Quality</span></button></div><div class="rb-label">วิเคราะห์</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" data-cmd="export" onclick="runPageCommand('export')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="3" y="4" width="18" height="14" rx="1"></rect><path class="cv" d="M6 15l4-4 3 2 5-6"></path><path class="ax" d="M9 21h6"></path></svg><span>Export Chart</span></button><button type="button" class="rb-cmd" data-cmd="copy" onclick="runPageCommand('copy')"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><rect class="ax" x="8" y="8" width="12" height="12" rx="1"></rect><path class="ax" d="M16 8V4H4v12h4"></path></svg><span>Copy Results</span></button><button type="button" class="rb-cmd" onclick="showReportConfig()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M6 3h9l4 4v14H6Z"></path><path class="ax" d="M15 3v4h4"></path><path class="cv" d="M9 17l2.500-3 2 1.500L16 11"></path></svg><span>สร้างรายงาน</span></button></div><div class="rb-label">ผลลัพธ์</div></div>
                 <div class="rb-group"><div class="rb-items"><button type="button" class="rb-cmd" onclick="undo()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="cv" d="M8 6L4 10l4 4"></path><path class="ax" d="M4 10h11a5 5 0 0 1 0 10h-3"></path></svg><span>Undo</span></button><button type="button" class="rb-cmd" onclick="redo()"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path class="cv" d="M16 6l4 4-4 4"></path><path class="ax" d="M20 10H9a5 5 0 0 0 0 10h3"></path></svg><span>Redo</span></button></div><div class="rb-label">แก้ไข</div></div>
@@ -525,7 +552,7 @@
             <button type="button" class="pt-name" id="ptName" onclick="renameProject()" title="เปลี่ยนชื่อโปรเจกต์"></button>
         </div>
         <div class="pt-body" id="ptBody"></div>
-        <div class="pt-legend"><span><i class="pt-dot fit"></i>ปรับเส้นแล้ว</span><span><i class="pt-dot data"></i>มีข้อมูล</span><span><i class="pt-dot"></i>ว่าง</span></div>
+        <div class="pt-legend"><span><i class="pt-dot fit"></i>ปรับเส้นแล้ว</span><span><i class="pt-dot data"></i>มีข้อมูล</span><span><i class="pt-dot"></i>ว่าง</span><span id="ptLegendRec" hidden><b class="pt-star">★</b>Recommended</span></div>
     </aside>
     <main class="main">
         <!-- Notification -->
@@ -2969,7 +2996,7 @@ function captureInputs() {
     return out;
 }
 function captureModules() {
-    return { spWells, spSchedule, spDailySchedule, swData, swInputMode, swManualMode, slugData, uncData, distDDMethod, projectTitle };
+    return { spWells, spSchedule, spDailySchedule, swData, swInputMode, swManualMode, slugData, uncData, distDDMethod, projectTitle, projectSetup };
 }
 function restoreModuleState(saved) {
     if (saved.inputs) Object.entries(saved.inputs).forEach(([id, v]) => {
@@ -2979,6 +3006,7 @@ function restoreModuleState(saved) {
     });
     const m = saved.modules || {};
     projectTitle = m.projectTitle || saved.metadata?.name || '';
+    projectSetup = m.projectSetup || null;
     if (m.spWells) spWells = m.spWells;
     if (m.spSchedule) spSchedule = m.spSchedule;
     if (m.spDailySchedule) spDailySchedule = m.spDailySchedule;
@@ -3598,6 +3626,7 @@ function updateMultiWell() {
         if (el_perWell) el_perWell.innerHTML = obsWells.filter(w=>w.data.length>=2).map((w,i) => `<span style="color:${colors[i%8]}">${w.name}: R²=${compR2[i] != null ? compR2[i].toFixed(3) : '—'}</span>`).join(' | ');
         
         const compCard = document.getElementById('mw_comparisonCard');
+        window._mwR2 = obsWells.filter(w => w.data.length >= 2).map((w, k) => [w.name, compR2[k]]);
         if (compCard) { compCard.style.display = 'block'; document.getElementById('mw_compBody').innerHTML = compRows.join(''); }
     }
     
@@ -3713,6 +3742,113 @@ function toggleRibbon() {
 // ============ PROJECT TREE ============
 // Shows what the project holds. It reads the same data and results as the pages and changes neither.
 let projectTitle = '';
+let projectSetup = null; // answers from the method guide: { test, aquifer, obs }
+const GUIDE_QUESTIONS = [
+    ['test', 'What test did you run?', [
+        ['constant', 'Constant-rate pumping', 'The pump runs at one steady rate while water levels are measured'],
+        ['recovery', 'Recovery', 'Water levels are measured after the pump is switched off'],
+        ['step', 'Step-drawdown', 'The pumping rate is raised in several steps'],
+        ['slug', 'Slug test', 'The water level in one well is changed suddenly, without pumping'],
+    ]],
+    ['aquifer', 'What kind of aquifer is it?', [
+        ['confined', 'Confined', 'Sealed above and below by clay or rock'],
+        ['leaky', 'Leaky', 'A clay layer above or below lets some water through'],
+        ['unconfined', 'Unconfined', 'The water table is open to the surface'],
+        ['unsure', 'Not sure', 'Start with Theis and let the notes under Results guide you'],
+    ]],
+    ['obs', 'Where did you measure drawdown?', [
+        ['one', 'One observation well', 'A separate well at a known distance from the pumping well'],
+        ['many', 'Two or more observation wells', 'Wells at different distances'],
+        ['none', 'Only in the pumping well', 'No observation well'],
+    ]],
+];
+function guideAdvice(st) {
+    if (!st) return null;
+    if (st.test === 'recovery') return { methods: ['recovery'], why: 'Theis recovery uses the residual drawdown after the pump stops. Enter how long the pump ran.' };
+    if (st.test === 'step') return { methods: ['step'], why: 'Step Drawdown separates aquifer loss from well loss and gives the well efficiency at each rate.' };
+    if (st.test === 'slug') return { methods: ['slugtest'], why: 'Hvorslev and Bouwer-Rice give K around the well screen.' };
+    if (st.test !== 'constant' || !st.aquifer || !st.obs) return null;
+    if (st.obs === 'none') return { methods: ['singlewell', 'recovery'], why: 'Pumping well data include well losses, so S is not reliable. If you measured recovery, use it to confirm T.' };
+    if (st.obs === 'many') return ({
+        leaky: { methods: ['hantush', 'multiwell'], why: 'Analyse each observation well with Hantush-Jacob, then compare with the Multi-Well fit.' },
+        unconfined: { methods: ['unconfined', 'distdd'], why: 'Analyse each observation well with Neuman, then check T with Distance-Drawdown.' },
+    })[st.aquifer] || { methods: ['multiwell', 'distdd'], why: 'Multi-Well fits one T and S to all observation wells at once. Distance-Drawdown checks T from drawdown against distance.' };
+    return ({
+        confined: { methods: ['theis', 'jacob'], why: 'Fit the Theis curve to all the data, then check T with the Cooper-Jacob line.' },
+        leaky: { methods: ['hantush', 'theis'], why: 'Hantush-Jacob allows for water leaking through the clay layer. Compare with Theis to see how much leakage matters.' },
+        unconfined: { methods: ['unconfined', 'jacob'], why: 'Neuman allows for the water table draining slowly. Cooper-Jacob on the late data gives a quick check of T.' },
+        unsure: { methods: ['theis', 'hantush', 'unconfined'], why: 'Start with Theis. If the late data leave the curve, the note under Results suggests which method to try next.' },
+    })[st.aquifer];
+}
+function openMethodGuide() {
+    document.getElementById('guideModal')?.remove();
+    const st = Object.assign({}, projectSetup || {});
+    const m = document.createElement('div');
+    m.className = 'modal'; m.id = 'guideModal'; m.style.display = 'flex';
+    m.innerHTML = `<div class="modal-content guide" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+        <div class="modal-header"><h3 id="guideTitle">Method guide</h3><button type="button" class="guide-x" aria-label="Close">×</button></div>
+        <div class="modal-body"></div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-close>Close</button></div></div>`;
+    const body = m.querySelector('.modal-body');
+    GUIDE_QUESTIONS.forEach(([key, q, opts], qi) => {
+        const f = document.createElement('fieldset');
+        f.className = 'guide-q'; f.dataset.key = key;
+        f.innerHTML = `<legend><span class="topic-no no-i18n">${qi + 1}</span><span></span></legend><div class="guide-opts"></div>`;
+        f.querySelector('legend span:last-child').textContent = q;
+        opts.forEach(([v, title, desc]) => {
+            const l = document.createElement('label');
+            l.className = 'guide-opt';
+            l.innerHTML = `<input type="radio" name="guide_${key}"><strong></strong><small></small>`;
+            l.querySelector('input').value = v;
+            l.querySelector('input').checked = st[key] === v;
+            l.querySelector('strong').textContent = title;
+            l.querySelector('small').textContent = desc;
+            l.querySelector('input').onchange = () => { st[key] = v; refresh(); };
+            f.querySelector('.guide-opts').appendChild(l);
+        });
+        body.appendChild(f);
+    });
+    const out = document.createElement('div');
+    out.className = 'guide-out';
+    body.appendChild(out);
+    const close = () => m.remove();
+    const open = (page) => {
+        projectSetup = { ...st };
+        if (page === 'singlewell') {
+            const sel = document.getElementById('sw_aquiferType');
+            if (sel) { sel.value = st.aquifer === 'unconfined' ? 'unconfined' : 'confined'; sel.dispatchEvent(new Event('change')); }
+        }
+        close();
+        goToPage(page);
+        saveToLocalStorage();
+        updateProjectTree();
+    };
+    function refresh() {
+        const constant = st.test === 'constant';
+        body.querySelectorAll('.guide-q').forEach(f => { if (f.dataset.key !== 'test') f.hidden = !constant; });
+        const adv = guideAdvice(st);
+        out.innerHTML = '';
+        if (!adv) return;
+        const h = document.createElement('div'); h.className = 'guide-out-head'; h.textContent = 'Recommended methods'; out.appendChild(h);
+        const list = document.createElement('div'); list.className = 'guide-methods';
+        adv.methods.forEach((p, k) => {
+            const b = document.createElement('button');
+            b.type = 'button'; b.className = 'btn ' + (k ? 'btn-secondary' : 'btn-primary'); b.dataset.page = p;
+            b.textContent = methodRow(p)[1];
+            b.onclick = () => open(p);
+            list.appendChild(b);
+        });
+        out.appendChild(list);
+        const why = document.createElement('p'); why.textContent = adv.why; out.appendChild(why);
+    }
+    m.querySelector('[data-close]').onclick = close;
+    m.querySelector('.guide-x').onclick = close;
+    m.addEventListener('click', e => { if (e.target === m) close(); });
+    m.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    document.body.appendChild(m);
+    refresh();
+    (m.querySelector('input:checked') || m.querySelector('input')).focus();
+}
 const TREE_METHODS = [
     ['การสูบทดสอบ', [
         ['theis', 'Theis Type Curve', () => data.theis.length, 'theis_R2', 'T', 'theis_resT'],
@@ -3741,37 +3877,158 @@ function treeState(count, r2Id) {
     const r2 = parseFloat(document.getElementById(r2Id)?.textContent);
     return r2 >= 0.9 ? 'fit' : 'data';
 }
+// The tree follows what was done in the field: pick the test, then the method.
+const TREE_LAYOUT = [
+    ['Pumping tests', [
+        ['Constant-rate pumping', [
+            ['One observation well', ['theis', 'jacob', 'hantush', 'unconfined']],
+            ['Two or more observation wells', ['multiwell', 'distdd']],
+            ['Pumping well only', ['singlewell']],
+        ]],
+        'recovery', 'step', 'slugtest',
+    ]],
+    ['Prediction', ['superpos']],
+];
+const METHOD_HINTS = {
+    theis: 'Confined aquifer', jacob: 'Confined aquifer, late data (u < 0.01)', hantush: 'Leaky aquifer',
+    unconfined: 'Unconfined aquifer (Neuman)', multiwell: 'One T and S fitted to all observation wells',
+    distdd: 'Drawdown against distance at one time', singlewell: 'Drawdown measured in the pumping well',
+    recovery: 'Water levels after the pump stops', step: 'Several pumping rates; separates well losses',
+    slugtest: 'Sudden change of water level in one well', superpos: 'Drawdown from several wells and rates',
+};
+const methodRow = (page) => TREE_METHODS.flatMap(g => g[1]).find(r => r[0] === page);
 function buildProjectTree() {
     const body = document.getElementById('ptBody');
-    const group = (name, n) => {
+    const group = (parent, name, n, cls = 'pt-group') => {
         const d = document.createElement('details');
-        d.className = 'pt-group'; d.open = true;
+        d.className = cls; d.open = true;
         d.innerHTML = `<summary><span></span>${n === undefined ? '' : `<span class="pt-count" data-count></span>`}</summary>`;
         d.querySelector('summary span').textContent = name;
-        body.appendChild(d);
+        parent.appendChild(d);
         return d;
     };
     const item = (parent, label, onclick, page) => {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'pt-item';
-        if (page) b.dataset.page = page;
+        if (page) { b.dataset.page = page; b.title = METHOD_HINTS[page] || ''; }
         b.innerHTML = '<i class="pt-dot"></i><span class="pt-label"></span><span class="pt-value"></span>';
         b.querySelector('.pt-label').textContent = label;
         b.onclick = onclick;
         parent.appendChild(b);
         return b;
     };
+    const method = (parent, page) => item(parent, methodRow(page)[1], () => goToPage(page), page);
     body.innerHTML = '';
-    const wellsGroup = group('บ่อ', 0);
+    const wellsGroup = group(body, 'บ่อ', 0);
     wellsGroup.id = 'ptWells';
-    TREE_METHODS.forEach(([name, rows]) => {
-        const g = group(name);
-        rows.forEach(([page, label]) => item(g, label, () => goToPage(page), page));
+    TREE_LAYOUT.forEach(([name, entries]) => {
+        const g = group(body, name);
+        if (name === 'Pumping tests') {
+            const guide = document.createElement('button');
+            guide.type = 'button'; guide.className = 'pt-empty'; guide.id = 'ptGuide';
+            guide.textContent = 'Which method should I use?';
+            guide.onclick = () => openMethodGuide();
+            g.appendChild(guide);
+        }
+        entries.forEach(e => {
+            if (typeof e === 'string') return method(g, e);
+            const sub = group(g, e[0], undefined, 'pt-group pt-sub');
+            e[1].forEach(([head, pages]) => {
+                const h = document.createElement('div');
+                h.className = 'pt-head-label'; h.textContent = head;
+                sub.appendChild(h);
+                pages.forEach(p => method(sub, p));
+            });
+        });
     });
-    const out = group('ผลลัพธ์');
+    const out = group(body, 'Report');
     item(out, 'Compare Methods', () => compareMethods()).querySelector('.pt-dot').style.display = 'none';
     item(out, 'Export Report (PDF)', () => showReportConfig()).querySelector('.pt-dot').style.display = 'none';
 }
+// A short verdict under Results: does this method suit these data?
+const NOTE_MIN_POINTS = { distdd: 3, step: 0, slugtest: 6 };
+const fmt3 = v => String(+(+v).toPrecision(3));
+function lateDeviation(ch) {
+    if (!ch) return 0;
+    const pts = d => (d?.data || []).filter(p => p && p.x > 0 && p.y > 0).sort((a, b) => a.x - b.x);
+    const obs = pts(ch.data.datasets[0]), cv = pts(ch.data.datasets[1]);
+    if (obs.length < 8 || cv.length < 2) return 0;
+    const at = x => {
+        const k = cv.findIndex(p => p.x >= x);
+        if (k <= 0) return NaN;
+        const a = cv[k - 1], b = cv[k], f = Math.log(x / a.x) / Math.log(b.x / a.x);
+        return Math.exp(Math.log(a.y) + f * Math.log(b.y / a.y));
+    };
+    const rel = obs.slice(-Math.max(3, Math.floor(obs.length / 4))).map(p => (p.y - at(p.x)) / at(p.x));
+    if (rel.some(r => !isFinite(r))) return 0;
+    if (rel.every(r => r < -0.03)) return -1;
+    if (rel.every(r => r > 0.03)) return 1;
+    return 0;
+}
+function methodNotes(page) {
+    const row = methodRow(page);
+    if (!row) return null;
+    let n = 0; try { n = row[2](); } catch (e) {}
+    if (!n) return null;
+    const r2 = parseFloat(document.getElementById(row[3])?.textContent);
+    const warn = [], info = [];
+    const min = NOTE_MIN_POINTS[page] ?? 8;
+    if (min && n < min) warn.push(`Only ${n} points. ${min} or more give a more reliable fit.`);
+    if (isFinite(r2) && r2 < 0.95) warn.push(`The curve does not follow the data well (R² ${r2.toFixed(3)}).`);
+    document.querySelectorAll(`#${page}Page .stage-dock input[type=range]`).forEach(r => {
+        const v = +r.value, lo = +r.min, hi = +r.max, span = hi - lo;
+        if (!(span > 0) || ((v - lo) / span > 0.003 && (hi - v) / span > 0.003)) return;
+        const label = r.closest('.slider-group')?.querySelector('label')?.textContent.trim();
+        if (label) warn.push(`${label} is at the end of its slider range, so this result may not be valid.`);
+    });
+    if (page === 'theis') {
+        const d = lateDeviation(charts.theis);
+        if (d < 0) warn.push('The late data fall below the Theis curve. This can mean leakage, a recharge boundary or slow drainage from the water table. Try Hantush-Jacob or Unconfined.');
+        if (d > 0) warn.push('The late data rise above the Theis curve. This can mean a no-flow boundary nearby.');
+    }
+    if (page === 'jacob' && window._jacobFit) {
+        const { T_base, S, r_base } = window._jacobFit;
+        const tc = r_base * r_base * S / (4 * T_base * 0.01) / (unitConversions.time[currentUnits.time] || 1 / 1440);
+        const pts = data.jacob.filter(d => d.t > 0 && d.s > 0);
+        const early = pts.filter(d => d.t < tc).length;
+        if (isFinite(tc) && early === pts.length) warn.push('No point satisfies u < 0.01, so the straight line does not apply. Use Theis instead.');
+        else if (isFinite(tc) && early) warn.push(`${early} of ${pts.length} points are early (u ≥ 0.01, before t = ${fmt3(tc)} ${getUnitLabel(currentUnits.time)}). The straight line holds only after that; compare T with Theis.`);
+        else if (isFinite(tc)) info.push('Every point satisfies u < 0.01, so the straight line applies.');
+    }
+    if (page === 'hantush') {
+        const rb = parseFloat(document.getElementById('hj_resRB')?.textContent);
+        if (rb > 0 && rb <= 0.01) info.push('r/B is very small, so leakage hardly affects these data. The result is close to Theis.');
+    }
+    if (page === 'unconfined') {
+        const b = parseFloat(document.getElementById('unc_b')?.value);
+        const smax = Math.max(0, ...uncData.map(d => parseFloat(d.s)).filter(isFinite));
+        if (b > 0 && smax / b > 0.25) warn.push(`The largest drawdown is ${Math.round(100 * smax / b)}% of the saturated thickness. Neuman assumes it is small (under about 25%); use the corrected drawdown s′.`);
+    }
+    if (page === 'multiwell') (window._mwR2 || []).forEach(([name, v]) => {
+        if (v < 0.9) warn.push(`Well ${name} does not follow the common curve (R² ${v.toFixed(3)}). Check its distance r and its data.`);
+    });
+    if (page === 'step' && n < 3) warn.push(`With only ${n} steps the well loss C is uncertain. Three or more steps are better.`);
+    if (page === 'singlewell') info.push('Data from the pumping well include well losses, so S from this page is not reliable.');
+    if (!warn.length && isFinite(r2)) info.unshift(`The curve follows the data well (R² ${r2.toFixed(3)}).`);
+    return { level: warn.length ? 'warn' : 'ok', lines: [...warn, ...info] };
+}
+function renderMethodNote(page) {
+    const box = document.querySelector(`.method-note[data-page="${page}"]`);
+    if (!box) return;
+    const note = methodNotes(page);
+    const sig = note ? note.level + note.lines.join('|') : '';
+    if (box.dataset.sig === sig) return;
+    box.dataset.sig = sig;
+    box.hidden = !note;
+    box.className = 'method-note ' + (note ? note.level : '');
+    box.textContent = '';
+    if (!note) return;
+    const head = document.createElement('strong');
+    head.textContent = note.level === 'warn' ? 'Check before using this result' : 'Suits these data';
+    box.appendChild(head);
+    note.lines.forEach(t => { const p = document.createElement('p'); p.textContent = t; box.appendChild(p); });
+}
+
 function updateProjectTree() {
     const tree = document.getElementById('ptBody');
     if (!tree || !tree.children.length) return;
@@ -3795,6 +4052,7 @@ function updateProjectTree() {
         b.onclick = () => goToPage('map');
         wellsGroup.appendChild(b);
     });
+    const rec = guideAdvice(projectSetup)?.methods || [];
     TREE_METHODS.forEach(([, rows]) => rows.forEach(([page, , count, r2Id, sym, valueId]) => {
         const b = tree.querySelector(`.pt-item[data-page="${page}"]`);
         if (!b) return;
@@ -3807,7 +4065,10 @@ function updateProjectTree() {
         b.classList.toggle('active', !!document.getElementById(page + 'Page')?.classList.contains('active'));
         const hint = document.querySelector(`.empty-hint[data-page="${page}"]`);
         if (hint) hint.style.display = n ? 'none' : 'flex';
+        b.classList.toggle('recommended', rec.includes(page));
+        if (b.classList.contains('active')) renderMethodNote(page);
     }));
+    document.getElementById('ptLegendRec').hidden = !rec.length;
     const active = document.querySelector('.page.active')?.id;
     tree.querySelectorAll('.pt-item:not([data-page])').forEach(b => b.classList.remove('active'));
     if (active === 'mapPage') wellsGroup.querySelectorAll('.pt-item').forEach(b => b.classList.add('active'));
@@ -3977,6 +4238,13 @@ function arrangeTopics(page, left, center, dock) {
         [...fit.querySelectorAll('div, p')].filter(e => !e.children.length && e.textContent.trim().startsWith('💡')).forEach(e => { e.style.display = 'none'; });
     }
     if (results) setTopic(results, 'Results', n++);
+    const noteCard = results || fit;
+    if (noteCard) {
+        const note = document.createElement('div');
+        note.className = 'method-note'; note.hidden = true;
+        note.dataset.page = page.id.replace('Page', '');
+        noteCard.querySelector(':scope > .card-header').after(note);
+    }
     dock.querySelectorAll(':scope > details.formula-box > summary').forEach(sum => { sum.textContent = 'How it is calculated'; });
     const unitRef = document.getElementById('unitRefBody');
     if (unitRef && dock.contains(unitRef)) {
@@ -4016,6 +4284,12 @@ function arrangeTopics(page, left, center, dock) {
     sampleBtn.type = 'button'; sampleBtn.className = 'btn btn-sm btn-secondary';
     sampleBtn.textContent = 'Try sample data';
     sampleBtn.onclick = () => runPageCommand('sample');
+    sampleBtn.style.marginLeft = '0';
+    const guideBtn = document.createElement('button');
+    guideBtn.type = 'button'; guideBtn.className = 'btn btn-sm btn-secondary';
+    guideBtn.textContent = 'Method guide';
+    guideBtn.onclick = () => openMethodGuide();
+    hint.appendChild(guideBtn);
     hint.appendChild(sampleBtn);
     center.insertBefore(hint, center.firstChild);
 }
@@ -8491,6 +8765,7 @@ function updateJacob() {
     // T = 2.303Q / 4πΔs (m³/day / m → m²/day)
     const T_base = (2.303 * Q_base) / (4 * Math.PI * ds_base);
     const S = (2.25 * T_base * t0_day) / (r_base * r_base);
+    window._jacobFit = { T_base, S, r_base };
     
     const valid = data.jacob.filter(d => d.t > 0 && d.s > 0);
     if (!valid.length) return;

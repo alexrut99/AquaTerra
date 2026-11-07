@@ -1,6 +1,366 @@
 // Generated list of interface text in English and Thai. {#} is a number, {*} any value.
 window.I18N_DICT=[
 {
+"k": "Only in the pumping well",
+"en": "Only in the pumping well",
+"th": "วัดในบ่อสูบอย่างเดียว"
+},
+{
+"k": "Suits these data",
+"en": "Suits these data",
+"th": "เหมาะกับข้อมูลนี้"
+},
+{
+"k": "Check before using this result",
+"en": "Check before using this result",
+"th": "ตรวจก่อนนำผลไปใช้"
+},
+{
+"k": "The curve follows the data well (R² {#}).",
+"en": "The curve follows the data well (R² {#}).",
+"th": "เส้นเข้ากับข้อมูลดี (R² {#})"
+},
+{
+"k": "Data from the pumping well include well losses, so S from this page is not reliable.",
+"en": "Data from the pumping well include well losses, so S from this page is not reliable.",
+"th": "ข้อมูลจากบ่อสูบรวมการสูญเสียในบ่อไว้ด้วย ค่า S จากหน้านี้จึงไม่น่าเชื่อถือ"
+},
+{
+"k": "With only {#} steps the well loss C is uncertain. Three or more steps are better.",
+"en": "With only {#} steps the well loss C is uncertain. Three or more steps are better.",
+"th": "มีเพียง {#} ขั้น ค่าการสูญเสียในบ่อ C ยังไม่แน่นอน ควรมี 3 ขั้นขึ้นไป"
+},
+{
+"k": "Well {*} does not follow the common curve (R² {#}). Check its distance r and its data.",
+"en": "Well {*} does not follow the common curve (R² {#}). Check its distance r and its data.",
+"th": "บ่อ {*} ไม่เข้ากับเส้นร่วม (R² {#}) ตรวจระยะ r และข้อมูลของบ่อนี้"
+},
+{
+"k": "The largest drawdown is {#}% of the saturated thickness. Neuman assumes it is small (under about {#}%); use the corrected drawdown s′.",
+"en": "The largest drawdown is {#}% of the saturated thickness. Neuman assumes it is small (under about {#}%); use the corrected drawdown s′.",
+"th": "ระดับน้ำลดสูงสุดเป็น {#}% ของความหนาชั้นอิ่มตัว Neuman ถือว่าค่านี้น้อย (ไม่เกินราว {#}%) ควรใช้ระดับน้ำลดที่ปรับแก้ s′"
+},
+{
+"k": "r/B is very small, so leakage hardly affects these data. The result is close to Theis.",
+"en": "r/B is very small, so leakage hardly affects these data. The result is close to Theis.",
+"th": "r/B เล็กมาก การรั่วซึมแทบไม่มีผลกับข้อมูลนี้ ผลใกล้เคียง Theis"
+},
+{
+"k": "Every point satisfies u < {#}, so the straight line applies.",
+"en": "Every point satisfies u < {#}, so the straight line applies.",
+"th": "ทุกจุดมี u < {#} ใช้เส้นตรงได้"
+},
+{
+"k": "{#} of {#} points are early (u ≥ {#}, before t = {#} {*}). The straight line holds only after that; compare T with Theis.",
+"en": "{#} of {#} points are early (u ≥ {#}, before t = {#} {*}). The straight line holds only after that; compare T with Theis.",
+"th": "{#} จาก {#} จุดเป็นช่วงต้น (u ≥ {#} ก่อน t = {#} {*}) เส้นตรงใช้ได้หลังจากนั้นเท่านั้น ควรเทียบค่า T กับ Theis"
+},
+{
+"k": "No point satisfies u < {#}, so the straight line does not apply. Use Theis instead.",
+"en": "No point satisfies u < {#}, so the straight line does not apply. Use Theis instead.",
+"th": "ไม่มีจุดใดที่ u < {#} เส้นตรงจึงใช้ไม่ได้ ให้ใช้ Theis แทน"
+},
+{
+"k": "The late data rise above the Theis curve. This can mean a no-flow boundary nearby.",
+"en": "The late data rise above the Theis curve. This can mean a no-flow boundary nearby.",
+"th": "ข้อมูลช่วงท้ายสูงกว่าเส้น Theis อาจมีขอบเขตทึบน้ำอยู่ใกล้"
+},
+{
+"k": "The late data fall below the Theis curve. This can mean leakage, a recharge boundary or slow drainage from the water table. Try Hantush-Jacob or Unconfined.",
+"en": "The late data fall below the Theis curve. This can mean leakage, a recharge boundary or slow drainage from the water table. Try Hantush-Jacob or Unconfined.",
+"th": "ข้อมูลช่วงท้ายต่ำกว่าเส้น Theis อาจเกิดจากการรั่วซึม ขอบเขตเติมน้ำ หรือการระบายน้ำช้าของระดับน้ำใต้ดิน ลอง Hantush-Jacob หรือไม่มีแรงดัน"
+},
+{
+"k": "{*} is at the end of its slider range, so this result may not be valid.",
+"en": "{*} is at the end of its slider range, so this result may not be valid.",
+"th": "{*} ชนขอบช่วงของแถบเลื่อน ผลนี้อาจใช้ไม่ได้"
+},
+{
+"k": "The curve does not follow the data well (R² {#}).",
+"en": "The curve does not follow the data well (R² {#}).",
+"th": "เส้นยังไม่เข้ากับข้อมูล (R² {#})"
+},
+{
+"k": "Only {#} points. {#} or more give a more reliable fit.",
+"en": "Only {#} points. {#} or more give a more reliable fit.",
+"th": "มีข้อมูลเพียง {#} จุด ควรมีอย่างน้อย {#} จุดเพื่อให้ผลน่าเชื่อถือ"
+},
+{
+"k": "Start with Theis. If the late data leave the curve, the note under Results suggests which method to try next.",
+"en": "Start with Theis. If the late data leave the curve, the note under Results suggests which method to try next.",
+"th": "เริ่มจาก Theis ถ้าข้อมูลช่วงท้ายออกนอกเส้น คำแนะนำใต้ผลลัพธ์จะบอกว่าควรลองวิธีไหนต่อ"
+},
+{
+"k": "Neuman allows for the water table draining slowly. Cooper-Jacob on the late data gives a quick check of T.",
+"en": "Neuman allows for the water table draining slowly. Cooper-Jacob on the late data gives a quick check of T.",
+"th": "Neuman คิดการระบายน้ำที่ช้าของระดับน้ำใต้ดิน ส่วน Cooper-Jacob กับข้อมูลช่วงท้ายใช้ตรวจค่า T อย่างรวดเร็ว"
+},
+{
+"k": "Hantush-Jacob allows for water leaking through the clay layer. Compare with Theis to see how much leakage matters.",
+"en": "Hantush-Jacob allows for water leaking through the clay layer. Compare with Theis to see how much leakage matters.",
+"th": "Hantush-Jacob คิดน้ำที่ซึมผ่านชั้นดินเหนียว เทียบกับ Theis เพื่อดูว่าการรั่วซึมมีผลแค่ไหน"
+},
+{
+"k": "Fit the Theis curve to all the data, then check T with the Cooper-Jacob line.",
+"en": "Fit the Theis curve to all the data, then check T with the Cooper-Jacob line.",
+"th": "ปรับเส้น Theis กับข้อมูลทั้งหมด แล้วตรวจค่า T ด้วยเส้นตรง Cooper-Jacob"
+},
+{
+"k": "Multi-Well fits one T and S to all observation wells at once. Distance-Drawdown checks T from drawdown against distance.",
+"en": "Multi-Well fits one T and S to all observation wells at once. Distance-Drawdown checks T from drawdown against distance.",
+"th": "หลายบ่อหาค่า T และ S ชุดเดียวจากทุกบ่อพร้อมกัน ส่วนระยะ-ระดับน้ำลดใช้ตรวจค่า T จากระดับน้ำลดเทียบระยะทาง"
+},
+{
+"k": "Analyse each observation well with Neuman, then check T with Distance-Drawdown.",
+"en": "Analyse each observation well with Neuman, then check T with Distance-Drawdown.",
+"th": "วิเคราะห์ทีละบ่อด้วย Neuman แล้วตรวจค่า T ด้วยระยะ-ระดับน้ำลด"
+},
+{
+"k": "Analyse each observation well with Hantush-Jacob, then compare with the Multi-Well fit.",
+"en": "Analyse each observation well with Hantush-Jacob, then compare with the Multi-Well fit.",
+"th": "วิเคราะห์ทีละบ่อด้วย Hantush-Jacob แล้วเทียบกับผลจากหลายบ่อ"
+},
+{
+"k": "Pumping well data include well losses, so S is not reliable. If you measured recovery, use it to confirm T.",
+"en": "Pumping well data include well losses, so S is not reliable. If you measured recovery, use it to confirm T.",
+"th": "ข้อมูลจากบ่อสูบรวมการสูญเสียในบ่อไว้ด้วย ค่า S จึงไม่น่าเชื่อถือ ถ้าวัดการคืนตัวไว้ ให้ใช้ยืนยันค่า T"
+},
+{
+"k": "Hvorslev and Bouwer-Rice give K around the well screen.",
+"en": "Hvorslev and Bouwer-Rice give K around the well screen.",
+"th": "Hvorslev และ Bouwer-Rice ให้ค่า K รอบช่วงกรองของบ่อ"
+},
+{
+"k": "Step Drawdown separates aquifer loss from well loss and gives the well efficiency at each rate.",
+"en": "Step Drawdown separates aquifer loss from well loss and gives the well efficiency at each rate.",
+"th": "สูบขั้นบันไดแยกการสูญเสียในชั้นน้ำออกจากการสูญเสียในบ่อ และให้ประสิทธิภาพบ่อที่แต่ละอัตราสูบ"
+},
+{
+"k": "Theis recovery uses the residual drawdown after the pump stops. Enter how long the pump ran.",
+"en": "Theis recovery uses the residual drawdown after the pump stops. Enter how long the pump ran.",
+"th": "Theis recovery ใช้ระดับน้ำลดคงเหลือหลังหยุดสูบ ต้องกรอกระยะเวลาที่สูบด้วย"
+},
+{
+"k": "Close",
+"en": "Close",
+"th": "ปิด"
+},
+{
+"k": "Recommended methods",
+"en": "Recommended methods",
+"th": "วิธีที่แนะนำ"
+},
+{
+"k": "No observation well",
+"en": "No observation well",
+"th": "ไม่มีบ่อสังเกตการณ์"
+},
+{
+"k": "Wells at different distances",
+"en": "Wells at different distances",
+"th": "หลายบ่อที่ระยะต่างกัน"
+},
+{
+"k": "A separate well at a known distance from the pumping well",
+"en": "A separate well at a known distance from the pumping well",
+"th": "บ่อแยกที่รู้ระยะห่างจากบ่อสูบ"
+},
+{
+"k": "Where did you measure drawdown?",
+"en": "Where did you measure drawdown?",
+"th": "วัดระดับน้ำลดที่ไหน?"
+},
+{
+"k": "Start with Theis and let the notes under Results guide you",
+"en": "Start with Theis and let the notes under Results guide you",
+"th": "เริ่มจาก Theis แล้วดูคำแนะนำใต้ผลลัพธ์"
+},
+{
+"k": "The water table is open to the surface",
+"en": "The water table is open to the surface",
+"th": "ระดับน้ำใต้ดินเปิดสู่ผิวดิน"
+},
+{
+"k": "A clay layer above or below lets some water through",
+"en": "A clay layer above or below lets some water through",
+"th": "ชั้นดินเหนียวด้านบนหรือล่างยอมให้น้ำซึมผ่านได้บ้าง"
+},
+{
+"k": "Sealed above and below by clay or rock",
+"en": "Sealed above and below by clay or rock",
+"th": "มีชั้นดินเหนียวหรือหินปิดทั้งด้านบนและล่าง"
+},
+{
+"k": "Not sure",
+"en": "Not sure",
+"th": "ไม่แน่ใจ"
+},
+{
+"k": "Leaky",
+"en": "Leaky",
+"th": "รั่วซึม"
+},
+{
+"k": "Confined",
+"en": "Confined",
+"th": "มีแรงดัน"
+},
+{
+"k": "What kind of aquifer is it?",
+"en": "What kind of aquifer is it?",
+"th": "ชั้นน้ำเป็นแบบไหน?"
+},
+{
+"k": "The water level in one well is changed suddenly, without pumping",
+"en": "The water level in one well is changed suddenly, without pumping",
+"th": "เปลี่ยนระดับน้ำในบ่ออย่างฉับพลัน ไม่ได้สูบ"
+},
+{
+"k": "The pumping rate is raised in several steps",
+"en": "The pumping rate is raised in several steps",
+"th": "เพิ่มอัตราสูบเป็นขั้น ๆ"
+},
+{
+"k": "Water levels are measured after the pump is switched off",
+"en": "Water levels are measured after the pump is switched off",
+"th": "วัดระดับน้ำหลังปิดเครื่องสูบ"
+},
+{
+"k": "The pump runs at one steady rate while water levels are measured",
+"en": "The pump runs at one steady rate while water levels are measured",
+"th": "สูบด้วยอัตราคงที่ แล้ววัดระดับน้ำ"
+},
+{
+"k": "Slug test",
+"en": "Slug test",
+"th": "Slug test"
+},
+{
+"k": "Step-drawdown",
+"en": "Step-drawdown",
+"th": "สูบขั้นบันได"
+},
+{
+"k": "Recovery",
+"en": "Recovery",
+"th": "การคืนตัว"
+},
+{
+"k": "What test did you run?",
+"en": "What test did you run?",
+"th": "คุณทดสอบแบบไหน?"
+},
+{
+"k": "Drawdown from several wells and rates",
+"en": "Drawdown from several wells and rates",
+"th": "ระดับน้ำลดจากหลายบ่อและหลายอัตรา"
+},
+{
+"k": "Sudden change of water level in one well",
+"en": "Sudden change of water level in one well",
+"th": "เปลี่ยนระดับน้ำในบ่ออย่างฉับพลัน"
+},
+{
+"k": "Several pumping rates; separates well losses",
+"en": "Several pumping rates; separates well losses",
+"th": "สูบหลายอัตรา แยกการสูญเสียในบ่อ"
+},
+{
+"k": "Water levels after the pump stops",
+"en": "Water levels after the pump stops",
+"th": "ระดับน้ำหลังหยุดสูบ"
+},
+{
+"k": "Drawdown measured in the pumping well",
+"en": "Drawdown measured in the pumping well",
+"th": "ระดับน้ำลดที่วัดในบ่อสูบ"
+},
+{
+"k": "Drawdown against distance at one time",
+"en": "Drawdown against distance at one time",
+"th": "ระดับน้ำลดเทียบระยะทาง ณ เวลาเดียว"
+},
+{
+"k": "One T and S fitted to all observation wells",
+"en": "One T and S fitted to all observation wells",
+"th": "หาค่า T และ S ชุดเดียวจากทุกบ่อสังเกตการณ์"
+},
+{
+"k": "Unconfined aquifer (Neuman)",
+"en": "Unconfined aquifer (Neuman)",
+"th": "ชั้นน้ำไม่มีแรงดัน (Neuman)"
+},
+{
+"k": "Leaky aquifer",
+"en": "Leaky aquifer",
+"th": "ชั้นน้ำรั่วซึม"
+},
+{
+"k": "Confined aquifer, late data (u < {#})",
+"en": "Confined aquifer, late data (u < {#})",
+"th": "ชั้นน้ำมีแรงดัน ใช้ข้อมูลช่วงท้าย (u < {#})"
+},
+{
+"k": "Confined aquifer",
+"en": "Confined aquifer",
+"th": "ชั้นน้ำมีแรงดัน"
+},
+{
+"k": "Method guide",
+"en": "Method guide",
+"th": "ตัวช่วยเลือกวิธี"
+},
+{
+"k": "Method Guide",
+"en": "Method Guide",
+"th": "ตัวช่วยเลือกวิธี"
+},
+{
+"k": "Recommended",
+"en": "Recommended",
+"th": "แนะนำ"
+},
+{
+"k": "Which method should I use?",
+"en": "Which method should I use?",
+"th": "ควรใช้วิธีไหน?"
+},
+{
+"k": "Report",
+"en": "Report",
+"th": "รายงาน"
+},
+{
+"k": "Prediction",
+"en": "Prediction",
+"th": "คาดการณ์"
+},
+{
+"k": "Pumping well only",
+"en": "Pumping well only",
+"th": "วัดในบ่อสูบอย่างเดียว"
+},
+{
+"k": "Two or more observation wells",
+"en": "Two or more observation wells",
+"th": "บ่อสังเกตการณ์ 2 บ่อขึ้นไป"
+},
+{
+"k": "One observation well",
+"en": "One observation well",
+"th": "บ่อสังเกตการณ์ 1 บ่อ"
+},
+{
+"k": "Constant-rate pumping",
+"en": "Constant-rate pumping",
+"th": "สูบอัตราคงที่"
+},
+{
+"k": "Pumping tests",
+"en": "Pumping tests",
+"th": "การสูบทดสอบ"
+},
+{
 "k": "No data yet",
 "en": "No data yet",
 "th": "ยังไม่มีข้อมูล"
@@ -2341,11 +2701,6 @@ window.I18N_DICT=[
 "th": "ล้างข้อมูลดิบทั้งหมดหรือไม่?"
 },
 {
-"k": "Close",
-"en": "Close",
-"th": "ปิด"
-},
-{
 "k": "Combined Fitting (Theis)",
 "en": "Combined fitting (Theis)",
 "th": "ปรับเส้นโค้งร่วม (Theis)"
@@ -2379,11 +2734,6 @@ window.I18N_DICT=[
 "k": "Conductivity (K)",
 "en": "Conductivity (K)",
 "th": "ค่าการซึมผ่าน (K)"
-},
-{
-"k": "Confined",
-"en": "Confined",
-"th": "มีแรงดัน"
 },
 {
 "k": "Confined aquifer: S ≈ {#}⁻⁵ – {#}⁻³",
@@ -4001,16 +4351,6 @@ window.I18N_DICT=[
 "th": "คำแนะนำ"
 },
 {
-"k": "Recommended",
-"en": "Recommended",
-"th": "แนะนำ"
-},
-{
-"k": "Recovery",
-"en": "Recovery",
-"th": "การคืนตัวของน้ำ"
-},
-{
 "k": "Recovery Data",
 "en": "Recovery data",
 "th": "ข้อมูลการคืนตัวของน้ำ"
@@ -4039,11 +4379,6 @@ window.I18N_DICT=[
 "k": "Remove",
 "en": "Remove",
 "th": "นำออก"
-},
-{
-"k": "Report",
-"en": "Report",
-"th": "รายงาน"
 },
 {
 "k": "Report Date",
